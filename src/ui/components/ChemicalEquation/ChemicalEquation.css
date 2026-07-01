@@ -1,0 +1,31 @@
+:host {
+    display: inline-block;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+sup, sub {
+    font-size: 0.6em;
+    margin: 0 0.1em;
+    letter-spacing: 0.1em;
+}
+
+.reaction-arrow {
+    white-space: nowrap;
+}
+
+[part="coefficient"] {
+    margin-right: 0.2em;
+    color: #219A9C;
+}
+
+[part="error"] {
+    color: #DE1954;
+}
+
+[part="highlight"] {
+    color: #C06F14;
+}

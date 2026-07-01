@@ -1,0 +1,15 @@
+section {
+    max-width: 70ch;
+
+    & > h2 {
+        margin-top: 3rem;
+    }
+    & > h3 {
+        margin-top: 2rem;
+    }
+}
+
+code-snippet {
+    font-size: 1.05rem;
+    margin: 1.6rem 0;
+}

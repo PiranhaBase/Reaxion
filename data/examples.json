@@ -1,0 +1,3190 @@
+[
+    {
+        "reaction": "NaH2PO4 -> NaPO3 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2CO3 -> H2O + CO2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BaSO4 + H2SO4 -> Ba(HSO4)2",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2SO3 -> H2O + SO2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NaPO3 + CuO -> NaCuPO4",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Be(OH)2 -> BeO + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BaO + H2O -> Ba(OH)2",
+        "categories": [
+            "Combination",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2SO3 + S -> Na2S2O3",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SO2 + H2O -> H2SO3",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Li2O + H2O -> LiOH",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2HPO4 -> Na4P2O7 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H4As2O7 -> As2O5 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaC2 + N2 -> CaCN2 + C",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Mg(OH)2 -> (MgOH)2O + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HAsO3 -> As2O5 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "KHSO4 -> K2S2O7 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H3PO4 -> H4P2O7 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NaCl + NH4HCO3 -> NaHCO3 + NH4Cl",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HAsO2 -> As2O3 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "UO3 + H2 -> UO2 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CdSO4 + H2S -> CdS + H2SO4",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HIO3 -> I2O5 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca(HCO3)2 -> CaCO3 + CO2 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "FeS + H2SO4 -> H2S + FeSO4",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "(NH4)2SO4 + CaCO3 -> (NH4)2CO3 + CaSO4",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Hg2CO3 -> Hg + HgO + CO2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaSO4 -> CaS + O2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BeF2 + Mg -> MgF2 + Be",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Mg + N2 -> Mg3N2",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SiO2 + Ca(OH)2 -> CaSiO3 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "K2O + H2O -> KOH",
+        "categories": [
+            "Combination",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C + H2O -> CO + H2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca(OH)2 + CO2 -> Ca(HCO3)2",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "N2O3 + H2O -> HNO2",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SiO2 + Na2CO3 -> Na2SiO3 + CO2",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BaO2 + H2SO4 -> BaSO4 + H2O2",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2Cr2O7 + S -> Cr2O3 + Na2SO4",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca(OH)2 + CO2 -> CaCO3 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe2O3 + SiO2 -> Fe2Si2O7",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CO2 + NH3 + H2O -> NH4HCO3",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "N2O5 + H2O -> HNO3",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaS + H2O -> Ca(OH)2 + H2S",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al(OH)3 + NaOH -> NaAlO2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "(CuOH)2CO3 -> CuO + CO2 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SrBr2 + (NH4)2CO3 -> SrCO3 + NH4Br",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca(ClO3)2 -> CaCl2 + O2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "PCl5 + H2O -> POCl3 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Zn + KOH -> K2ZnO2 + H2",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al2O3 + Na2CO3 -> NaAlO2 + CO2",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "PCl5 + KNO2 -> NOCl + POCl3 + KCl",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BeO + C + Cl2 -> BeCl2 + CO",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "AgBr + Na2S2O3 -> Na3[Ag(S2O3)2] + NaBr",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "N2 + O2 -> N2O",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BeSO4 + NH4OH -> Be(OH)2 + (NH4)2SO4",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Cu(CN)2 -> CuCN + C2N2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SiC + Cl2 -> SiCl4 + C",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NH3 + O2 -> HNO3 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe2(C2O4)3 -> FeC2O4 + CO2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "K + Br2 -> KBr",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HNO2 + O2 -> HNO3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "O2 -> O3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CO2 + NH3 -> OC(NH2)2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Xe + F2 -> XeF6",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "MnS + HCl -> H2S + MnCl2",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaC2 + H2O -> C2H2 + Ca(OH)2",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "ClO2 + H2O -> HClO2 + HClO3",
+        "categories": [
+            "Disproportionation",
+            "Hydrolysis",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CuSO4 + KCN -> Cu(CN)2 + K2SO4",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NaOH + FeSO4 -> Na2SO4 + Fe(OH)2",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca(OH)2 + H3PO4 -> CaHPO4 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "PbCrO4 + HNO3 -> Pb(NO3)2 + H2CrO4",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "(CN)2 + NaOH -> NaCN + NaOCN + H2O",
+        "categories": [
+            "Disproportionation",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BaCO3 + HNO3 -> Ba(NO3)2 + CO2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H3AsO4 -> As2O5 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaO + C -> CaC2 + CO",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Zn(OH)2 + NaOH -> Na2ZnO2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HNO3 + P2O5 -> N2O5 + HPO3",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "UF4 + Mg -> MgF2 + U",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Mn2O3 + Al -> Al2O3 + Mn",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "MnO2 + K2CO3 + KNO3 -> K2MnO4 + KNO2 + CO2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "AlN + H2O -> NH3 + Al(OH)3",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca3(PO4)2 + H2SO4 -> CaSO4 + Ca(H2PO4)2",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "S + N2O -> SO2 + N2",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaCO3 + HCl -> CaCl2 + H2O + CO2",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "As2O3 + H2O -> H3AsO3",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Be(OH)2 + NH4HF2 -> (NH4)2BeF4 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NaOH + Zn(NO3)2 -> NaNO3 + Zn(OH)2",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "MgNH4PO4 -> Mg2P2O7 + NH3 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H3PO4 + Ca(OH)2 -> Ca(H2PO4)2 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "[Ag(NH3)2]Cl + HNO3 -> NH4NO3 + AgCl",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaS + H2O -> Ca(HS)2 + Ca(OH)2",
+        "categories": [
+            "Disproportionation",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "(NH4)2BeF4 -> BeF2 + NH3 + HF",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Sn(OH)2 + NaOH -> Na2SnO2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NH4VO3 -> V2O5 + NH3 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H3AsO3 -> As2O3 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NaCl + H2SO4 -> Na2SO4 + HCl",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe(OH)3 -> Fe2O3 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "As2O5 + H2O -> H3AsO4",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NaOH + Cl2 -> NaCl + NaClO + H2O",
+        "categories": [
+            "Disproportionation",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "VO2Cl + NH4OH -> NH4VO3 + NH4Cl + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "B2O3 + H2O -> H3BO3",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SiH4 + O2 -> SiO2 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "TiCl4 + Mg -> MgCl2 + Ti",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Pb(OH)2 + NaOH -> Na2PbO2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Si + NaOH + H2O -> Na2SiO3 + H2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Si + S8 -> Si2S4",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaS2 + O2 -> CaS2O3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2SnO3 + H2S -> SnS2 + NaOH + H2O",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2S2 + O2 -> Na2S2O3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "(NH4)2Cr2O7 -> Cr2O3 + N2 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HCl + K2CO3 -> KCl + H2O + CO2",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Zn + NaOH + H2O -> Na2Zn(OH)4 + H2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca(OH)2 + P4O10 + H2O -> Ca(H2PO4)2",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaS + H2O + CO2 -> Ca(HCO3)2 + H2S",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Sn(OH)4 + NaOH -> Na2SnO3 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na + H2O -> NaOH + H2",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca3(PO4)2 + SiO2 -> CaSiO3 + P2O5",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "FeCl3 + NH4OH -> Fe(OH)3 + NH4Cl",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H3PO3 -> H3PO4 + PH3",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "AlCl3 + AgNO3 -> AgCl + Al(NO3)3",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "KOH + AlCl3 -> KCl + Al(OH)3",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2SO4 + NaHCO3 -> Na2SO4 + CO2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SiO2 + HF -> SiF4 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaCN2 + H2O -> CaCO3 + NH3",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HCl + HNO3 -> NOCl + Cl2 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "KClO3 -> KClO4 + KCl",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "P4 + O2 -> P2O5",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "P4O10 + HCl -> POCl3 + HPO3",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Sb + O2 -> Sb4O6",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NH4Cl + Ca(OH)2 -> CaCl2 + NH3 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "KBr + Al(ClO4)3 -> AlBr3 + KClO4",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "AgNO3 + FeCl3 -> Fe(NO3)3 + AgCl",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca3(PO4)2 + H3PO4 -> Ca(H2PO4)2",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "POCl3 + H2O -> H3PO4 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C2H5OH + O2 -> CO + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "UO2 + HF -> UF4 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ag2S + KCN -> KAg(CN)2 + K2S",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C + SiO2 + Cl2 -> SiCl4 + CO",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "PCl3 + H2O -> H3PO3 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe2O3 + C -> CO + Fe",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "PCl5 + P2O5 -> POCl3",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "FeO + H3PO4 -> Fe3(PO4)2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca(NO3)2 -> CaO + NO2 + O2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe + O2 -> Fe2O3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe2O3 + H2 -> Fe + H2O",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "FeSO4 + K3[Fe(CN)6] -> Fe3[Fe(CN)6]2 + K2SO4",
+        "categories": [
+            "Complexation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NH3 + O2 -> HNO2 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al + O2 -> Al2O3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BaCl2 + Al2(SO4)3 -> BaSO4 + AlCl3",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe2(SO4)3 + Ba(NO3)2 -> BaSO4 + Fe(NO3)3",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Au2S3 + H2 -> Au + H2S",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Au + HCl + HNO3 -> AuCl3 + NO + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NiS + O2 -> NiO + SO2",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al + FeO -> Al2O3 + Fe",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2O2 + H2O -> NaOH + O2",
+        "categories": [
+            "Disproportionation",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe2O3 + CO -> Fe + CO2",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Pb(NO3)2 -> PbO + NO2 + O2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al2(SO4)3 + Ca(OH)2 -> CaSO4 + Al(OH)3",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Au2O3 -> Au + O2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca3(PO4)2 + H2SO4 -> CaSO4 + H3PO4",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SiCl4 + H2O -> H4SiO4 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca + AlCl3 -> CaCl2 + Al",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "FeCl3 + Ca(OH)2 -> CaCl2 + Fe(OH)3",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al2O3 + C + N2 -> AlN + CO",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NO + NaOH -> NaNO2 + H2O + N2O",
+        "categories": [
+            "Disproportionation",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Pb3O4 + HNO3 -> Pb(NO3)2 + PbO2 + H2O",
+        "categories": [
+            "Disproportionation",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CuSO4 + KCN -> CuCN + K2SO4 + C2N2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "KO2 + CO2 -> K2CO3 + O2",
+        "categories": [
+            "Disproportionation",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "P4O6 -> P4 + P2O4",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "P4O10 + H2O -> H3PO4",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al + KOH + H2O -> KAlO2 + H2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H3PO4 + HCl -> PCl5 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "MnO2 + KOH + O2 -> K2MnO4 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "K2CO3 + C + N2 -> KCN + CO",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "PCl5 + H2O -> H3PO4 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "P4O6 + H2O -> H3PO3",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al(OH)3 + H2SO4 -> Al2(SO4)3 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe2(SO4)3 + KOH -> K2SO4 + Fe(OH)3",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Bi(NO3)3 + H2S -> Bi2S3 + HNO3",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "V2O5 + HCl -> VOCl3 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Cr(OH)3 + H2SO4 -> Cr2(SO4)3 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Hg(OH)2 + H3PO4 -> Hg3(PO4)2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe + H2O -> Fe3O4 + H2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca3P2 + H2O -> Ca(OH)2 + PH3",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2SO4 + Al(OH)3 -> Al2(SO4)3 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al(NO3)3 + Na2CO3 -> Al2(CO3)3 + NaNO3",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "K2MnO4 + H2SO4 -> KMnO4 + MnO2 + K2SO4 + H2O",
+        "categories": [
+            "Disproportionation",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na3AsO3 + H2S -> As2S3 + NaOH",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Mg3N2 + H2O -> Mg(OH)2 + NH3",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe3O4 + H2 -> Fe + H2O",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "(NH4)2Cr2O7 -> NH3 + H2O + Cr2O3 + O2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "As + NaOH -> Na3AsO3 + H2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H3BO3 + Na2CO3 -> Na2B4O7 + CO2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al + HCl -> AlCl3 + H2",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "V2O5 + Ca -> CaO + V",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H3BO3 -> H4B6O11 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2B4O7 + HCl + H2O -> NaCl + H3BO3",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Pb + Na + C2H5Cl -> Pb(C2H5)4 + NaCl",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C2H3Cl + O2 -> CO2 + H2O + HCl",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca3(PO4)2 + SiO2 -> P4O10 + CaSiO3",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Se + NaOH -> Na2Se + Na2SeO3 + H2O",
+        "categories": [
+            "Disproportionation",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al + NaOH + H2O -> NaAl(OH)4 + H2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "K3AsO4 + H2S -> As2S5 + KOH + H2O",
+        "categories": [
+            "Double Displacement",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "I2 + HNO3 -> HIO3 + NO2 + H2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al + NH4ClO4 -> Al2O3 + AlCl3 + NO + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "FeS + O2 -> Fe2O3 + SO2",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca3(PO4)2 + C -> Ca3P2 + CO",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2SO4 + HI -> H2S + I2 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "U3O8 + HNO3 -> UO2(NO3)2 + NO2 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "(NH4)3AsS4 + HCl -> As2S5 + H2S + NH4Cl",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NH3 + O2 -> NO + H2O",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Hg2CrO4 -> Cr2O3 + Hg + O2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al4C3 + H2O -> CH4 + Al(OH)3",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca10F2(PO4)6 + H2SO4 -> Ca(H2PO4)2 + CaSO4 + HF",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca5F(PO4)3 + H2SO4 -> Ca(H2PO4)2 + CaSO4 + HF",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "S8 + O2 -> SO3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NH3 + NO -> N2 + H2O",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HClO4 + P4O10 -> H3PO4 + Cl2O7",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Au + KCN + O2 + H2O -> K[Au(CN)2] + KOH",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "V2O5 + Al -> Al2O3 + V",
+        "categories": [
+            "Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "FeS2 + O2 -> Fe2O3 + SO2",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Si2H3 + O2 -> SiO2 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "P4 + H2O -> H3PO4 + H2",
+        "categories": [
+            "Disproportionation",
+            "Hydrolysis",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2S + Cl2 -> S8 + HCl",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca3(PO4)2 + SiO2 + C -> CaSiO3 + P4 + CO",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C10H16 + Cl2 -> C + HCl",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C7H6O2 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C7H16 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C7H10N + O2 -> CO2 + H2O + NO2",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "KNO3 + C12H22O11 -> N2 + CO2 + H2O + K2CO3",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "K4Fe(CN)6 + KMnO4 + H2SO4 -> KHSO4 + Fe2(SO4)3 + MnSO4 + HNO3 + CO2 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "K3[Fe(SCN)6] + Na2Cr2O7 + H2SO4 -> Fe(NO3)3 + Cr2(SO4)3 + CO2 + H2O + Na2SO4 + KNO3",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "K4[Fe(SCN)6] + K2Cr2O7 + H2SO4 -> Fe2(SO4)3 + Cr2(SO4)3 + CO2 + H2O + K2SO4 + KNO3",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C3H8 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C2H5OH + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH4 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C8H18 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C2H2 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3OH + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C6H12O6 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C12H22O11 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C4H10 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "S + O2 -> SO2",
+        "categories": [
+            "Combustion",
+            "Redox",
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C2H4 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C6H6 + O2 -> CO2 + H2O",
+        "categories": [
+            "Combustion",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Mg + O2 -> MgO",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "P4 + O2 -> P4O10",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe + Cl2 -> FeCl3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaO + H2O -> Ca(OH)2",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SO2 + O2 -> SO3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "N2 + H2 -> NH3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Li + N2 -> Li3N",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CO + O2 -> CO2",
+        "categories": [
+            "Combination",
+            "Redox",
+            "Combustion"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BaO + CO2 -> BaCO3",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al + I2 -> AlI3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2O + H2O -> NaOH",
+        "categories": [
+            "Combination",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SO3 + H2O -> H2SO4",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ca + Cl2 -> CaCl2",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2O2 -> H2O + O2",
+        "categories": [
+            "Decomposition",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "KClO3 -> KCl + O2",
+        "categories": [
+            "Decomposition",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaCO3 -> CaO + CO2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NaN3 -> Na + N2",
+        "categories": [
+            "Decomposition",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NH4NO3 -> N2O + H2O",
+        "categories": [
+            "Decomposition",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NaHCO3 -> Na2CO3 + H2O + CO2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "AgCl -> Ag + Cl2",
+        "categories": [
+            "Decomposition",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HgO -> Hg + O2",
+        "categories": [
+            "Decomposition",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Cu(OH)2 -> CuO + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2O -> H2 + O2",
+        "categories": [
+            "Decomposition",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "MgCO3 -> MgO + CO2",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NH4Cl -> NH3 + HCl",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Ag2O -> Ag + O2",
+        "categories": [
+            "Decomposition",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HCl + NaOH -> NaCl + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2SO4 + KOH -> K2SO4 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HNO3 + Ba(OH)2 -> Ba(NO3)2 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HCl + Ca(OH)2 -> CaCl2 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3COOH + NaOH -> CH3COONa + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H3PO4 + NaOH -> Na3PO4 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2CO3 + KOH -> K2CO3 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HClO4 + LiOH -> LiClO4 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HBr + Mg(OH)2 -> MgBr2 + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HF + NaOH -> NaF + H2O",
+        "categories": [
+            "Double Displacement",
+            "Neutralization"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "AgNO3 + NaCl -> AgCl + NaNO3",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BaCl2 + Na2SO4 -> BaSO4 + NaCl",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Pb(NO3)2 + KI -> PbI2 + KNO3",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaCl2 + Na2CO3 -> CaCO3 + NaCl",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "FeCl3 + NaOH -> Fe(OH)3 + NaCl",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CuSO4 + Na2S -> CuS + Na2SO4",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "MgCl2 + KOH -> Mg(OH)2 + KCl",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Pb(NO3)2 + Na2SO4 -> PbSO4 + NaNO3",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "AlCl3 + NaOH -> Al(OH)3 + NaCl",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "ZnSO4 + BaCl2 -> BaSO4 + ZnCl2",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Zn + HCl -> ZnCl2 + H2",
+        "categories": [
+            "Redox",
+            "Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Cu + AgNO3 -> Cu(NO3)2 + Ag",
+        "categories": [
+            "Redox",
+            "Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "MnO2 + HCl -> MnCl2 + H2O + Cl2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe + CuSO4 -> FeSO4 + Cu",
+        "categories": [
+            "Redox",
+            "Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Cl2 + NaBr -> NaCl + Br2",
+        "categories": [
+            "Redox",
+            "Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Zn + CuSO4 -> ZnSO4 + Cu",
+        "categories": [
+            "Redox",
+            "Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al + Fe2O3 -> Al2O3 + Fe",
+        "categories": [
+            "Redox",
+            "Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Mg + HCl -> MgCl2 + H2",
+        "categories": [
+            "Redox",
+            "Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Fe + H2SO4 -> FeSO4 + H2",
+        "categories": [
+            "Redox",
+            "Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Br2 + KI -> KBr + I2",
+        "categories": [
+            "Redox",
+            "Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "HNO3 + Cu -> Cu(NO3)2 + H2O + NO2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "K2Cr2O7 + HCl -> CrCl3 + KCl + H2O + Cl2",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2SO3 + KMnO4 + H2SO4 -> Na2SO4 + MnSO4 + K2SO4 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "KNO3 -> KNO2 + O2",
+        "categories": [
+            "Decomposition",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2CO3 + HCl -> NaCl + H2O + CO2",
+        "categories": [
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "K2SO4 + BaCl2 -> BaSO4 + KCl",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NH3 + HCl -> NH4Cl",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH2=CH2 + H2 -> CH3-CH3",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH2=CH2 + HBr -> CH3-CH2Br",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-CH2-OH + O2 -> CH3-COOH + H2O",
+        "categories": [
+            "Oxidation",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-CH2-OH -> CH2=CH2 + H2O",
+        "categories": [
+            "Decomposition"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-COOH + CH3-OH -> CH3-COO-CH3 + H2O",
+        "categories": [
+            "Combination",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2C=O + H2 -> CH3-OH",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH2=CH2 + Cl2 -> CH2Cl-CH2Cl",
+        "categories": [
+            "Combination",
+            "Redox"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "AgNO3 + HCl -> AgCl + HNO3",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NiSO4 + NaOH -> Ni(OH)2 + Na2SO4",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CoCl2 + NaOH -> Co(OH)2 + NaCl",
+        "categories": [
+            "Precipitation",
+            "Double Displacement"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-COO-CH3 + H2O -> CH3-COOH + CH3-OH",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-COO-C2H5 + H2O -> CH3-COOH + C2H5-OH",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-COO-CH2-CH3 + H2O -> CH3-COOH + CH3-CH2-OH",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C6H5-COO-CH3 + H2O -> C6H5-COOH + CH3-OH",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-CO-NH2 + H2O -> CH3-COOH + NH3",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-CO-NH-CH3 + H2O -> CH3-COOH + CH3-NH2",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C6H5-CO-NH2 + H2O -> C6H5-COOH + NH3",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-CN + H2O -> CH3-COOH + NH3",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "C6H5-CN + H2O -> C6H5-COOH + NH3",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH2=CH-CN + H2O -> CH2=CH-COOH + NH3",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NaCl + H2O -> NaOH + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2CO3 + H2O -> NaOH + NaHCO3",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NH4Cl + H2O -> NH4OH + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al2(SO4)3 + H2O -> Al(OH)3 + H2SO4",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "FeCl3 + H2O -> Fe(OH)3 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na3PO4 + H2O -> NaOH + Na2HPO4",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "PCl3 + H2O -> H3PO3 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "PCl5 + H2O -> H3PO4 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SiCl4 + H2O -> SiO2 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "BCl3 + H2O -> B(OH)3 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "AsCl3 + H2O -> As(OH)3 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SOCl2 + H2O -> SO2 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "SO2Cl2 + H2O -> H2SO4 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "NO2Cl + H2O -> HNO3 + HCl",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CaC2 + H2O -> Ca(OH)2 + C2H2",
+        "categories": [
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Mg3N2 + H2O -> Mg(OH)2 + NH3",
+        "categories": [
+            "Double Displacement",
+            "Hydrolysis",
+            "Precipitation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Na2O + H2O -> NaOH",
+        "categories": [
+            "Hydrolysis",
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "Al2O3 + H2O -> Al(OH)3",
+        "categories": [
+            "Hydrolysis",
+            "Combination"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-O-CH3 + H2O -> CH3-OH",
+        "categories": [
+            "Combination",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "CH3-CO-O-CO-CH3 + H2O -> CH3-COOH",
+        "categories": [
+            "Combination",
+            "Hydrolysis"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "H2O2 -> H2O + O2",
+        "categories": [
+            "Decomposition",
+            "Redox",
+            "Disproportionation"
+        ],
+        "type": "Molecular"
+    },
+    {
+        "reaction": "MnO4^1- + H^1+ + e^1- -> Mn^2+ + H2O",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cr2O7^2- + H^1+ + e^1- -> Cr^3+ + H2O",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "NO3^1- + H^1+ + e^1- -> NO + H2O",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "NO3^1- + H^1+ + e^1- -> NH4^1+ + H2O",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "H2O2 + e^1- -> OH^1-",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "IO3^1- + H^1+ + e^1- -> I2 + H2O",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "MnO4^1- + H2O2 + H^1+ -> Mn^2+ + O2 + H2O",
+        "categories": [
+            "Redox",
+            "Decomposition"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cu^2+ + CN^1- -> [Cu(CN)2]^1- + C2N2",
+        "categories": [
+            "Redox",
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "MnO4^1- + NO2^1- + H^1+ -> Mn^2+ + NO3^1- + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "ClO3^1- + H^1+ + e^1- -> Cl2 + H2O",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "SO4^2- + H^1+ + e^1- -> SO2 + H2O",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "O2 + H^1+ + e^1- -> H2O",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "O2 + H2O + e^1- -> OH^1-",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Fe^2+ -> Fe^3+ + e^1-",
+        "categories": [
+            "Oxidation",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Sn^2+ -> Sn^4+ + e^1-",
+        "categories": [
+            "Oxidation",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "I^1- -> I2 + e^1-",
+        "categories": [
+            "Oxidation",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "S2O3^2- -> S4O6^2- + e^1-",
+        "categories": [
+            "Oxidation",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "SO2 + H2O -> SO4^2- + H^1+ + e^1-",
+        "categories": [
+            "Oxidation",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "C2O4^2- -> CO2 + e^1-",
+        "categories": [
+            "Oxidation",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Mn^2+ + H2O -> MnO4^1- + H^1+ + e^1-",
+        "categories": [
+            "Oxidation",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cr^3+ + H2O -> Cr2O7^2- + H^1+ + e^1-",
+        "categories": [
+            "Oxidation",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "NH3 -> NO3^1- + H^1+ + e^1-",
+        "categories": [
+            "Oxidation",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "MnO4^1- + H^1+ + e^1- -> MnO2 + H2O",
+        "categories": [
+            "Reduction",
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "MnO4^1- + Fe^2+ + H^1+ -> Mn^2+ + Fe^3+ + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cr2O7^2- + Fe^2+ + H^1+ -> Cr^3+ + Fe^3+ + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "MnO4^1- + C2O4^2- + H^1+ -> Mn^2+ + CO2 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "MnO4^1- + I^1- + H^1+ -> Mn^2+ + I2 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cr2O7^2- + I^1- + H^1+ -> Cr^3+ + I2 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "MnO4^1- + Sn^2+ + H^1+ -> Mn^2+ + Sn^4+ + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cr2O7^2- + SO2 + H^1+ -> Cr^3+ + SO4^2- + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "IO3^1- + I^1- + H^1+ -> I2 + H2O",
+        "categories": [
+            "Redox",
+            "Disproportionation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "H2O2 + I^1- + H^1+ -> I2 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cr^3+ + O2^2- + OH^1- -> CrO4^2- + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "As2S3 + NO3^1- + H^1+ + H2O -> H3AsO4 + S + NO",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "H2O2 + Fe^2+ + H^1+ -> Fe^3+ + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "NO3^1- + Cu + H^1+ -> Cu^2+ + NO + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "NO3^1- + Zn + OH^1- + H2O -> Zn(OH)4^2- + NH3",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "ClO3^1- + I^1- + H^1+ -> Cl^1- + I2 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "MnO4^1- + SO2 + H2O -> Mn^2+ + SO4^2- + H^1+",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "MnO4^1- + Br^1- + H^1+ -> Mn^2+ + Br2 + H2O",
+        "categories": [
+            "Redox"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Ag^1+ + Cl^1- -> AgCl",
+        "categories": [
+            "Precipitation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Ba^2+ + SO4^2- -> BaSO4",
+        "categories": [
+            "Precipitation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Pb^2+ + I^1- -> PbI2",
+        "categories": [
+            "Precipitation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Ca^2+ + CO3^2- -> CaCO3",
+        "categories": [
+            "Precipitation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Fe^3+ + OH^1- -> Fe(OH)3",
+        "categories": [
+            "Precipitation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cu^2+ + S^2- -> CuS",
+        "categories": [
+            "Precipitation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Pb^2+ + SO4^2- -> PbSO4",
+        "categories": [
+            "Precipitation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Fe^2+ + S^2- -> FeS",
+        "categories": [
+            "Precipitation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "H^1+ + OH^1- -> H2O",
+        "categories": [
+            "Neutralization"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "NH4^1+ + OH^1- -> NH3 + H2O",
+        "categories": [
+            "Neutralization"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "HCO3^1- + OH^1- -> CO3^2- + H2O",
+        "categories": [
+            "Neutralization"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Al(OH)3 + OH^1- -> [Al(OH)4]^1-",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Zn^2+ + OH^1- -> Zn(OH)4^2-",
+        "categories": [
+            "Combination"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "H2PO4^1- + OH^1- -> HPO4^2- + H2O",
+        "categories": [
+            "Neutralization"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "HPO4^2- + OH^1- -> PO4^3- + H2O",
+        "categories": [
+            "Neutralization"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "HCO3^1- + H^1+ -> H2O + CO2",
+        "categories": [
+            "Neutralization"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cl2 + OH^1- -> Cl^1- + ClO^1- + H2O",
+        "categories": [
+            "Redox",
+            "Disproportionation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "MnO4^2- + H2O -> MnO4^1- + MnO2 + OH^1-",
+        "categories": [
+            "Redox",
+            "Disproportionation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cu^1+ -> Cu + Cu^2+",
+        "categories": [
+            "Redox",
+            "Disproportionation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "S2O3^2- + H^1+ -> S + SO2 + H2O",
+        "categories": [
+            "Redox",
+            "Disproportionation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Fe^3+ + SCN^1- -> [Fe(SCN)]^2+",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cu^2+ + NH3 -> [Cu(NH3)4]^2+",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Ag^1+ + NH3 -> [Ag(NH3)2]^1+",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Fe^3+ + CN^1- -> [Fe(CN)6]^3-",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Fe^2+ + CN^1- -> [Fe(CN)6]^4-",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Ag^1+ + CN^1- -> [Ag(CN)2]^1-",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Pt^2+ + Cl^1- -> [PtCl4]^2-",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Al^3+ + F^1- -> [AlF6]^3-",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Co^3+ + NH3 -> [Co(NH3)6]^3+",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Fe^3+ + C2O4^2- -> [Fe(C2O4)3]^3-",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Ni^2+ + CN^1- -> [Ni(CN)4]^2-",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cr^3+ + H2N-CH2-CH2-NH2 -> [Cr(H2N-CH2-CH2-NH2)3]^3+",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cu^2+ + C10H12N2O8^4- -> [Cu(C10H12N2O8)]^2-",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Fe^3+ + C10H12N2O8^4- -> [Fe(C10H12N2O8)]^1-",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Cu^2+ + NH2-CH2-COOH -> [Cu(NH2-CH2-COO)2] + H^1+",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    },
+    {
+        "reaction": "Ni^2+ + NH2-CH2-COOH -> [Ni(NH2-CH2-COO)3]^1- + H^1+",
+        "categories": [
+            "Complexation"
+        ],
+        "type": "Ionic"
+    }
+]

@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Combustion",
+        "description": "A substance reacts with oxygen, typically releasing energy in the form of heat and light."
+    },
+    {
+        "name": "Combination",
+        "description": "Two or more substances combine to form a single new substance."
+    },
+    {
+        "name": "Decomposition",
+        "description": "A single compound breaks down into two or more simpler substances."
+    },
+    {
+        "name": "Displacement",
+        "description": "An element trades places with another element in a compound."
+    },
+    {
+        "name": "Double Displacement",
+        "description": "Two compounds exchange ions or elements to form completely new compounds."
+    },
+    {
+        "name": "Precipitation",
+        "description": "Two soluble salts in aqueous solution combine to form an insoluble solid (precipitate)."
+    },
+    {
+        "name": "Neutralization",
+        "description": "An acid and a base react to produce salt and water."
+    },
+    {
+        "name": "Oxidation",
+        "description": "An oxidation reaction is a chemical process where a reactant loses electrons, causing its oxidation state to increase."
+    },
+    {
+        "name": "Reduction",
+        "description": "Reduction reactions are chemical processes where an atom, ion, or molecule gains electrons, resulting in a decrease in its oxidation state."
+    },
+    {
+        "name": "Redox",
+        "description": "Involves the transfer of electrons between reactants."
+    },
+    {
+        "name": "Disproportionation",
+        "description": "A specific type of redox process where a single chemical substance is simultaneously oxidized and reduced"
+    },
+    {
+        "name": "Hydrolysis",
+        "description": "A hydrolysis reaction is a chemical process where water is added to a substance to break its chemical bonds."
+    },
+    {
+        "name": "Complexation",
+        "description": "A reaction where a central metal ion bonds with one or more surrounding molecules or ions (ligands) to form a complex ion."
+    }
+]

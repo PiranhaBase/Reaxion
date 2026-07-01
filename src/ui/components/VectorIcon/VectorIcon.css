@@ -1,0 +1,55 @@
+:host {
+    display: inline-block;
+}
+
+[part="base"] {
+    padding: 0;
+    margin: 0;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    background-color: currentColor;
+
+    &[data-icon="theme"] {
+        mask-image: var(--src-theme-icon);
+    }
+
+    &[data-icon="menu"] {
+        mask-image: var(--src-menu-icon);
+    }
+
+    &[data-icon="close"] {
+        mask-image: var(--src-close-icon);
+    }
+
+    &[data-icon="copy"] {
+        mask-image: var(--src-copy-icon);
+    }
+
+    &[data-icon="check"] {
+        mask-image: var(--src-check-icon);
+    }
+
+    &[data-icon="cross"] {
+        mask-image: var(--src-cross-icon);
+    }
+
+    &[data-icon="chevron"] {
+        mask-image: var(--src-chevron-icon);
+    }
+
+    &[data-icon="dropdown"] {
+        mask-image: var(--src-dropdown-icon);
+    }
+
+    &[data-icon="search"] {
+        mask-image: var(--src-search-icon);
+    }
+
+    &[data-icon="filter"] {
+        mask-image: var(--src-filter-icon);
+    }
+}

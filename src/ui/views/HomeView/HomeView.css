@@ -1,0 +1,49 @@
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.card {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    border-radius: 15px;
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.05rem;
+        color: var(--color-text-faded);
+    }
+
+    button.primary {
+        align-self: flex-end;
+    }
+
+    .reaction {
+        font-weight: 500;
+        font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+        font-family: "JetBrains Mono", monospace;
+    }
+
+    @media screen and (max-width: 1024px) {
+        padding: 2rem 1rem;
+    }
+}
+
+#reaction-input {
+    padding: 1.5rem 1rem;
+    border-radius: 5px;
+}
+
+#reaction-output {
+    color: var(--color-text-subtle);
+}

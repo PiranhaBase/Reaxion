@@ -1,0 +1,45 @@
+:host {
+    display: block;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+pre[part="base"] {
+    color: #EDEDED;
+    border-radius: 10px;
+    overflow: hidden;
+    scrollbar-color: #767676 #22272E;
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.7em 1em;
+        font-size: 1em;
+        background-color: #3D4447;
+
+        h6 {
+            font-size: 0.8em;
+            font-weight: 400;
+        }
+
+        copy-button {
+            font-size: 0.85em;
+        }
+    }
+
+    code {
+        display: block;
+        padding: 1em 1.2em;
+        font-family: inherit;
+        font-size: 0.85em;
+        font-weight: 400;
+        line-height: 1.6;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        background-color: #22272E;
+    }
+}

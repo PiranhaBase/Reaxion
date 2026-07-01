@@ -1,0 +1,70 @@
+:host {
+    --spin-duration: 3s;
+    --slither-duration: 2s;
+    --outer-radius: 0.5em;
+    --inner-radius: 0.375em;
+    
+    display: inline-flex;
+}
+
+svg {
+    height: calc(2 * var(--outer-radius));
+
+    &:not([active]) {
+        display: none;
+    }
+}
+
+g {
+    transform-origin: center;
+    animation: spin var(--spin-duration) linear infinite;
+}
+
+circle {
+    --radius: calc(25px * (1 + var(--inner-radius) / var(--outer-radius)));
+    --circumference: calc(6.283185 * var(--radius));
+    
+    cx: 50;
+    cy: 50;
+    r: var(--radius);
+    stroke-width: calc(50px * (1 - var(--inner-radius) / var(--outer-radius)));
+    transform-origin: center;
+    fill: none;
+
+    &[part="track"] {
+        color: transparent;
+        stroke: currentColor;
+    }
+
+    &[part="stroke"] {
+        stroke: currentColor;
+        stroke-dasharray: var(--circumference);
+        stroke-dashoffset: var(--circumference);
+        stroke-linecap: round;
+        animation: slither var(--slither-duration) cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+    }
+}
+
+@keyframes spin {
+    0% {
+        rotate: 0deg;
+    }
+    100% {
+        rotate: 360deg;
+    }
+}
+
+@keyframes slither {
+    0% {
+        stroke-dashoffset: var(--circumference);
+        rotate: 0deg;
+    }
+    50% {
+        stroke-dashoffset: calc(0.2 * var(--circumference));
+        rotate: 36deg;
+    }
+    100% {
+        stroke-dashoffset: var(--circumference);
+        rotate: 360deg;
+    }
+}

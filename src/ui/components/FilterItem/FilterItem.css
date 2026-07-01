@@ -1,0 +1,67 @@
+:host {
+    display: block;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+div[part="base"] {
+    padding: 0.3em 0.4em;
+    display: flex;
+    align-items: center;
+    text-align: left;
+
+    &[hidden] {
+        display: none;
+    }
+
+    label {
+        flex-grow: 1;
+        padding-right: 1em;
+    }
+
+    input {
+        font-size: inherit;
+        color: inherit;
+        appearance: none;
+        display: grid;
+        place-items: center;
+        width: 0.9em;
+        height: 0.9em;
+        border-radius: 0.2em;
+        color: #DFDFDF;
+        border: 0.1em solid currentColor;
+        background-color: transparent;
+        transition: border-color 0.1s;
+
+        &::after {
+            content: "";
+            width: 90%;
+            height: 40%;
+            scale: 0.4;
+            opacity: 0;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            transform: rotate(-45deg) translate(0.04em, -0.04em);
+            border-left: 0.1em solid currentColor;
+            border-bottom: 0.1em solid currentColor;
+            transition: scale 0.1s, opacity 0.1s;
+        }
+        
+        &:checked {
+            color: #60CC7D;
+            background-color: currentColor;
+            
+            &::after {
+                scale: 1;
+                opacity: 1;
+            }
+        }
+        
+        @media (any-hover: hover) and (pointer: fine) {
+            cursor: pointer;
+        }
+    }
+}

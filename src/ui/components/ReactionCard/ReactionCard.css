@@ -1,0 +1,86 @@
+:host {
+    display: block;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+[part="base"] {
+    border-radius: 10px;
+    padding: 1.2em 2em;
+    background-color: #191C1D;
+    border: 1px solid #2E3132;
+    border-left: 4px solid #37DCDC;
+    transition: background-color 0.2s, border-color 0.2s;
+            
+    @media screen and (max-width: 1024px) {
+        padding: 1em;
+    }
+            
+    @media (any-hover: hover) and (pointer: fine) {
+        &:hover {
+            cursor: pointer;
+            background-color: #2F3537;
+        }
+    }
+}
+
+.content {
+    display: flex;
+    gap: 0.4em;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+::slotted(*) {
+    font-size: 1.2em;
+    pointer-events: none;
+}
+
+[part="reaction-type"] {
+    font-size: 0.75em;
+    font-weight: 600;
+    color: #D7D9DA;
+}
+
+footer {
+    margin-top: 0.4em;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.categories {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+[part="category"] {
+    flex-shrink: 0;
+    padding: 0.2em 0.6em;
+    border-radius: 1em;
+    font-size: 0.85em;
+    color: #E1E3E4;
+    background-color: #2F3537;
+}
+
+[part="chevron"] {
+    font-size: 2em;
+    opacity: 0;
+    translate: -10px 0;
+    transition: translate 0.2s, opacity 0.2s;
+    display: none;
+
+    @media (any-hover: hover) and (pointer: fine) {
+        display: unset;
+        
+        [part="base"]:hover & {
+            opacity: 1;
+            translate: 0;
+        }
+    }
+}
