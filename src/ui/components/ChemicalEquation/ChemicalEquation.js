@@ -28,7 +28,8 @@ class ChemicalEquation extends HTMLElement {
     }
 
     compoundHTML(compound) {
-        if (!compound.charge) return compound.formula.replace(/(\d+)/g, '<sub part="index">$1</sub>');
+        const state = compound.state ? `<span part="state"> (${compound.state})</span>` : "";
+        if (!compound.charge) return `${compound.formula.replace(/(\d+)/g, '<sub part="index">$1</sub>')}${state}`;
         const formula = [];
         formula.push(compound.formula.replace(/(\d+)/g, '<sub part="index">$1</sub>'));
         formula.push('<span hidden>^</span>');
@@ -37,7 +38,7 @@ class ChemicalEquation extends HTMLElement {
             formula.push(`<sup part="index">${(compound.charge > 0) ? "+" : "-"}</sup>`);
         }
         else formula.push(`<sup part="index">${Math.abs(compound.charge)}${(compound.charge > 0) ? "+" : "-"}</sup>`);
-        return formula.join("");
+        return `${formula.join("")}${state}`;
     }
     
     reactionHTML(reaction, balanced=true) {

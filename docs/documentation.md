@@ -36,7 +36,7 @@ At least one space is required between all terms — compounds, ions, `+` operat
 
 ### State Symbols
 
-Physical state labels (`(s)`, `(l)`, `(g)`, `(aq)`) are not supported. Omit them to avoid element identification errors.
+State symbols `(s)`, `(l)`, `(g)`, `(aq)` are optional but supported. Place the symbol immediately after the species name, inside parentheses, with or without a space. Examples: `H2O (l)`, `Na^1+ (aq)`, `CO2(g)`. The parser accepts any lowercase symbol (e.g., `A2B3 (k)`), but uppercase letters are interpreted as elements.
 
 ### Reaction Arrow
 

@@ -7,13 +7,13 @@ const ELECTRON = "e";
 class Compound {
     
     constructor(formula) {
-        [this.formula, this.charge, this.state] = Compound.parse(formula.replace(/\s+/g, ""));
+        [this.formula, this.charge, this.state] = Compound.parse(formula.trim());
         this.elements = Compound.getElements(this.formula);
     }
 
     static parse(formula) {
         const state = formula.match(/\((?<state>[a-z]+)\)$/)?.groups.state;
-        if (state) formula = formula.replace(/\([a-z]+\)$/, "");
+        if (state) formula = formula.replace(/\s+\([a-z]+\)$/, "");
         if (formula.includes("^")) {
             const [compound, charge] = formula.split("^");
             if (!/^\d+[+-]$/.test(charge)) {

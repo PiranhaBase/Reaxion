@@ -348,7 +348,7 @@ chemical-equation {
     color: var(--color-text-faded);
     font-family: var(--font-monospace);
 
-    &::part(index), &::part(coefficient) {
+    &::part(index), &::part(coefficient), &::part(state) {
         font-weight: 700;
         font-family: var(--font-sans-serif);
     }
