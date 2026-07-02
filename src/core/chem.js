@@ -7,20 +7,22 @@ const ELECTRON = "e";
 class Compound {
     
     constructor(formula) {
-        [this.formula, this.charge] = Compound.parse(formula);
+        [this.formula, this.charge, this.state] = Compound.parse(formula.replace(/\s+/g, ""));
         this.elements = Compound.getElements(this.formula);
     }
 
     static parse(formula) {
+        const state = formula.match(/\((?<state>[a-z]+)\)$/)?.groups.state;
+        if (state) formula = formula.replace(/\([a-z]+\)$/, "");
         if (formula.includes("^")) {
             const [compound, charge] = formula.split("^");
             if (!/^\d+[+-]$/.test(charge)) {
                 throw new Error(`Charge '^${charge}' does not match the structure '^{magnitude}{symbol}'`);
             }
-            if (charge.endsWith("-")) return [compound, -Number(charge.slice(0, -1))];
-            return [compound, Number(charge.slice(0, -1))];
+            if (charge.endsWith("-")) return [compound, -Number(charge.slice(0, -1)), state];
+            return [compound, Number(charge.slice(0, -1)), state];
         }
-        return [formula, 0];
+        return [formula, 0, state];
     }
 
     static getGroups(formula) {
@@ -75,11 +77,11 @@ class Compound {
             else elementCount.set(element, count);
         }
         for (const element of elements) {
-            let {symbol, count} = element.match(/(?<symbol>[a-z]+)(?<count>\d*)/i).groups;
+            const {symbol, count} = element.match(/(?<symbol>[a-z]+)(?<count>\d*)/i).groups;
             updateCount(symbol, (count) ? Number(count) : 1);
         }
         for (const group of groups) {
-            let {grp, multiplier} = group.match(/[\[\{\(](?<grp>.+)[\]\}\)](?<multiplier>\d*)/).groups;
+            const {grp, multiplier} = group.match(/[\[\{\(](?<grp>.+)[\]\}\)](?<multiplier>\d*)/).groups;
             for (const [element, count] of Compound.getElements(grp)) {
                 updateCount(element, count*((multiplier) ? Number(multiplier) : 1));
             }
