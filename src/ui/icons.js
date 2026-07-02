@@ -1,6 +1,6 @@
 const ICONS = new CSSStyleSheet();
 
-const ICON_DIR = new URL("../../../../assets/icons/", import.meta.url).href;
+const ICON_DIR = new URL("../../assets/icons/", import.meta.url).href;
 
 
 ICONS.replaceSync(`
