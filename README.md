@@ -33,17 +33,15 @@ Then navigate to `http://localhost:8000` in your web browser.
 
 To ensure accurate parsing, follow these formatting rules:
 
-|Feature	        | Syntax Example  	|Notes                                                             |
-------------------|-------------------|----------------------------------------------------------------|
-|Subscripts 	    | `H2O`, `SO4`	    |Write as plain integers directly after the symbol.              |
-|Ions   	        | `SO4^2-`, `Na^1+` |Prefix charges with ^ followed by explicit magnitude and sign.  |
-|Electrons  	    | `e^1-`            |Represent free electrons in half-reactions.                     |
-|Reaction Arrow 	| `->` or `=`       |Must have at least one space on both sides.                     |
-|Whitespace	      | `A + B -> C`      |At least one space is required between all terms and operators. |
-|Case Sensitivity	| `Co` vs `CO`      |Standard chemical capitalization is strictly enforced.          |
-
-> [!NOTE]
-> Physical state symbols (e.g., `(s)`, `(aq)`) are not supported and should be omitted to avoid element identification errors.
+|Feature	        | Syntax Example   	  |Notes                                                           |
+--------------------|---------------------|----------------------------------------------------------------|
+|Subscripts 	    | `H2O`, `SO4`	      |Write as plain integers directly after the symbol.              |
+|Ions   	        | `SO4^2-`, `Na^1+`   |Prefix charges with ^ followed by explicit magnitude and sign.  |
+|Electrons  	    | `e^1-`              |Represent free electrons in half-reactions.                     |
+|Reaction Arrow 	| `->` or `=`         |Must have at least one space on both sides.                     |
+|Whitespace	        | `A + B -> C`        |At least one space is required between all terms and operators. |
+|Case Sensitivity	| `Co` vs `CO`        |Standard chemical capitalization is strictly enforced.          |
+|State Symbol       | `H2O (l)`, `CO2(g)` |Enclose state labels inside parentheses. Must be all lowercase. |
 
 ## How it Works
 
