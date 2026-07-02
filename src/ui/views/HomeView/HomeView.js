@@ -58,16 +58,22 @@ class HomeView extends HTMLElement {
 
         this.shadowRoot.appendChild(base);
 
-        input.addEventListener("input", this.appendArrow);
+        input.addEventListener("input", this.autocomplete);
         input.addEventListener("keydown", this.onKeydown);
         balanceButton.addEventListener("click", this.renderBalanced);
         copyButton.addEventListener("click", this.copyBalanced);
         document.addEventListener("reaction-selected", this.copyToBalancer);
     }
 
-    appendArrow = (event) => {
-        if (event.data === "=") {
-            const cursorIndex = event.target.selectionStart;
+    autocomplete = (event) => {
+        const cursorIndex = event.target.selectionStart;
+        const braces = new Map([["(", ")"], ["{", "}"], ["[", "]"]]);
+        if (braces.has(event.data)) {
+            const closingBrace = braces.get(event.data);
+            event.target.value = `${event.target.value.slice(0, cursorIndex)}${closingBrace}${event.target.value.slice(cursorIndex)}`;
+            event.target.setSelectionRange(cursorIndex, cursorIndex);
+        }
+        else if (event.data === "=") {
             if ((event.target.value[cursorIndex-2] ?? " ") === " " && (event.target.value[cursorIndex] ?? " ") === " ") {
                 event.target.value = `${event.target.value.slice(0, cursorIndex-1)}-->${event.target.value.slice(cursorIndex)}`;
                 event.target.setSelectionRange(cursorIndex+2, cursorIndex+2);
@@ -76,7 +82,22 @@ class HomeView extends HTMLElement {
     }
 
     onKeydown = (event) => {
-        if (event.key === "Enter") this.renderBalanced();
+        if (event.key === "Enter") {
+            event.target.blur();
+            this.renderBalanced();
+        }
+        if (event.key === "Backspace") {
+            const cursorIndex = event.target.selectionStart;
+            if (event.target.selectionEnd !== cursorIndex) return;
+            const braces = new Map([["(", ")"], ["{", "}"], ["[", "]"]]);
+            const openingBrace = event.target.value[cursorIndex-1];
+            const closingBrace = event.target.value[cursorIndex];
+            if (braces.has(openingBrace) && braces.get(openingBrace) === closingBrace) {
+                event.preventDefault();
+                event.target.value = `${event.target.value.slice(0, cursorIndex-1)}${event.target.value.slice(cursorIndex+1)}`;
+                event.target.setSelectionRange(cursorIndex-1, cursorIndex-1);
+            }
+        }
     }
 
     renderBalanced = (event) => {
@@ -84,7 +105,6 @@ class HomeView extends HTMLElement {
         reaction.setAttribute("balanced", "");
         reaction.textContent = this.shadowRoot.getElementById("reaction-input").value;
         this.shadowRoot.getElementById("reaction-output").replaceChildren(reaction);
-        this.shadowRoot.getElementById("reaction-input").blur();
     }
 
     copyBalanced = async (event) => {
