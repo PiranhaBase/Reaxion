@@ -28,16 +28,17 @@ class ChemicalEquation extends HTMLElement {
     }
 
     compoundHTML(compound) {
-        const state = compound.state ? `<span part="state"> (${compound.state})</span>` : "";
-        if (!compound.charge) return `${compound.formula.replace(/(\d+)/g, '<sub part="index">$1</sub>')}${state}`;
         const formula = [];
-        formula.push(compound.formula.replace(/(\d+)/g, '<sub part="index">$1</sub>'));
+        const state = compound.state ? `<span part="state"> (${compound.state})</span>` : "";
+        formula.push(compound.formula.replace(/([^\.\d])(\d+)/g, '$1<sub part="index">$2</sub>'));
+        if (!compound.charge) return `${formula[0]}${state}`;
+
+        const absCharge = Math.abs(compound.charge);
         formula.push('<span hidden>^</span>');
-        if (Math.abs(compound.charge) === 1) {
-            formula.push(`<span hidden>${Math.abs(compound.charge)}</span>`);
-            formula.push(`<sup part="index">${(compound.charge > 0) ? "+" : "-"}</sup>`);
+        if (absCharge === 1) {
+            formula.push(`<span hidden>1</span><sup part="index">${(compound.charge > 0) ? "+" : "-"}</sup>`);
         }
-        else formula.push(`<sup part="index">${Math.abs(compound.charge)}${(compound.charge > 0) ? "+" : "-"}</sup>`);
+        else formula.push(`<sup part="index">${absCharge}${(compound.charge > 0) ? "+" : "-"}</sup>`);
         return `${formula.join("")}${state}`;
     }
     
