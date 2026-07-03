@@ -1,4 +1,4 @@
-import { Fraction, Matrix } from "./math.js";
+import Matrix from "./matrix.js";
 
 
 const ELECTRON = "e";
@@ -116,32 +116,6 @@ export default class Reaction {
         return [reactants, products];
     }
 
-    static solveEquations(equations) {
-        const matrix = new Matrix(equations);
-        const pivots = matrix.toRowEchelonForm();
-        const solution = Array(matrix.cols).fill(0);
-
-        for (let col = solution.length-1; col > -1; --col) {
-            if (!pivots.has(col)) {
-                solution[col] = new Fraction(1);
-                continue;
-            }
-            const row = pivots.get(col);
-            for (let i = col+1; i < solution.length; i++) {
-                solution[col] = Fraction.subtract(solution[col], Fraction.multiply(matrix.matrix[row][i], solution[i]));
-            }
-            if (!solution[col].num) throw new Error("This reaction cannot be balanced.");
-            solution[col] = Fraction.divide(solution[col], matrix.matrix[row][col]);
-        }
-        
-        const factor = solution.reduce((lcm, frac) => Fraction.LCM(lcm, frac.den), 1);
-        solution.forEach((frac, index) => solution[index] = Fraction.multiply(factor, frac).num);
-        const divisor = solution.reduce((gcd, num) => Fraction.GCD(gcd, num));
-        solution.forEach((num, index) => solution[index] = num / divisor);
-
-        return solution;
-    }
-
     assertValidReaction() {
         let chargedSpecies = 0;
 
@@ -186,16 +160,22 @@ export default class Reaction {
 
         for (const element of this.getElements()) {
             const equation = [];
-            this.reactants.forEach(reactant => equation.push(new Fraction(reactant.elements.get(element) ?? 0)));
-            this.products.forEach(product => equation.push(new Fraction(-(product.elements.get(element) ?? 0))));
+            this.reactants.forEach(reactant => equation.push(reactant.elements.get(element) ?? 0));
+            this.products.forEach(product => equation.push(-(product.elements.get(element) ?? 0)));
             equations.push(equation);
         }
 
         const chargeEquation = [];
-        this.reactants.forEach(reactant => chargeEquation.push(new Fraction(reactant.charge)));
-        this.products.forEach(product => chargeEquation.push(new Fraction(-product.charge)));
+        this.reactants.forEach(reactant => chargeEquation.push(reactant.charge));
+        this.products.forEach(product => chargeEquation.push(-product.charge));
         equations.push(chargeEquation);
 
-        return Reaction.solveEquations(equations);
+        try {
+            const solution = Matrix.solveHomogeneousSystem(equations);
+            return solution;
+        }
+        catch (error) {
+            throw new Error("This reaction cannot be balanced for any non-zero coefficient");
+        }
     }
 }

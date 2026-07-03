@@ -1,4 +1,4 @@
-export class Fraction {
+class Fraction {
 
     constructor(num, den=1) {
         [this.num, this.den] = Fraction.reduce(num, den);
@@ -49,10 +49,10 @@ export class Fraction {
 }
 
 
-export class Matrix {
+export default class Matrix {
 
     constructor(matrix) {
-        this.matrix = matrix;
+        this.matrix = matrix.map(row => row.map(entry => new Fraction(entry)));
         this.rows = matrix.length;
         this.cols = matrix[0].length;
     }
@@ -81,5 +81,31 @@ export class Matrix {
             ++pivotRow;
         }
         return pivots;
+    }
+
+    static solveHomogeneousSystem(equations) {
+        const matrix = new Matrix(equations);
+        const pivots = matrix.toRowEchelonForm();
+        const solution = Array(matrix.cols).fill(0);
+
+        for (let col = solution.length-1; col > -1; --col) {
+            if (!pivots.has(col)) {
+                solution[col] = new Fraction(1);
+                continue;
+            }
+            const row = pivots.get(col);
+            for (let i = col+1; i < solution.length; i++) {
+                solution[col] = Fraction.subtract(solution[col], Fraction.multiply(matrix.matrix[row][i], solution[i]));
+            }
+            if (!solution[col].num) throw new Error("Only trivial solution is possible for this system");
+            solution[col] = Fraction.divide(solution[col], matrix.matrix[row][col]);
+        }
+        
+        const factor = solution.reduce((lcm, frac) => Fraction.LCM(lcm, frac.den), 1);
+        solution.forEach((frac, index) => solution[index] = Fraction.multiply(factor, frac).num);
+        const divisor = solution.reduce((gcd, num) => Fraction.GCD(gcd, num));
+        solution.forEach((num, index) => solution[index] = num / divisor);
+
+        return solution;
     }
 }
