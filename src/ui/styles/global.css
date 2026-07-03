@@ -249,11 +249,11 @@ filter-item {
     }
 
     &::part(checkbox):checked {
-        color: var(--color-primary);
+        color: var(--color-primary-light);
     }
 
     &::part(checkbox)::after {
-        color: var(--color-text-on-primary);
+        color: var(--color-bg-depressed);
     }
 }
 
@@ -291,31 +291,6 @@ filter-pill {
     &::part(base) {
         color: var(--color-text-muted);
         background-color: var(--color-bg-depressed);
-    }
-}
-
-select-option {
-    &::part(base) {
-        color: var(--color-text-faded);
-    }
-
-    &::part(radio) {
-        color: var(--color-border-light);
-    }
-
-    &::part(radio):checked {
-        border-color: var(--color-primary-light);
-    }
-
-    &::part(radio)::before {
-        background-color: var(--color-primary-light);
-    }
-}
-
-select-dropdown {
-    &::part(base) {
-        background-color: var(--color-bg-elevated);
-        border-color: var(--color-border-default);
     }
 }
 
