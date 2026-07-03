@@ -1,4 +1,4 @@
-import Reaction from "../../../core/reaction.js";
+import Reaction from "../../../core/chem.js";
 import style from "./ChemicalEquation.css" with { type: "css" };
 
 
