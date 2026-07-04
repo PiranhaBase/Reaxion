@@ -327,6 +327,10 @@ chemical-equation {
         font-weight: 700;
         font-family: var(--font-sans-serif);
     }
+
+    &::part(state) {
+        font-size: 0.85em;
+    }
     
     &::part(highlight), &::part(coefficient) {
         color: var(--color-primary-light);
