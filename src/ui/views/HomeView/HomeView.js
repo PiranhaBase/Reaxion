@@ -30,10 +30,28 @@ class HomeView extends HTMLElement {
         input.id = "reaction-input";
         input.classList.add("reaction");
         input.placeholder = "e.g. CH4 + O2 --> CO2 + H2O";
+        const cardFooter = document.createElement("footer");
+        const batchButton = document.createElement("button");
+        batchButton.classList.add("secondary");
+        batchButton.textContent = "Batch Balance";
         const balanceButton = document.createElement("button");
         balanceButton.classList.add("primary");
         balanceButton.textContent = "Balance Reaction";
-        inputCard.append(inputLabel, input, balanceButton);
+        cardFooter.append(batchButton, balanceButton);
+        inputCard.append(inputLabel, input, cardFooter);
+
+        const batchDialog = document.createElement("dialog-box");
+        batchDialog.id = "batch-dialog";
+        batchDialog.setAttribute("title", "Batch Balance");
+        const text = document.createElement("p");
+        text.textContent = "Upload newline separated list of reactions in plaintext format.";
+        const fileInput = document.createElement("file-input");
+        fileInput.setAttribute("accept", ".txt");
+        fileInput.id = "batch-input";
+        const downloadButton = document.createElement("button");
+        downloadButton.classList.add("primary");
+        downloadButton.textContent = "Download CSV";
+        batchDialog.append(text, fileInput, downloadButton);
 
         const outputCard = document.createElement("article");
         outputCard.classList.add("card", "accent");
@@ -52,7 +70,7 @@ class HomeView extends HTMLElement {
         output.classList.add("reaction");
         outputCard.append(cardHeader, output);
 
-        balanceSection.append(inputCard, outputCard);
+        balanceSection.append(inputCard, batchDialog, outputCard);
 
         base.append(header, balanceSection);
 
@@ -60,6 +78,7 @@ class HomeView extends HTMLElement {
 
         input.addEventListener("input", this.autocomplete);
         input.addEventListener("keydown", this.onKeydown);
+        batchButton.addEventListener("click", this.viewBatchDialog);
         balanceButton.addEventListener("click", this.renderBalanced);
         copyButton.addEventListener("click", this.copyBalanced);
         document.addEventListener("reaction-selected", this.copyToBalancer);
@@ -98,6 +117,10 @@ class HomeView extends HTMLElement {
                 event.target.setSelectionRange(cursorIndex-1, cursorIndex-1);
             }
         }
+    }
+
+    viewBatchDialog = (event) => {
+        this.shadowRoot.getElementById("batch-dialog").show();
     }
 
     renderBalanced = (event) => {

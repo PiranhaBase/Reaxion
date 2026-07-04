@@ -17,15 +17,18 @@ section {
         align-items: center;
     }
 
+    footer {
+        display: flex;
+        gap: 1.2rem;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
     label {
         font-size: 0.8rem;
         font-weight: 700;
         letter-spacing: 0.05rem;
         color: var(--color-text-faded);
-    }
-
-    button.primary {
-        align-self: flex-end;
     }
 
     .reaction {
@@ -36,6 +39,19 @@ section {
 
     @media screen and (max-width: 1024px) {
         padding: 2rem 1rem;
+    }
+}
+
+dialog-box {
+    button.primary {
+        align-self: flex-end;
+    }
+
+    &::part(content) {
+        padding: 0.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.6rem;
     }
 }
 
