@@ -316,6 +316,13 @@ filter-box {
     }
 }
 
+filter-pill {
+    &::part(base) {
+        color: var(--color-text-muted);
+        background-color: var(--color-bg-depressed);
+    }
+}
+
 dialog-box {
     &::part(backdrop) {
         background-color: var(--color-shadow);
@@ -333,10 +340,15 @@ dialog-box {
     }
 }
 
-filter-pill {
-    &::part(base) {
-        color: var(--color-text-muted);
-        background-color: var(--color-bg-depressed);
+file-input {
+    color: var(--color-text-subtle);
+
+    &:state(uploaded) {
+        color: var(--color-primary-light);
+    }
+
+    &::part(label) {
+        color: var(--color-text-base);
     }
 }
 

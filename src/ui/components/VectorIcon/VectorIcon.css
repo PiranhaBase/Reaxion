@@ -52,4 +52,8 @@
     &[data-icon="filter"] {
         mask-image: var(--src-filter-icon);
     }
+
+    &[data-icon="upload"] {
+        mask-image: var(--src-upload-icon);
+    }
 }
