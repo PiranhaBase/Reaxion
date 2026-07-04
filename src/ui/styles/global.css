@@ -117,29 +117,58 @@ input[type="text"] {
     }
 }
 
-button.primary {
-    padding: 0.6em 1.2em;
+button {
     border: none;
+    padding: 0.6em 1.2em;
     border-radius: 5px;
     font-size: 1em;
     font-family: var(--font-sans-serif);
-    color: var(--color-text-on-primary);
-    background-color: var(--color-primary);
-    transition: scale 0.2s;
-    
-    &:active {
-        scale: 0.95;
-    }
 
     @media (any-hover: hover) and (pointer: fine) {
         cursor: pointer;
+    }
 
-        &:hover {
-            scale: 1.04;
-        }
-
+    &.primary {
+        color: var(--color-text-on-primary);
+        background-color: var(--color-primary);
+        transition: scale 0.2s;
+        
         &:active {
-            scale: 1;
+            scale: 0.95;
+        }
+        
+        @media (any-hover: hover) and (pointer: fine) {
+            &:hover {
+                scale: 1.04;
+            }
+            
+            &:active {
+                scale: 1;
+            }
+        }
+    }
+
+    &.secondary {
+        color: var(--color-text-faded);
+        background-color: transparent;
+        outline: 2px solid currentColor;
+        outline-offset: -2px;
+        transition: color 0.2s, outline-color 0.2s,
+        background-color 0.2s, scale 0.2s;
+        
+        &:active {
+            scale: 0.95;
+            color: var(--color-text-inverted);
+            background-color: var(--color-text-faded);
+            outline-color: var(--color-text-faded);
+        }
+        
+        @media (any-hover: hover) and (pointer: fine) {
+            &:hover {
+                color: var(--color-text-inverted);
+                background-color: var(--color-text-faded);
+                outline-color: var(--color-text-faded);
+            }
         }
     }
 }
@@ -253,7 +282,7 @@ filter-item {
     }
 
     &::part(checkbox)::after {
-        color: var(--color-bg-depressed);
+        color: var(--color-text-inverted);
     }
 }
 

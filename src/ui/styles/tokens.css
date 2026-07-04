@@ -10,6 +10,7 @@
     --color-text-faded: #455A64;
     --color-text-light: #C4C7C8;
     --color-text-error: #DE1954;
+    --color-text-inverted: #E9E9E9;
     --color-text-on-primary: #FFFFFF;
 
     --color-bg-base: #FAFAFA;
@@ -40,6 +41,7 @@
     --color-text-faded: #D7D9DA;
     --color-text-light: #747779;
     --color-text-error: #FF7E96;
+    --color-text-inverted: #2E2E2E;
     --color-text-on-primary: #FFFFFF;
 
     --color-bg-base: #141414;
