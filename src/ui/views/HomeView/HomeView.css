@@ -4,6 +4,19 @@ section {
     gap: 2rem;
 }
 
+dialog-box {
+    button.primary {
+        align-self: flex-end;
+    }
+
+    &::part(content) {
+        padding: 0.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.6rem;
+    }
+}
+
 .error {
     color: var(--color-text-error);
 }
@@ -43,19 +56,6 @@ section {
 
     @media screen and (max-width: 1024px) {
         padding: 2rem 1rem;
-    }
-}
-
-dialog-box {
-    button.primary {
-        align-self: flex-end;
-    }
-
-    &::part(content) {
-        padding: 0.4rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1.6rem;
     }
 }
 

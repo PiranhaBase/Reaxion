@@ -24,13 +24,13 @@
 
 [part="modal"] {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
+    inset: 0;
+    margin: auto;
     padding: 1.6em;
     border-radius: 15px;
-    max-width: min(25rem, 80%);
     max-height: 80%;
+    width: min(25rem, 90%);
+    box-sizing: border-box;
     color: #D7D9DA;
     background-color: #191C1D;
     border: 1px solid #2E3132;
