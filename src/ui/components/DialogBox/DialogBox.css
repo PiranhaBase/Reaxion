@@ -1,0 +1,90 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+[part="backdrop"] {
+    position: fixed;
+    z-index: 1;
+    inset: 0;
+    visibility: hidden;
+    opacity: 0;
+    background-color: #00000080;
+    transition: visibility 0.2s, opacity 0.2s;
+
+    &:has(:open) {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+[part="modal"] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    padding: 1.6em;
+    border-radius: 15px;
+    max-width: min(25rem, 80%);
+    max-height: 80%;
+    color: #D7D9DA;
+    background-color: #191C1D;
+    border: 1px solid #2E3132;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+    scale: 0.9;
+    transition: scale 0.2s;
+
+    &:open {
+        scale: 1;
+    }
+}
+
+[part="header"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    button {
+        border: none;
+        background-color: transparent;
+        color: inherit;
+        font-size: 1.1em;
+        display: grid;
+        place-items: center;
+
+        @media (any-hover: hover) and (pointer: fine) {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+[part="content"] {
+    overflow: auto;
+    overscroll-behavior: contain;
+}
+
+.shake {
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0% {
+        scale: 1;
+    }
+    25% {
+        scale: 1.01;
+    }
+    50% {
+        scale: 1;
+    }
+    75% {
+        scale: 1.01;
+    }
+    100% {
+        scale: 1;
+    }
+}

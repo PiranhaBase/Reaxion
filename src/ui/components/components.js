@@ -6,6 +6,7 @@ import "./FilterItem/FilterItem.js";
 import "./FilterBox/FilterBox.js";
 import "./FilterPill/FilterPill.js";
 import "./DropdownTrigger/DropdownTrigger.js";
+import "./DialogBox/DialogBox.js";
 import "./CodeSnippet/CodeSnippet.js";
 import "./ChemicalEquation/ChemicalEquation.js";
 import "./ReactionCard/ReactionCard.js";

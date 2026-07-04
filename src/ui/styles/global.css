@@ -316,6 +316,23 @@ filter-box {
     }
 }
 
+dialog-box {
+    &::part(backdrop) {
+        background-color: var(--color-shadow);
+    }
+    
+    &::part(modal) {
+        background-color: var(--color-bg-elevated);
+        border-color: var(--color-border-default);
+        scrollbar-color: var(--color-scroll-thumb)
+        var(--color-bg-elevated);
+    }
+
+    &::part(header) {
+        color: var(--color-text-faded);
+    }
+}
+
 filter-pill {
     &::part(base) {
         color: var(--color-text-muted);
