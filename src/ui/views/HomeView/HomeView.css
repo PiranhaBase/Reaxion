@@ -4,6 +4,10 @@ section {
     gap: 2rem;
 }
 
+.error {
+    color: var(--color-text-error);
+}
+
 .card {
     padding: 2rem;
     display: flex;

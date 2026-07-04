@@ -48,10 +48,16 @@ class HomeView extends HTMLElement {
         const fileInput = document.createElement("file-input");
         fileInput.setAttribute("accept", ".txt");
         fileInput.id = "batch-input";
+        const errorText = document.createElement("p");
+        errorText.classList.add("error");
+        errorText.id = "file-error";
+        errorText.hidden = true;
         const downloadButton = document.createElement("button");
+        downloadButton.id = "download-balanced";
+        downloadButton.disabled = true;
         downloadButton.classList.add("primary");
         downloadButton.textContent = "Download CSV";
-        batchDialog.append(text, fileInput, downloadButton);
+        batchDialog.append(text, fileInput, errorText, downloadButton);
 
         const outputCard = document.createElement("article");
         outputCard.classList.add("card", "accent");
@@ -80,6 +86,8 @@ class HomeView extends HTMLElement {
         input.addEventListener("keydown", this.onKeydown);
         batchButton.addEventListener("click", this.viewBatchDialog);
         balanceButton.addEventListener("click", this.renderBalanced);
+        fileInput.addEventListener("change", this.validateFile);
+        downloadButton.addEventListener("click", this.balanceBatch);
         copyButton.addEventListener("click", this.copyBalanced);
         document.addEventListener("reaction-selected", this.copyToBalancer);
     }
@@ -146,6 +154,24 @@ class HomeView extends HTMLElement {
         this.shadowRoot.getElementById("reaction-input").value = event.detail.reaction;
         this.shadowRoot.getElementById("reaction-output").textContent = "The balanced reaction appears here.";
     }
+
+    validateFile = (event) => {
+        const file = event.detail;
+        const errorText = this.shadowRoot.getElementById("file-error");
+        this.shadowRoot.getElementById("download-balanced").disabled = true;
+        if (!file) errorText.hidden = true;
+        else if (file.type !== "text/plain") {
+            event.target.clear();
+            errorText.hidden = false;
+            errorText.textContent = "File must be of plaintext (.txt) format";
+        }
+        else {
+            errorText.hidden = true;
+            this.shadowRoot.getElementById("download-balanced").disabled = false;
+        }
+    }
+
+    balanceBatch = (event) => {}
 }
 
 

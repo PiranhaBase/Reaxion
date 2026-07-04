@@ -10,8 +10,11 @@ class FileInput extends HTMLElement {
         this._internals = this.attachInternals();
     }
 
-    get file() {
-        return this.shadowRoot.querySelector("input").files[0];
+    clear() {
+        this.shadowRoot.querySelector("input").value = null;
+        this._internals.states.delete("uploaded");
+        this.shadowRoot.querySelector("[part='icon']").setAttribute("name", "upload");
+        this.shadowRoot.querySelector("[part='label']").textContent = "Upload file";
     }
 
     connectedCallback() {
@@ -54,6 +57,11 @@ class FileInput extends HTMLElement {
             labelText.textContent = "Upload file";
             this._internals.states.delete("uploaded");
         }
+        this.dispatchEvent(new CustomEvent("change", {
+            bubbles: true,
+            composed: true,
+            detail: file
+        }));
     }
 }
 
