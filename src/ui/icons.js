@@ -16,6 +16,7 @@ ICONS.replaceSync(`
         --src-search-icon: url(${ICON_DIR}search.svg);
         --src-filter-icon: url(${ICON_DIR}filter.svg);
         --src-upload-icon: url(${ICON_DIR}upload.svg);
+        --src-settings-icon: url(${ICON_DIR}settings.svg);
     }
     
     :root[data-theme="dark"] {

@@ -56,4 +56,8 @@
     &[data-icon="upload"] {
         mask-image: var(--src-upload-icon);
     }
+
+    &[data-icon="settings"] {
+        mask-image: var(--src-settings-icon);
+    }
 }
