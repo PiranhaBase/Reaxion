@@ -11,5 +11,6 @@ import "./FileInput/FileInput.js";
 import "./CodeSnippet/CodeSnippet.js";
 import "./ChemicalEquation/ChemicalEquation.js";
 import "./ReactionCard/ReactionCard.js";
+import "./ToggleSwitch/ToggleSwitch.js";
 import "./LoadingSpinner/LoadingSpinner.js";
 import "./VectorIcon/VectorIcon.js";

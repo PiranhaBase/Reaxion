@@ -1,0 +1,56 @@
+:host {
+    display: block;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+div[part="base"] {
+    display: flex;
+    align-items: center;
+    text-align: left;
+
+    label {
+        flex-grow: 1;
+        padding-right: 1em;
+    }
+
+    input {
+        font-size: inherit;
+        color: inherit;
+        appearance: none;
+        width: 2em;
+        height: 1em;
+        border-radius: 1em;
+        color: #BDBDBD;
+        display: flex;
+        align-items: center;
+        padding: 0 0.16em;
+        background-color: currentColor;
+        transition: color 0.2s;
+
+        &::after {
+            content: "";
+            width: 0.7em;
+            height: 0.7em;
+            border-radius: 50%;
+            color: #FFFFFF;
+            background-color: currentColor;
+            transition: translate 0.2s, color 0.2s;
+        }
+        
+        &:checked {
+            color: #609BCC;
+
+            &::after {
+                translate: 1em;
+            }
+        }
+        
+        @media (any-hover: hover) and (pointer: fine) {
+            cursor: pointer;
+        }
+    }
+}

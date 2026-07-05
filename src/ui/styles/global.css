@@ -357,6 +357,30 @@ file-input {
     }
 }
 
+toggle-switch {
+    &::part(base) {
+        color: var(--color-text-faded);
+    }
+
+    &::part(switch) {
+        color: var(--color-primary-muted);
+    }
+
+    &::part(switch)::after {
+        color: var(--color-text-on-primary);
+    }
+
+    &:state(checked) {
+        &::part(switch) {
+            color: var(--color-primary-light);
+        }
+
+        &::part(switch)::after {
+            color: var(--color-text-inverted);
+        }
+    }
+}
+
 code-snippet {
     &::part(base) {
         font-family: var(--font-monospace);
