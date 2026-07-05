@@ -48,24 +48,17 @@ class ChemicalEquation extends HTMLElement {
             const rhs = reaction.products.map(product => this.compoundHTML(product)).join(" + ");
             return `${lhs} <span class="reaction-arrow">--&gt;</span> ${rhs}`;
         }
-        
-        function coeffHTML(coeff) {
-            const coeffValue = Math.abs(coeff);
-            return (coeffValue === 1) ? "" : `<span part="coefficient">${coeffValue}</span>`;
-        }
+
+        const coeffHTML = (coeff) => (coeff === 1) ? "" : `<span part="coefficient">${coeff}</span>`;
         
         const lhs = [];
         const rhs = [];
-        const coeffs = reaction.balancedCoeffs().values();
-        for (const reactant of reaction.reactants) {
-            const coeff = coeffs.next().value;
-            if (coeff > 0) lhs.push(`${coeffHTML(coeff)}${this.compoundHTML(reactant)}`);
-            else rhs.push(`${coeffHTML(coeff)}${this.compoundHTML(reactant)}`);
+        const { reactants, products } = reaction.balanced();
+        for (const [reactant, coeff] of reactants) {
+            lhs.push(`${coeffHTML(coeff)}${this.compoundHTML(reactant)}`);
         }
-        for (const product of reaction.products) {
-            const coeff = coeffs.next().value;
-            if (coeff > 0) rhs.push(`${coeffHTML(coeff)}${this.compoundHTML(product)}`);
-            else lhs.push(`${coeffHTML(coeff)}${this.compoundHTML(product)}`);
+        for (const [product, coeff] of products) {
+            rhs.push(`${coeffHTML(coeff)}${this.compoundHTML(product)}`);
         }
         return `${lhs.join(" + ")} <span class="reaction-arrow">--&gt;</span> ${rhs.join(" + ")}`;
     }

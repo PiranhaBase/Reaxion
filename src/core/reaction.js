@@ -153,7 +153,7 @@ export default class Reaction {
         return elements;
     }
 
-    balancedCoeffs() {
+    balanced() {
         this.assertValidReaction();
 
         const equations = [];
@@ -171,8 +171,23 @@ export default class Reaction {
         equations.push(chargeEquation);
 
         try {
-            const solution = Matrix.solveHomogeneousSystem(equations);
-            return solution;
+            const coeffs = Matrix.solveHomogeneousSystem(equations).values();
+            const reactants = new Map();
+            const products = new Map();
+
+            for (const reactant of this.reactants) {
+                const coeff = coeffs.next().value;
+                if (coeff > 0) reactants.set(reactant, coeff);
+                else products.set(reactant, -coeff);
+            }
+
+            for (const product of this.products) {
+                const coeff = coeffs.next().value;
+                if (coeff > 0) products.set(product, coeff);
+                else reactants.set(product, -coeff);
+            }
+
+            return { reactants, products };
         }
         catch (error) {
             throw new Error("This reaction cannot be balanced for any non-zero coefficient");
