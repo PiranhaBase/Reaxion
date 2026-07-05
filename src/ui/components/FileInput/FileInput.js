@@ -10,6 +10,10 @@ class FileInput extends HTMLElement {
         this._internals = this.attachInternals();
     }
 
+    get file() {
+        return this.shadowRoot.querySelector("input").files[0];
+    }
+
     clear() {
         this.shadowRoot.querySelector("input").value = null;
         this._internals.states.delete("uploaded");

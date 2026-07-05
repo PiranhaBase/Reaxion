@@ -1,5 +1,6 @@
 import style from "./HomeView.css" with { type: "css" };
 import shared from "../../styles/global.css" with { type: "css" };
+import Reaction from "../../../core/reaction.js";
 
 
 class HomeView extends HTMLElement {
@@ -33,7 +34,7 @@ class HomeView extends HTMLElement {
         const cardFooter = document.createElement("footer");
         const batchButton = document.createElement("button");
         batchButton.classList.add("secondary");
-        batchButton.textContent = "Batch Balance";
+        batchButton.textContent = "Batch";
         const balanceButton = document.createElement("button");
         balanceButton.classList.add("primary");
         balanceButton.textContent = "Balance Reaction";
@@ -171,7 +172,58 @@ class HomeView extends HTMLElement {
         }
     }
 
-    balanceBatch = (event) => {}
+    compoundString(compound) {
+        const formula = [compound.formula];
+        const charge = compound.charge;
+        if (charge) formula.push(`^${Math.abs(charge)}${(charge > 0) ? "+" : "-"}`);
+        if (compound.state) formula.push(` (${compound.state})`);
+        return formula.join("");
+    }
+
+    reactionString(reaction, balanced=false) {
+        if (!balanced) {
+            const lhs = reaction.reactants.map(reactant => this.compoundString(reactant));
+            const rhs = reaction.products.map(product => this.compoundString(product));
+            return `${lhs.join(" + ")} --> ${rhs.join(" + ")}`;
+        }
+        
+        const { reactants, products } = reaction.balanced();
+        const lhs = [];
+        const rhs = [];
+        for (const [reactant, coeff] of reactants) {
+            lhs.push(`${(coeff === 1) ? "" : coeff}${this.compoundString(reactant)}`);
+        }
+        for (const [product, coeff] of products) {
+            rhs.push(`${(coeff === 1) ? "" : coeff}${this.compoundString(product)}`);
+        }
+        return `${lhs.join(" + ")} --> ${rhs.join(" + ")}`;
+    }
+
+    balanceBatch = async (event) => {
+        const batchInput = this.shadowRoot.getElementById("batch-input");
+        const fileContent = await batchInput.file.text();
+        const rows = ["Input reaction, Balanced reaction, Remarks"];
+        for (const reactionInput of fileContent.trim().split(/\s*\n\s*/)) {
+            const row = [];
+            try {
+                const reaction = new Reaction(reactionInput);
+                row.push(this.reactionString(reaction), this.reactionString(reaction, true), "Balanced");
+            }
+            catch (error) {
+                row.push(reactionInput, "-", error.message);
+            }
+            rows.push(row.map(entry => `"${entry.replace(/"/g, '""')}"`).join(","));
+        }
+        const balanced = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8;" });
+        const downloadLink = document.createElement("a");
+        downloadLink.href = URL.createObjectURL(balanced);
+        downloadLink.download = "balanced.csv";
+        downloadLink.hidden = true;
+        this.appendChild(downloadLink);
+        downloadLink.click();
+        downloadLink.remove();
+        batchInput.clear();
+    }
 }
 
 
