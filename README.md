@@ -63,7 +63,8 @@ The project is built with modular JavaScript and utilizes Web Components for the
 
 This project distributes optimized, local instances of the following open-source libraries:
 - [KaTeX](https://github.com/KaTeX/KaTeX) - Math and chemical formatting.
-- [Highlight.js](https://github.com/highlightjs/highlight.js) - Code block syntax highlighting.
+- [highlight](https://github.com/highlightjs/highlight.js) - Code block syntax highlighting.
+- [marked](https://github.com/markedjs/marked) - In-app markdown parsing.
 
 ## License
 
