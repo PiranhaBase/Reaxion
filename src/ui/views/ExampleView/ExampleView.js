@@ -27,11 +27,28 @@ class ExampleView extends HTMLElement {
 
         const viewOptions = document.createElement("search");
         viewOptions.classList.add("view-options");
+
         const searchBox = document.createElement("search-box");
         searchBox.setAttribute("placeholder", "Search reactions");
+
+        const settingsDropdown = document.createElement("dropdown-trigger");
+
         const settingsIcon = document.createElement("vector-icon");
         settingsIcon.setAttribute("name", "settings");
-        viewOptions.append(searchBox, settingsIcon);
+        settingsIcon.slot = "icon";
+
+        const settings = document.createElement("div");
+        settings.classList.add("card", "settings");
+        const settingsTitle = document.createElement("h5");
+        settingsTitle.textContent = "Options";
+        const stateToggle = document.createElement("toggle-switch");
+        stateToggle.textContent = "State labels";
+        stateToggle.setAttribute("checked", "");
+        settings.append(settingsTitle, stateToggle);
+
+        settingsDropdown.append(settingsIcon, settings);
+
+        viewOptions.append(searchBox, settingsDropdown);
 
         const filters = document.createElement("search");
 

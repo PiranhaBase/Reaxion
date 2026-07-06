@@ -14,9 +14,13 @@
         grid-column: 2;
     }
 
-    vector-icon {
+    dropdown-trigger {
         grid-column: 3;
         justify-self: end;
+
+        &::part(trigger) {
+            background-color: transparent;
+        }
     }
 
     @media screen and (max-width: 768px) {
@@ -33,9 +37,18 @@
     }
 }
 
+.settings {
+    padding: 1rem;
+    
+    h5 {
+        font-family: var(--font-sans-serif);
+        margin-bottom: 0.8rem;
+    }
+}
+
 vector-icon {
     font-size: 1.4rem;
-    color: var(--color-text-muted);
+    color: var(--color-text-faded);
 }
 
 #filter-pills {
