@@ -51,7 +51,10 @@ class ExampleView extends HTMLElement {
         typeToggle.textContent = "Reaction type";
         typeToggle.setAttribute("checked", "");
         typeToggle.id = "type-toggle";
-        settingsContent.append(stateToggle, typeToggle);
+        const compactToggle = document.createElement("toggle-switch");
+        compactToggle.textContent = "Compact view";
+        compactToggle.id = "compact-toggle";
+        settingsContent.append(stateToggle, typeToggle, compactToggle);
         settings.append(settingsTitle, settingsContent);
 
         settingsDropdown.append(settingsIcon, settings);
@@ -198,6 +201,9 @@ class ExampleView extends HTMLElement {
         const reactionCards = [];
         for (const example of examples) {
             const reactionCard = document.createElement("reaction-card");
+            if (this.shadowRoot.getElementById("compact-toggle").checked) {
+                reactionCard.setAttribute("compact", "");
+            }
             const reactionText = document.createElement("chemical-equation");
             if (this.shadowRoot.getElementById("state-toggle").checked) {
                 reactionText.textContent = example.reaction;

@@ -12,6 +12,7 @@ class ReactionCard extends HTMLElement {
     connectedCallback() {
         const card = document.createElement("article");
         card.part.add("base");
+        if (this.hasAttribute("compact")) card.dataset.compact = "";
         const content = document.createElement("div");
         content.classList.add("content");
         const reactionSlot = document.createElement("slot");

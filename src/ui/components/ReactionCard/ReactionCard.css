@@ -1,5 +1,6 @@
 :host {
     display: block;
+    interpolate-size: allow-keywords;
 }
 
 * {
@@ -14,6 +15,20 @@
     border: 1px solid #2E3132;
     border-left: 4px solid #37DCDC;
     transition: background-color 0.2s, border-color 0.2s;
+
+    footer {
+        margin-top: 0.4em;
+    }
+
+    &[data-compact] {
+        footer {
+            opacity: 0;
+            height: 0;
+            margin: 0;
+            transition: height 0.2s, opacity 0.1s, margin 0.2s;
+            transition-delay: 0.1s;
+        }
+    }
             
     @media screen and (max-width: 1024px) {
         padding: 1em;
@@ -23,6 +38,12 @@
         &:hover {
             cursor: pointer;
             background-color: #2F3537;
+
+            footer {
+                opacity: 1;
+                height: auto;
+                margin-top: 0.4em;
+            }
         }
     }
 }
@@ -46,7 +67,6 @@
 }
 
 footer {
-    margin-top: 0.4em;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
