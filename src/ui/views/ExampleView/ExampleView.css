@@ -1,23 +1,39 @@
- .filter-section {
-    search-box {
-        width: 70%;
-        margin: 0 auto;
+ search {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    margin: 3rem 0;
+}
 
-        @media screen and (max-width: 768px) {
-            width: 100%;
+.view-options {
+    display: grid;
+    grid-template-columns: 1fr 70% 1fr;
+
+    search-box {
+        grid-column: 2;
+    }
+
+    vector-icon {
+        grid-column: 3;
+        justify-self: end;
+    }
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+        justify-content: space-between;
+
+        search-box {
+            flex-grow: 1;
         }
     }
 
-    search {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 2rem;
-        margin: 3rem 0;
+    @media screen and (max-width: 576px) {
+        gap: 1rem;
     }
 }
 
-vector-icon[name="filter"] {
+vector-icon {
     font-size: 1.4rem;
     color: var(--color-text-muted);
 }

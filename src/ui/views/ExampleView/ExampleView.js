@@ -25,8 +25,13 @@ class ExampleView extends HTMLElement {
         const filterSection = document.createElement("section");
         filterSection.classList.add("filter-section");
 
+        const viewOptions = document.createElement("search");
+        viewOptions.classList.add("view-options");
         const searchBox = document.createElement("search-box");
         searchBox.setAttribute("placeholder", "Search reactions");
+        const settingsIcon = document.createElement("vector-icon");
+        settingsIcon.setAttribute("name", "settings");
+        viewOptions.append(searchBox, settingsIcon);
 
         const filters = document.createElement("search");
 
@@ -58,7 +63,7 @@ class ExampleView extends HTMLElement {
         const filterPillWrapper = document.createElement("search");
         filterPillWrapper.id = "filter-pills";
 
-        filterSection.append(searchBox, filters, filterPillWrapper);
+        filterSection.append(viewOptions, filters, filterPillWrapper);
 
         const exampleSection = document.createElement("section");
         exampleSection.id = "example-cards";
