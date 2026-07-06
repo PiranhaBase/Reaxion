@@ -151,7 +151,7 @@ button {
     &.secondary {
         color: var(--color-text-faded);
         background-color: transparent;
-        outline: 2px solid currentColor;
+        outline: 2px solid var(--color-border-light);
         outline-offset: -2px;
         transition: color 0.2s, outline-color 0.2s,
         background-color 0.2s, scale 0.2s;
@@ -191,7 +191,7 @@ copy-button {
 }
 
 nav-bar {
-    z-index: 1;
+    z-index: 3;
     position: sticky;
     top: 0;
     
@@ -207,7 +207,8 @@ nav-bar {
     }
 
     &::part(icon) {
-        color: var(--color-text-subtle);
+        font-size: 1.04em;
+        color: var(--color-text-faded);
     }
 
     &::part(backdrop) {

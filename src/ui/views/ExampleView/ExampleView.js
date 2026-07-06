@@ -12,7 +12,7 @@ class ExampleView extends HTMLElement {
         this.filterWorker = null;
         this.filterTimeoutId = null;
         this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [style, shared];
+        this.shadowRoot.adoptedStyleSheets = [shared, style];
     }
 
     connectedCallback() {

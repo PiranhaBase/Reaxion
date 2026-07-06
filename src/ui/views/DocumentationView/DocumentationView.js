@@ -16,7 +16,7 @@ class DocumentationView extends HTMLElement {
         super();
         this.initialized = false;
         this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [style, shared, katexStyle];
+        this.shadowRoot.adoptedStyleSheets = [katexStyle, shared, style];
         document.adoptedStyleSheets = [...document.adoptedStyleSheets, katexFonts];
     }
 

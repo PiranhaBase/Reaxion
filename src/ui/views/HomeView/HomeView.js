@@ -9,7 +9,7 @@ class HomeView extends HTMLElement {
         super();
         this.initialized = true;
         this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [style, shared];
+        this.shadowRoot.adoptedStyleSheets = [shared, style];
     }
 
     connectedCallback() {
