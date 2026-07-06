@@ -41,10 +41,18 @@ class ExampleView extends HTMLElement {
         settings.classList.add("card", "settings");
         const settingsTitle = document.createElement("h5");
         settingsTitle.textContent = "Options";
+        const settingsContent = document.createElement("div");
+        settingsContent.classList.add("content");
         const stateToggle = document.createElement("toggle-switch");
         stateToggle.textContent = "State labels";
         stateToggle.setAttribute("checked", "");
-        settings.append(settingsTitle, stateToggle);
+        stateToggle.id = "state-toggle";
+        const typeToggle = document.createElement("toggle-switch");
+        typeToggle.textContent = "Reaction type";
+        typeToggle.setAttribute("checked", "");
+        typeToggle.id = "type-toggle";
+        settingsContent.append(stateToggle, typeToggle);
+        settings.append(settingsTitle, settingsContent);
 
         settingsDropdown.append(settingsIcon, settings);
 
@@ -191,9 +199,14 @@ class ExampleView extends HTMLElement {
         for (const example of examples) {
             const reactionCard = document.createElement("reaction-card");
             const reactionText = document.createElement("chemical-equation");
-            reactionText.textContent = example.reaction;
+            if (this.shadowRoot.getElementById("state-toggle").checked) {
+                reactionText.textContent = example.reaction;
+            }
+            else reactionText.textContent = example.reaction.replace(/\s\([a-z]+\)/g, "");
             reactionCard.appendChild(reactionText);
-            reactionCard.setAttribute("type", example.type.toUpperCase());
+            if (this.shadowRoot.getElementById("type-toggle").checked) {
+                reactionCard.setAttribute("type", example.type.toUpperCase());
+            }
             reactionCard.setAttribute("category", example.categories.join(","));
             reactionCards.push(reactionCard);
         }

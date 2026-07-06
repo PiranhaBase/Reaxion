@@ -42,7 +42,13 @@
     
     h5 {
         font-family: var(--font-sans-serif);
-        margin-bottom: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }
 
