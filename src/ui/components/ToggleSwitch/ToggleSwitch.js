@@ -44,12 +44,6 @@ class ToggleSwitch extends HTMLElement {
 
     toggle = (event) => {
         this.checked = this.shadowRoot.querySelector("input").checked;
-        this.dispatchEvent(new CustomEvent("change", {
-            bubbles: true,
-            composed: true,
-            detail: { checked: this.checked }
-        }));
-        event.stopPropagation();
     }
 }
 
