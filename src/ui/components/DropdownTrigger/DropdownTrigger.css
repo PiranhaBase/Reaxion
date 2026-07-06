@@ -25,7 +25,7 @@ button[part="trigger"] {
         transition: rotate 0.2s;
     }
 
-    ::slotted(*) {
+    :not(slot[name])::slotted(*) {
         z-index: 2;
         position: absolute;
         position-anchor: --dropdown-anchor;
@@ -54,7 +54,7 @@ button[part="trigger"] {
             rotate: 180deg;
         }
 
-        ::slotted(*) {
+        :not(slot[name])::slotted(*) {
             opacity: 1;
             visibility: visible;
             transform: unset;
