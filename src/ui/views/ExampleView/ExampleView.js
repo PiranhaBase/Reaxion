@@ -54,7 +54,10 @@ class ExampleView extends HTMLElement {
         const compactToggle = document.createElement("toggle-switch");
         compactToggle.textContent = "Compact view";
         compactToggle.id = "compact-toggle";
-        settingsContent.append(stateToggle, typeToggle, compactToggle);
+        const expandToggle = document.createElement("toggle-switch");
+        expandToggle.textContent = "Expand on hover / long-press";
+        expandToggle.id = "expand-toggle";
+        settingsContent.append(stateToggle, typeToggle, compactToggle, expandToggle);
         settings.append(settingsTitle, settingsContent);
 
         settingsDropdown.append(settingsIcon, settings);
@@ -203,6 +206,9 @@ class ExampleView extends HTMLElement {
             const reactionCard = document.createElement("reaction-card");
             if (this.shadowRoot.getElementById("compact-toggle").checked) {
                 reactionCard.setAttribute("compact", "");
+                if (this.shadowRoot.getElementById("expand-toggle").checked) {
+                    reactionCard.setAttribute("auto-expand", "");
+                }
             }
             const reactionText = document.createElement("chemical-equation");
             if (this.shadowRoot.getElementById("state-toggle").checked) {

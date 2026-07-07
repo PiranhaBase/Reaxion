@@ -442,6 +442,10 @@ reaction-card {
         }
     }
 
+    &::part(base):active {
+        background-color: var(--color-bg-depressed);
+    }
+
     &::part(reaction-type), &::part(chevron) {
         color: var(--color-text-faded);
     }
