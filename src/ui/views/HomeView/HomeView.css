@@ -39,6 +39,12 @@ dialog-box {
         gap: 1.2rem;
         justify-content: flex-end;
         align-items: center;
+
+        @media screen and (max-width: 576px) {
+            button {
+                flex-grow: 1;
+            }
+        }
     }
 
     label {

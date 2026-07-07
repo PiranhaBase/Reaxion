@@ -151,7 +151,7 @@ button {
     &.secondary {
         color: var(--color-text-faded);
         background-color: transparent;
-        outline: 2px solid var(--color-border-light);
+        outline: 2px solid currentColor;
         outline-offset: -2px;
         transition: color 0.2s, outline-color 0.2s,
         background-color 0.2s, scale 0.2s;

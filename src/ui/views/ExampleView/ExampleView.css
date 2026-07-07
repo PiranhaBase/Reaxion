@@ -25,6 +25,7 @@
 
     @media screen and (max-width: 768px) {
         display: flex;
+        flex-wrap: nowrap;
         justify-content: space-between;
 
         search-box {
