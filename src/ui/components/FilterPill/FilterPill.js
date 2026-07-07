@@ -7,30 +7,50 @@ class FilterPill extends HTMLElement {
         this.target = null;
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
-    }
 
-    connectedCallback() {
         const base = document.createElement("div");
-        base.setAttribute("part", "base");
+        base.part.add("base");
 
-        const text = document.createElement("span");
-        text.textContent = this.textContent;
+        const label = document.createElement("span");
 
         const clearButton = document.createElement("button");
         clearButton.addEventListener("click", this.dispatchRemoveEvent);
 
         const clearIcon = document.createElement("vector-icon");
-        clearIcon.setAttribute("name", "close");
+        clearIcon.name = "close";
 
-        clearButton.appendChild(clearIcon);
+        clearButton.append(clearIcon);
 
-        this.replaceChildren();
-        base.append(text, clearButton);
-        this.shadowRoot.appendChild(base);
+        base.append(label, clearButton);
+        this.shadowRoot.append(base);
+    }
+
+    static get observedAttributes() {
+        return ["label"];
+    }
+
+    connectedCallback() {
+        if (this.hasOwnProperty("label")) {
+            const label = this.label;
+            delete this.label;
+            this.label = label;
+        }
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.shadowRoot.querySelector("span").textContent = newValue || "";
     }
 
     disconnectedCallback() {
         this.shadowRoot.querySelector("button").removeEventListener("click", this.dispatchRemoveEvent);
+    }
+
+    get label() {
+        return this.getAttribute("label");
+    }
+
+    set label(value) {
+        this.setAttribute("label", value);
     }
 
     dispatchRemoveEvent = (event) => {

@@ -7,11 +7,11 @@
     margin: 0;
 }
 
-pre[part="base"] {
+[part="base"] {
     color: #EDEDED;
     border-radius: 10px;
     overflow: hidden;
-    scrollbar-color: #767676 #22272E;
+    scrollbar-color: #767676 transparent;
 
     header {
         display: flex;

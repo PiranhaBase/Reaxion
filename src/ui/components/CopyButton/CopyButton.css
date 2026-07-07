@@ -7,7 +7,7 @@
     margin: 0;
 }
 
-button {
+[part="base"] {
     border: none;
     font-size: 0.85em;
     color: inherit;

@@ -6,18 +6,23 @@ class LoadingSpinner extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+
+        const svgNs = "http://www.w3.org/2000/svg";
         
-        const wrapper = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        const spinner = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        const track = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        const stroke = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        track.part.add("track");
-        stroke.part.add("stroke");
-        spinner.append(track, stroke);
+        const wrapper = document.createElementNS(svgNs, "svg");
         wrapper.setAttribute("viewBox", "0 0 100 100");
-        wrapper.appendChild(spinner);
-        this.setAttribute("role", "status");
-        this.shadowRoot.appendChild(wrapper);
+
+        const spinner = document.createElementNS(svgNs, "g");
+
+        const track = document.createElementNS(svgNs, "circle");
+        track.part.add("track");
+
+        const stroke = document.createElementNS(svgNs, "circle");
+        stroke.part.add("stroke");
+
+        spinner.append(track, stroke);
+        wrapper.append(spinner);
+        this.shadowRoot.append(wrapper);
     }
 
     static get observedAttributes() {
@@ -25,15 +30,31 @@ class LoadingSpinner extends HTMLElement {
     }
 
     connectedCallback() {
-        this.setAttribute("aria-label", this.textContent || "Loading");
-        this.replaceChildren();
+        this.setAttribute("role", "status");
+
+        if (this.hasOwnProperty("active")) {
+            const active = this.active;
+            delete this.active;
+            this.active = active;
+        }
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        if (newValue === null) {
-            this.shadowRoot.querySelector("svg").removeAttribute("active");
+        if (name === "active") {
+            if (newValue !== null) {
+                this.shadowRoot.querySelector("svg").dataset.active = "";
+            }
+            else delete this.shadowRoot.querySelector("svg").dataset.active;
         }
-        else this.shadowRoot.querySelector("svg").setAttribute("active", "");
+    }
+
+    get active() {
+        return this.hasAttribute("active");
+    }
+
+    set active(value) {
+        if (value) this.setAttribute("active", "");
+        else this.removeAttribute("active");
     }
 }
 

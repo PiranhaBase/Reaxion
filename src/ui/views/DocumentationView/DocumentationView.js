@@ -72,7 +72,7 @@ class DocumentationView extends HTMLElement {
 
             renderer: {
                 code(token) {
-                    return `<code-snippet lang="${token.lang || "plaintext"}">${token.text}</code-snippet>`;
+                    return `<code-snippet language="${token.lang || "plaintext"}">${token.text}</code-snippet>`;
                 }
             }
         });

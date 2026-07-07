@@ -7,6 +7,53 @@ class SearchBox extends HTMLElement {
         super();
         this.attachShadow({ mode: "open", delegatesFocus: true });
         this.shadowRoot.adoptedStyleSheets = [style];
+
+        const wrapper = document.createElement("div");
+        wrapper.part.add("base");
+
+        const searchIcon = document.createElement("vector-icon");
+        searchIcon.name = "search";
+        searchIcon.part.add("search-icon");
+
+        const input = document.createElement("input");
+        input.part.add("input");
+        input.type = "text";
+        input.name = "search";
+        input.placeholder = "";
+
+        const clearButton = document.createElement("button");
+        clearButton.ariaLabel = "Clear input";
+        clearButton.addEventListener("click", this.clearInput);
+
+        const clearIcon = document.createElement("vector-icon");
+        clearIcon.name = "close";
+
+        clearButton.appendChild(clearIcon);
+        clearButton.part.add("clear-icon");
+
+        wrapper.append(searchIcon, input, clearButton);
+
+        this.shadowRoot.appendChild(wrapper);
+    }
+
+    static get observedAttributes() {
+        return ["placeholder"];
+    }
+
+    connectedCallback() {
+        if (this.hasOwnProperty("placeholder")) {
+            const text = this.placeholder;
+            delete this.placeholder;
+            this.placeholder = text;
+        }
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.shadowRoot.querySelector("input").placeholder = newValue || "";
+    }
+
+    disconnectedCallback() {
+        this.shadowRoot.querySelector("button").removeEventListener("click", this.clearInput);
     }
 
     get value() {
@@ -17,33 +64,12 @@ class SearchBox extends HTMLElement {
         this.shadowRoot.querySelector("input").value = newValue;
     }
 
-    connectedCallback() {
-        const wrapper = document.createElement("search");
-        wrapper.setAttribute("part", "base");
-
-        const searchIcon = document.createElement("vector-icon");
-        searchIcon.setAttribute("name", "search");
-
-        const input = document.createElement("input");
-        input.setAttribute("part", "input");
-        input.setAttribute("type", "text");
-        input.setAttribute("name", "search");
-        input.setAttribute("placeholder", this.getAttribute("placeholder") ?? "");
-        this.removeAttribute("placeholder");
-
-        const clearButton = document.createElement("button");
-        clearButton.setAttribute("aria-label", "Clear input");
-        clearButton.addEventListener("click", this.clearInput);
-        const clearIcon = document.createElement("vector-icon");
-        clearIcon.setAttribute("name", "close");
-        clearButton.appendChild(clearIcon);
-
-        wrapper.append(searchIcon, input, clearButton);
-        this.shadowRoot.appendChild(wrapper);
+    get placeholder() {
+        return this.getAttribute("placeholder");
     }
 
-    disconnectedCallback() {
-        this.shadowRoot.querySelector("button").removeEventListener("click", this.clearInput);
+    set placeholder(text) {
+        this.setAttribute("placeholder", text);
     }
 
     clearInput = (event) => {

@@ -268,7 +268,7 @@ search-box {
 }
 
 dropdown-trigger {
-    &::part(trigger) {
+    &::part(base) {
         color: var(--color-text-muted);
         background-color: var(--color-bg-depressed);
     }
@@ -387,7 +387,7 @@ code-snippet {
         font-family: var(--font-monospace);
         color: var(--color-text-muted);
         scrollbar-color: var(--color-scroll-thumb)
-        var(--color-bg-snippet);
+        transparent;
     }
 
     &::part(copy-button):state(success) {
@@ -400,10 +400,6 @@ code-snippet {
 
     &::part(header) {
         background-color: var(--color-primary-muted);
-    }
-
-    &::part(snippet) {
-        background-color: var(--color-bg-snippet);
     }
 }
 

@@ -10,7 +10,7 @@
 svg {
     height: calc(2 * var(--outer-radius));
 
-    &:not([active]) {
+    &:not([data-active]) {
         display: none;
     }
 }

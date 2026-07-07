@@ -7,6 +7,11 @@ class VectorIcon extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+
+        const base = document.createElement("div");
+        base.part.add("base");
+
+        this.shadowRoot.appendChild(base);
     }
 
     static get observedAttributes() {
@@ -14,16 +19,26 @@ class VectorIcon extends HTMLElement {
     }
 
     connectedCallback() {
-        const base = document.createElement("div");
-        base.part.add("base");
-        base.dataset.icon = this.getAttribute("name").toLowerCase();
         this.ariaHidden = true;
-        this.shadowRoot.appendChild(base);
+
+        if (this.hasOwnProperty("name")) {
+            const name = this.name;
+            delete this.name;
+            this.name = name;
+        }
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        const base = this.shadowRoot.querySelector("[part='base']");
-        if (base) base.dataset.icon = newValue.toLowerCase();
+        const iconName = newValue.trim().toLowerCase();
+        this.shadowRoot.querySelector("[part='base']").dataset.icon = iconName;
+    }
+
+    get name() {
+        return this.getAttribute("name");
+    }
+
+    set name(newName) {
+        this.setAttribute("name", newName);
     }
 }
 

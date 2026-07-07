@@ -8,23 +8,66 @@ class ChemicalEquation extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+
+        const reaction = document.createElement("p");
+        reaction.classList.add("reaction-wrapper");
+        this.shadowRoot.append(reaction);
+    }
+
+    static get observedAttributes() {
+        return ["reaction", "balanced", "state-hidden"];
+    }
+
+    connectedCallback() {
+        for (const property of ["reaction", "balanced", "stateHidden"]) {
+            if (this.hasOwnProperty(property)) {
+                const propertyValue = this[property];
+                delete this[property];
+                this[property] = propertyValue;
+            }
+        }
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        const container = this.shadowRoot.querySelector(".reaction-wrapper");
+        try {
+            let reactionText = this.getAttribute("reaction") || "";
+            if (this.hasAttribute("state-hidden")) {
+                reactionText = reactionText.replace(/\s*\([a-z]+\)/g, "");
+            }
+            const reaction = new Reaction(reactionText);
+            container.innerHTML = this.reactionHTML(reaction, this.hasAttribute("balanced"));
+        }
+        catch (error) {
+            console.error(error);
+            container.innerHTML = this.errorHTML(error.message);
+        }
     }
 
     get reaction() {
         return this.shadowRoot.textContent;
     }
 
-    connectedCallback() {
-        const reaction = document.createElement("p");
-        try {
-            reaction.innerHTML = this.reactionHTML(new Reaction(this.textContent), this.hasAttribute("balanced"));
-        }
-        catch (error) {
-            console.error(error);
-            reaction.innerHTML = this.errorHTML(error.message);
-        }
-        this.shadowRoot.appendChild(reaction);
-        this.replaceChildren();
+    set reaction(value) {
+        this.setAttribute("reaction", value);
+    }
+
+    get balanced() {
+        return this.hasAttribute("balanced");
+    }
+
+    set balanced(value) {
+        if (value) this.setAttribute("balanced", "");
+        else this.removeAttribute("balanced");
+    }
+
+    get stateHidden() {
+        return this.hasAttribute("state-hidden");
+    }
+
+    set stateHidden(value) {
+        if (value) this.setAttribute("state-hidden", "");
+        else this.removeAttribute("state-hidden");
     }
 
     compoundHTML(compound) {

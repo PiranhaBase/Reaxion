@@ -34,7 +34,7 @@ class ExampleView extends HTMLElement {
         const settingsDropdown = document.createElement("dropdown-trigger");
 
         const settingsIcon = document.createElement("vector-icon");
-        settingsIcon.setAttribute("name", "settings");
+        settingsIcon.name = "settings";
         settingsIcon.slot = "icon";
 
         const settings = document.createElement("div");
@@ -44,18 +44,18 @@ class ExampleView extends HTMLElement {
         const settingsContent = document.createElement("div");
         settingsContent.classList.add("content");
         const stateToggle = document.createElement("toggle-switch");
-        stateToggle.textContent = "State labels";
-        stateToggle.setAttribute("checked", "");
+        stateToggle.label = "State labels";
+        stateToggle.checked = true;
         stateToggle.id = "state-toggle";
         const typeToggle = document.createElement("toggle-switch");
-        typeToggle.textContent = "Reaction type";
-        typeToggle.setAttribute("checked", "");
+        typeToggle.label = "Reaction type";
+        typeToggle.checked = true;
         typeToggle.id = "type-toggle";
         const compactToggle = document.createElement("toggle-switch");
-        compactToggle.textContent = "Compact view";
+        compactToggle.label = "Compact view";
         compactToggle.id = "compact-toggle";
         const expandToggle = document.createElement("toggle-switch");
-        expandToggle.textContent = "Expand on hover / long-press";
+        expandToggle.label = "Expand on hover / long-press";
         expandToggle.id = "expand-toggle";
         settingsContent.append(stateToggle, typeToggle, compactToggle, expandToggle);
         settings.append(settingsTitle, settingsContent);
@@ -67,27 +67,27 @@ class ExampleView extends HTMLElement {
         const filters = document.createElement("search");
 
         const filterIcon = document.createElement("vector-icon");
-        filterIcon.setAttribute("name", "filter");
+        filterIcon.name = "filter";
 
         const categoryDropdown = document.createElement("dropdown-trigger");
-        categoryDropdown.setAttribute("name", "Categories");
+        categoryDropdown.label = "Categories";
         const categoryFilters = document.createElement("filter-box");
         categoryFilters.id = "category-filters";
-        categoryFilters.setAttribute("search-placeholder", "Search categories");
-        categoryDropdown.appendChild(categoryFilters);
+        categoryFilters.searchPlaceholder = "Search categories";
+        categoryDropdown.append(categoryFilters);
 
         const elementDropdown = document.createElement("dropdown-trigger");
-        elementDropdown.setAttribute("name", "Elements");
+        elementDropdown.label = "Elements";
         const elementFilters = document.createElement("filter-box");
         elementFilters.id = "element-filters";
-        elementFilters.setAttribute("search-placeholder", "Type name, symbol or number");
-        elementDropdown.appendChild(elementFilters);
+        elementFilters.searchPlaceholder = "Type name, symbol or number";
+        elementDropdown.append(elementFilters);
 
         const typeDropdown = document.createElement("dropdown-trigger");
-        typeDropdown.setAttribute("name", "Type");
+        typeDropdown.label = "Type";
         const typeFilters = document.createElement("filter-box");
         typeFilters.id = "type-filters";
-        typeDropdown.appendChild(typeFilters);
+        typeDropdown.append(typeFilters);
 
         filters.append(filterIcon, categoryDropdown, elementDropdown, typeDropdown);
 
@@ -104,7 +104,7 @@ class ExampleView extends HTMLElement {
         loadSentinel.hidden = true;
 
         base.append(header, filterSection, exampleSection, loadSentinel);
-        this.shadowRoot.appendChild(base);
+        this.shadowRoot.append(base);
 
         filterSection.addEventListener("input", this.manageFilters);
         exampleSection.addEventListener("click", this.dispatchReaction);
@@ -124,28 +124,28 @@ class ExampleView extends HTMLElement {
         const categoryFilters = this.shadowRoot.getElementById("category-filters");
         for (const category of categories) {
             const filterItem = document.createElement("filter-item");
-            filterItem.textContent = category.name;
-            filterItem.setAttribute("value", category.name);
-            filterItem.setAttribute("pattern", category.name);
-            categoryFilters.appendChild(filterItem);
+            filterItem.label = category.name;
+            filterItem.value = category.name;
+            filterItem.pattern = category.name;
+            categoryFilters.append(filterItem);
         }
         
         const elementFilters = this.shadowRoot.getElementById("element-filters");
         for (const element of elements) {
             const filterItem = document.createElement("filter-item");
-            filterItem.textContent = element.name;
-            filterItem.setAttribute("value", element.symbol);
-            filterItem.setAttribute("pattern", `${element.number}|${element.symbol}|${element.name}`);
-            elementFilters.appendChild(filterItem);
+            filterItem.label = element.name;
+            filterItem.value = element.symbol;
+            filterItem.pattern = `${element.number}|${element.symbol}|${element.name}`;
+            elementFilters.append(filterItem);
         }
 
         const typeFilters = this.shadowRoot.getElementById("type-filters");
         const molecularFilter = document.createElement("filter-item");
-        molecularFilter.textContent = "Molecular";
-        molecularFilter.setAttribute("value", "Molecular");
+        molecularFilter.label = "Molecular";
+        molecularFilter.value = "Molecular";
         const ionicFilter = document.createElement("filter-item");
-        ionicFilter.textContent = "Ionic";
-        ionicFilter.setAttribute("value", "Ionic");
+        ionicFilter.label = "Ionic";
+        ionicFilter.value = "Ionic";
         typeFilters.append(molecularFilter, ionicFilter);
 
         this.filterWorker = new Worker(new URL("../../../workers/examples.js", import.meta.url));
@@ -159,8 +159,8 @@ class ExampleView extends HTMLElement {
             if (event.target.checked) {
                 const pill = document.createElement("filter-pill");
                 pill.target = event.target;
-                pill.textContent = event.target.value;
-                this.shadowRoot.getElementById("filter-pills").appendChild(pill);
+                pill.label = event.target.value;
+                this.shadowRoot.getElementById("filter-pills").append(pill);
             }
             else {
                 for (const pill of this.shadowRoot.getElementById("filter-pills").children) {
@@ -210,12 +210,12 @@ class ExampleView extends HTMLElement {
                     reactionCard.setAttribute("auto-expand", "");
                 }
             }
-            const reactionText = document.createElement("chemical-equation");
+            const equation = document.createElement("chemical-equation");
             if (this.shadowRoot.getElementById("state-toggle").checked) {
-                reactionText.textContent = example.reaction;
+                equation.reaction = example.reaction;
             }
-            else reactionText.textContent = example.reaction.replace(/\s\([a-z]+\)/g, "");
-            reactionCard.appendChild(reactionText);
+            else equation.reaction = example.reaction.replace(/\s\([a-z]+\)/g, "");
+            reactionCard.append(equation);
             if (this.shadowRoot.getElementById("type-toggle").checked) {
                 reactionCard.setAttribute("type", example.type.toUpperCase());
             }

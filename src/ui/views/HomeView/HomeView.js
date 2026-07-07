@@ -43,11 +43,11 @@ class HomeView extends HTMLElement {
 
         const batchDialog = document.createElement("dialog-box");
         batchDialog.id = "batch-dialog";
-        batchDialog.setAttribute("title", "Batch Balance");
+        batchDialog.label = "Batch Balance";
         const text = document.createElement("p");
         text.textContent = "Upload newline separated list of reactions in plaintext format.";
         const fileInput = document.createElement("file-input");
-        fileInput.setAttribute("accept", ".txt");
+        fileInput.accept = ".txt";
         fileInput.id = "batch-input";
         const errorText = document.createElement("p");
         errorText.classList.add("error");
@@ -81,7 +81,7 @@ class HomeView extends HTMLElement {
 
         base.append(header, balanceSection);
 
-        this.shadowRoot.appendChild(base);
+        this.shadowRoot.append(base);
 
         input.addEventListener("input", this.autocomplete);
         input.addEventListener("keydown", this.onKeydown);
@@ -133,10 +133,10 @@ class HomeView extends HTMLElement {
     }
 
     renderBalanced = (event) => {
-        const reaction = document.createElement("chemical-equation");
-        reaction.setAttribute("balanced", "");
-        reaction.textContent = this.shadowRoot.getElementById("reaction-input").value;
-        this.shadowRoot.getElementById("reaction-output").replaceChildren(reaction);
+        const equation = document.createElement("chemical-equation");
+        equation.reaction = this.shadowRoot.getElementById("reaction-input").value;
+        equation.balanced = true;
+        this.shadowRoot.getElementById("reaction-output").replaceChildren(equation);
     }
 
     copyBalanced = async (event) => {
@@ -219,7 +219,7 @@ class HomeView extends HTMLElement {
         downloadLink.href = URL.createObjectURL(balanced);
         downloadLink.download = "balanced.csv";
         downloadLink.hidden = true;
-        this.appendChild(downloadLink);
+        this.append(downloadLink);
         downloadLink.click();
         downloadLink.remove();
         batchInput.clear();

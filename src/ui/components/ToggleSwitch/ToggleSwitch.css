@@ -7,7 +7,7 @@
     margin: 0;
 }
 
-div[part="base"] {
+[part="base"] {
     display: flex;
     align-items: center;
     text-align: left;
