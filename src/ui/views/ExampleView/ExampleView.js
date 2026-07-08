@@ -106,6 +106,7 @@ class ExampleView extends HTMLElement {
         base.append(header, filterSection, exampleSection, loadSentinel);
         this.shadowRoot.append(base);
 
+        settingsContent.addEventListener("input", this.applyDisplayOptions);
         filterSection.addEventListener("input", this.manageFilters);
         exampleSection.addEventListener("click", this.dispatchReaction);
 
@@ -152,6 +153,25 @@ class ExampleView extends HTMLElement {
         this.filterWorker.postMessage(await fetchExamples());
         this.filterWorker.onmessage = (event) => this.renderExamples(event.data);
         this.updateFilters();
+    }
+
+    applyDisplayOptions = (event) => {
+        event.stopPropagation();
+
+        const cardContainer = this.shadowRoot.getElementById("example-cards");
+
+        const stateHidden = !this.shadowRoot.getElementById("state-toggle").checked;
+        const typeHidden = !this.shadowRoot.getElementById("type-toggle").checked;
+        const compact = this.shadowRoot.getElementById("compact-toggle").checked;
+        const autoExpand = this.shadowRoot.getElementById("expand-toggle").checked;
+
+        for (const card of cardContainer.querySelectorAll("reaction-card")) {
+            const equation = card.querySelector("chemical-equation");
+            equation.stateHidden = stateHidden;
+            card.typeHidden = typeHidden;
+            card.compact = compact;
+            card.autoExpand = autoExpand;
+        }
     }
 
     manageFilters = (event) => {
@@ -202,24 +222,25 @@ class ExampleView extends HTMLElement {
 
     renderExamples({ examples, finished }) {
         const reactionCards = [];
+
+        const stateHidden = !this.shadowRoot.getElementById("state-toggle").checked;
+        const typeHidden = !this.shadowRoot.getElementById("type-toggle").checked;
+        const compact = this.shadowRoot.getElementById("compact-toggle").checked;
+        const autoExpand = this.shadowRoot.getElementById("expand-toggle").checked;
+
         for (const example of examples) {
             const reactionCard = document.createElement("reaction-card");
-            if (this.shadowRoot.getElementById("compact-toggle").checked) {
-                reactionCard.setAttribute("compact", "");
-                if (this.shadowRoot.getElementById("expand-toggle").checked) {
-                    reactionCard.setAttribute("auto-expand", "");
-                }
-            }
-            const equation = document.createElement("chemical-equation");
-            if (this.shadowRoot.getElementById("state-toggle").checked) {
-                equation.reaction = example.reaction;
-            }
-            else equation.reaction = example.reaction.replace(/\s\([a-z]+\)/g, "");
-            reactionCard.append(equation);
-            if (this.shadowRoot.getElementById("type-toggle").checked) {
-                reactionCard.setAttribute("type", example.type.toUpperCase());
-            }
+            reactionCard.setAttribute("type", example.type.toUpperCase());
             reactionCard.setAttribute("category", example.categories.join(","));
+            reactionCard.typeHidden = typeHidden;
+            reactionCard.compact = compact;
+            reactionCard.autoExpand = autoExpand;
+
+            const equation = document.createElement("chemical-equation");
+            equation.reaction = example.reaction;
+            equation.stateHidden = stateHidden;
+
+            reactionCard.append(equation);
             reactionCards.push(reactionCard);
         }
 
