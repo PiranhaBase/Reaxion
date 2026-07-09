@@ -7,7 +7,7 @@
     margin: 0;
 }
 
-div[part="base"] {
+[part="base"] {
     padding: 0.6em;
     border-radius: 15px;
     color: #D7D9DA;
@@ -25,7 +25,7 @@ div[part="base"] {
         margin-bottom: 1.2em;
     }
 
-    div[part="options"] {
+    [part="options"] {
         max-height: 8em;
         overflow-y: auto;
         scrollbar-width: thin;

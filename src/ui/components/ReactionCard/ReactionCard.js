@@ -1,38 +1,35 @@
 import style from "./ReactionCard.css" with { type: "css" };
 
 
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <article part="base">
+        <div class="content">
+            <slot></slot>
+            <h6 part="reaction-type"></h6>
+        </div>
+        <footer>
+            <div class="categories"></div>
+            <vector-icon name="chevron" part="chevron"></vector-icon>
+        </footer>
+    </article>
+`;
+
+
 class ReactionCard extends HTMLElement {
 
     constructor() {
         super();
-        this.pressTimeout = null;
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
 
-        const card = document.createElement("article");
-        card.part.add("base");
+        this._base = this.shadowRoot.querySelector("[part='base']");
+        this._reactionType = this.shadowRoot.querySelector("[part='reaction-type']");
+        this._categoryContainer = this.shadowRoot.querySelector(".categories");
 
-        const content = document.createElement("div");
-        content.classList.add("content");
-
-        const reactionSlot = document.createElement("slot");
-        const reactionType = document.createElement("h6");
-        reactionType.part.add("reaction-type");
-
-        content.append(reactionSlot, reactionType);
-
-        const footer = document.createElement("footer");
-
-        const categoryWrapper = document.createElement("div");
-        categoryWrapper.classList.add("categories");
-        const chevron = document.createElement("vector-icon");
-        chevron.setAttribute("name", "chevron");
-        chevron.part.add("chevron");
-
-        footer.append(categoryWrapper, chevron);
-
-        card.append(content, footer);
-        this.shadowRoot.append(card);
+        this._pressTimeout = null;
     }
 
     static get observedAttributes() {
@@ -51,58 +48,54 @@ class ReactionCard extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "type") {
-            this.shadowRoot.querySelector("[part='reaction-type']").textContent = newValue || "";
+            this._reactionType.textContent = newValue || "";
         }
 
         else if (name === "category") {
-            const wrapper = this.shadowRoot.querySelector(".categories");
-            wrapper.replaceChildren();
+            this._categoryContainer.replaceChildren();
             if (!newValue) return;
             for (const categoryName of newValue.trim().split(/\s*,\s*/)) {
                 const category = document.createElement("span");
                 category.part.add("category");
                 category.textContent = categoryName;
-                wrapper.append(category);
+                this._categoryContainer.append(category);
             }
         }
 
         else if (name === "compact") {
             if (newValue !== null) {
-                this.shadowRoot.querySelector("[part='base']").dataset.compact = "";
+                this._base.dataset.compact = "";
             }
-            else delete this.shadowRoot.querySelector("[part='base']").dataset.compact;
+            else delete this._base.dataset.compact;
         }
         
         else if (name === "auto-expand") {
-            const card = this.shadowRoot.querySelector("[part='base']");
             if (newValue !== null) {
-                card.addEventListener("touchstart", this.expandCard);
-                card.addEventListener("touchend", this.cancelExpansion);
-                card.addEventListener("touchmove", this.cancelExpansion);
-                card.addEventListener("touchcancel", this.cancelExpansion);
-                card.dataset.autoExpand = "";
+                this._base.addEventListener("touchstart", this.expandCard);
+                this._base.addEventListener("touchend", this.cancelExpansion);
+                this._base.addEventListener("touchmove", this.cancelExpansion);
+                this._base.addEventListener("touchcancel", this.cancelExpansion);
+                this._base.dataset.autoExpand = "";
             }
             else {
-                card.removeEventListener("touchstart", this.expandCard);
-                card.removeEventListener("touchend", this.cancelExpansion);
-                card.removeEventListener("touchmove", this.cancelExpansion);
-                card.removeEventListener("touchcancel", this.cancelExpansion);
-                delete card.dataset.autoExpand;
+                this._base.removeEventListener("touchstart", this.expandCard);
+                this._base.removeEventListener("touchend", this.cancelExpansion);
+                this._base.removeEventListener("touchmove", this.cancelExpansion);
+                this._base.removeEventListener("touchcancel", this.cancelExpansion);
+                delete this._base.dataset.autoExpand;
             }
         }
 
         else if (name === "type-hidden") {
-            const reactionType = this.shadowRoot.querySelector("[part='reaction-type']");
-            reactionType.hidden = this.hasAttribute("type-hidden");
+            this._reactionType.hidden = this.hasAttribute("type-hidden");
         }
     }
 
     disconnectedCallback() {
-        const card = this.shadowRoot.querySelector("[part='base']");
-        card.removeEventListener("touchstart", this.expandCard);
-        card.removeEventListener("touchend", this.cancelExpansion);
-        card.removeEventListener("touchmove", this.cancelExpansion);
-        card.removeEventListener("touchcancel", this.cancelExpansion);
+        this._base.removeEventListener("touchstart", this.expandCard);
+        this._base.removeEventListener("touchend", this.cancelExpansion);
+        this._base.removeEventListener("touchmove", this.cancelExpansion);
+        this._base.removeEventListener("touchcancel", this.cancelExpansion);
     }
 
     get type() {
@@ -149,15 +142,15 @@ class ReactionCard extends HTMLElement {
     }
 
     expandCard = (event) => {
-        clearTimeout(this.pressTimeout);
-        this.pressTimeout = setTimeout(() => {
+        clearTimeout(this._pressTimeout);
+        this._pressTimeout = setTimeout(() => {
             this.removeAttribute("compact");
             this.removeAttribute("auto-expand");
         }, 400);
     }
 
     cancelExpansion = (event) => {
-        clearTimeout(this.pressTimeout);
+        clearTimeout(this._pressTimeout);
     }
 }
 

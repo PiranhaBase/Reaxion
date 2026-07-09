@@ -8,10 +8,6 @@ class ChemicalEquation extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
-
-        const reaction = document.createElement("p");
-        reaction.classList.add("reaction-wrapper");
-        this.shadowRoot.append(reaction);
     }
 
     static get observedAttributes() {
@@ -29,18 +25,17 @@ class ChemicalEquation extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        const container = this.shadowRoot.querySelector(".reaction-wrapper");
         try {
             let reactionText = this.getAttribute("reaction") || "";
             if (this.hasAttribute("state-hidden")) {
                 reactionText = reactionText.replace(/\s*\([a-z]+\)/g, "");
             }
             const reaction = new Reaction(reactionText);
-            container.innerHTML = this.reactionHTML(reaction, this.hasAttribute("balanced"));
+            this.shadowRoot.innerHTML = this.reactionHTML(reaction, this.hasAttribute("balanced"));
         }
         catch (error) {
             console.error(error);
-            container.innerHTML = this.errorHTML(error.message);
+            this.shadowRoot.innerHTML = this.errorHTML(error.message);
         }
     }
 

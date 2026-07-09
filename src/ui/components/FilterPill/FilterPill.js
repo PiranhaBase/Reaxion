@@ -1,28 +1,32 @@
 import style from "./FilterPill.css" with { type: "css" };
 
+
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <div part="base">
+        <span></span>
+        <button>
+            <vector-icon name="close"></vector-icon>
+        </button>
+    </div>
+`;
+
+
 class FilterPill extends HTMLElement {
 
     constructor() {
         super();
-        this.target = null;
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
 
-        const base = document.createElement("div");
-        base.part.add("base");
+        this._label = this.shadowRoot.querySelector("span");
+        this._clearButton = this.shadowRoot.querySelector("button");
 
-        const label = document.createElement("span");
+        this._clearButton.addEventListener("click", this.dispatchRemoveEvent);
 
-        const clearButton = document.createElement("button");
-        clearButton.addEventListener("click", this.dispatchRemoveEvent);
-
-        const clearIcon = document.createElement("vector-icon");
-        clearIcon.setAttribute("name", "close");
-
-        clearButton.append(clearIcon);
-
-        base.append(label, clearButton);
-        this.shadowRoot.append(base);
+        this.target = null;
     }
 
     static get observedAttributes() {
@@ -38,11 +42,11 @@ class FilterPill extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        this.shadowRoot.querySelector("span").textContent = newValue || "";
+        this._label.textContent = newValue || "";
     }
 
     disconnectedCallback() {
-        this.shadowRoot.querySelector("button").removeEventListener("click", this.dispatchRemoveEvent);
+        this._clearButton.removeEventListener("click", this.dispatchRemoveEvent);
     }
 
     get label() {
@@ -55,10 +59,11 @@ class FilterPill extends HTMLElement {
 
     dispatchRemoveEvent = (event) => {
         event.stopPropagation();
+        
         this.dispatchEvent(new CustomEvent("input", {
             bubbles: true,
             composed: true,
-            detail: { name: this.shadowRoot.querySelector("span").textContent }
+            detail: { name: this._label.textContent }
         }));
     }
 }

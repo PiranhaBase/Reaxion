@@ -195,13 +195,13 @@ nav-bar {
     position: sticky;
     top: 0;
     
-    &::part(title) {
+    &::part(heading) {
         font-weight: 500;
         color: var(--color-primary);
     }
 
     [data-theme="dark"] & {
-        &::part(title) {
+        &::part(heading) {
             color: var(--color-text-base);
         }
     }
@@ -384,7 +384,6 @@ toggle-switch {
 
 code-snippet {
     &::part(base) {
-        font-family: var(--font-monospace);
         color: var(--color-text-muted);
         scrollbar-color: var(--color-scroll-thumb)
         transparent;
@@ -400,6 +399,10 @@ code-snippet {
 
     &::part(header) {
         background-color: var(--color-primary-muted);
+    }
+
+    &::part(snippet) {
+        font-family: var(--font-monospace);
     }
 }
 

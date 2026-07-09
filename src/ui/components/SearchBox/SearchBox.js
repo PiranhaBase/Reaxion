@@ -1,39 +1,31 @@
 import style from "./SearchBox.css" with { type: "css" };
 
 
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <div part="base">
+        <vector-icon name="search" part="search-icon"></vector-icon>
+        <input type="text" name="search" placeholder="" part="input">
+        <button aria-label="Clear input" part="clear-button">
+            <vector-icon name="close"></vector-icon>
+        </button>
+    </div>
+`;
+
+
 class SearchBox extends HTMLElement {
     
     constructor() {
         super();
         this.attachShadow({ mode: "open", delegatesFocus: true });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
 
-        const wrapper = document.createElement("div");
-        wrapper.part.add("base");
+        this._input = this.shadowRoot.querySelector("input");
+        this._clearButton = this.shadowRoot.querySelector("button");
 
-        const searchIcon = document.createElement("vector-icon");
-        searchIcon.setAttribute("name", "search");
-        searchIcon.part.add("search-icon");
-
-        const input = document.createElement("input");
-        input.part.add("input");
-        input.type = "text";
-        input.name = "search";
-        input.placeholder = "";
-
-        const clearButton = document.createElement("button");
-        clearButton.ariaLabel = "Clear input";
-        clearButton.addEventListener("click", this.clearInput);
-
-        const clearIcon = document.createElement("vector-icon");
-        clearIcon.setAttribute("name", "close");
-
-        clearButton.appendChild(clearIcon);
-        clearButton.part.add("clear-icon");
-
-        wrapper.append(searchIcon, input, clearButton);
-
-        this.shadowRoot.appendChild(wrapper);
+        this._clearButton.addEventListener("click", this.clearInput);
     }
 
     static get observedAttributes() {
@@ -49,19 +41,19 @@ class SearchBox extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        this.shadowRoot.querySelector("input").placeholder = newValue || "";
+        this._input.placeholder = newValue || "";
     }
 
     disconnectedCallback() {
-        this.shadowRoot.querySelector("button").removeEventListener("click", this.clearInput);
+        this._clearButton.removeEventListener("click", this.clearInput);
     }
 
     get value() {
-        return this.shadowRoot.querySelector("input").value;
+        return this._input.value;
     }
 
     set value(newValue) {
-        this.shadowRoot.querySelector("input").value = newValue;
+        this._input.value = newValue;
     }
 
     get placeholder() {
@@ -74,8 +66,10 @@ class SearchBox extends HTMLElement {
 
     clearInput = (event) => {
         event.stopPropagation();
+
         this.value = "";
-        this.shadowRoot.querySelector("input").focus();
+        this._input.focus();
+
         this.dispatchEvent(new CustomEvent("input", {
             composed: true,
             bubbles: true

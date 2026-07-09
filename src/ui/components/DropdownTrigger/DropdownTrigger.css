@@ -20,12 +20,16 @@
     background-color: #2F3537;
     anchor-name: --dropdown-anchor;
 
+    span:empty {
+        display: none;
+    }
+
     vector-icon {
         font-size: 1.2em;
         transition: rotate 0.2s;
     }
 
-    :not(slot[name])::slotted(*) {
+    slot:not([name])::slotted(*) {
         z-index: 2;
         position: absolute;
         position-anchor: --dropdown-anchor;
@@ -54,7 +58,7 @@
             rotate: 180deg;
         }
 
-        :not(slot[name])::slotted(*) {
+        slot:not([name])::slotted(*) {
             opacity: 1;
             visibility: visible;
             transform: unset;

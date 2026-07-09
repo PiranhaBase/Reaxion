@@ -1,29 +1,30 @@
 import style from "./FilterItem.css" with { type: "css" };
 
 
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <div part="base">
+        <label for="checkbox-input"></label>
+        <input type="checkbox" part="checkbox" id="checkbox-input">
+    </div>
+`;
+
+
 class FilterItem extends HTMLElement {
 
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
         this._internals = this.attachInternals();
 
-        const wrapper = document.createElement("div");
-        wrapper.part.add("base");
+        this._base = this.shadowRoot.querySelector("[part='base']");
+        this._label = this.shadowRoot.querySelector("label");
+        this._checkbox = this.shadowRoot.querySelector("input");
 
-        const label = document.createElement("label");
-        label.setAttribute("for", "checkbox-input");
-
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.part.add("checkbox");
-        checkbox.id = "checkbox-input";
-        checkbox.addEventListener("input", this.toggle);
-
-        wrapper.append(label, checkbox);
-
-        this.shadowRoot.append(wrapper);
+        this._checkbox.addEventListener("input", this.toggle);
     }
 
     static get observedAttributes() {
@@ -42,28 +43,30 @@ class FilterItem extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "label") {
-            this.shadowRoot.querySelector("label").textContent = newValue || "";
+            this._label.textContent = newValue || "";
         }
+
         else if (name === "checked") {
             if (newValue !== null) {
                 this._internals.states.add("checked");
-                this.shadowRoot.querySelector("input").checked = true;
+                this._checkbox.checked = true;
             }
             else {
                 this._internals.states.delete("checked");
-                this.shadowRoot.querySelector("input").checked = false;
+                this._checkbox.checked = false;
             }
         }
+
         else if (name === "hidden") {
             if (newValue !== null) {
-                this.shadowRoot.querySelector("[part='base']").hidden = true;
+                this._base.hidden = true;
             }
-            else this.shadowRoot.querySelector("[part='base']").hidden = false;
+            else this._base.hidden = false;
         }
     }
 
     disconnectedCallback() {
-        this.shadowRoot.querySelector("input").removeEventListener("input", this.toggle);
+        this._checkbox.removeEventListener("input", this.toggle);
     }
 
     get label() {

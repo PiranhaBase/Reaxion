@@ -1,6 +1,34 @@
 import style from "./NavigationBar.css" with { type: "css" };
 
 
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <header part="navbar-base">
+        <h1 part="heading"></h1>
+        <nav></nav>
+        <button class="theme" aria-label="Switch theme">
+            <vector-icon name="theme" part="icon"></vector-icon>
+        </button>
+        <button class="menu" aria-label="View sidebar">
+            <vector-icon name="menu" part="icon"></vector-icon>
+        </button>
+    </header>
+    <div part="backdrop"></div>
+    <aside part="sidebar-base">
+        <header>
+            <button class="theme" aria-label="Switch theme">
+                <vector-icon name="theme" part="icon"></vector-icon>
+            </button>
+            <button class="close" aria-label="Close sidebar">
+                <vector-icon name="close" part="icon"></vector-icon>
+            </button>
+        </header>
+        <nav></nav>
+    </aside>
+`;
+
+
 class NavigationLink extends HTMLElement {
 
     constructor() {
@@ -15,122 +43,108 @@ class NavigationBar extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
+
+        this._heading = this.shadowRoot.querySelector("[part='heading']")
+        this._themeButtons = [...this.shadowRoot.querySelectorAll("button.theme")];
+        this._menuButton = this.shadowRoot.querySelector("button.menu");
+        this._closeButton = this.shadowRoot.querySelector("button.close");
+        this._backdrop = this.shadowRoot.querySelector("[part='backdrop']");
+        this._sidebar = this.shadowRoot.querySelector("aside");
+        this._navbarLinks = this.shadowRoot.querySelector("header > nav");
+        this._sidebarLinks = this.shadowRoot.querySelector("aside > nav");
+
+        this._activeView = null;
     }
 
-    get view() {
-        return this.shadowRoot.querySelector("[part~='active-link']").dataset.view;
-    }
-
-    set view(targetView) {
-        this.shadowRoot.querySelectorAll(`[part~="active-link"]`).forEach(link => {
-            link.part.remove("active-link");
-        });
-        this.shadowRoot.querySelectorAll(`[data-view="${targetView}"]`).forEach(link => {
-            link.part.add("active-link");
-        });
+    static get observedAttributes() {
+        return ["heading"];
     }
 
     connectedCallback() {
-        const navBar = document.createElement("header");
-        navBar.setAttribute("part", "navbar-base");
-        const sideBar = document.createElement("aside");
-        sideBar.setAttribute("part", "sidebar-base");
-        const navLinks = document.createElement("nav");
-        const sideLinks = document.createElement("nav");
         for (const link of this.querySelectorAll("nav-link")) {
-            const navLink = document.createElement("a");
-            navLink.textContent = link.textContent;
-            navLink.part.add("navbar-link");
-            if (link.hasAttribute("active")) navLink.part.add("active-link");
-            navLink.dataset.view = link.getAttribute("view");
-            navLinks.appendChild(navLink);
-            const sideLink = navLink.cloneNode(true);
-            sideLink.part.remove("navbar-link");
-            sideLink.part.add("sidebar-link");
-            sideLinks.appendChild(sideLink);
+            const navbarLink = document.createElement("a");
+            navbarLink.textContent = link.textContent;
+            navbarLink.dataset.view = link.getAttribute("view");
+
+            if (link.hasAttribute("active")) {
+                navbarLink.part.add("active-link");
+                this._activeView = navbarLink.dataset.view;
+            }
+            
+            navbarLink.part.add("navbar-link");
+            this._navbarLinks.appendChild(navbarLink);
+
+            const sidebarLink = navbarLink.cloneNode(true);
+            sidebarLink.part.remove("navbar-link");
+            sidebarLink.part.add("sidebar-link");
+            this._sidebarLinks.appendChild(sidebarLink);
+
             link.remove();
         }
-        const title = document.createElement("h1");
-        title.setAttribute("part", "title");
-        title.textContent = this.getAttribute("title") ?? "";
-        this.removeAttribute("title");
-        const sideHeader = document.createElement("header");
-        const themeButton = document.createElement("button");
-        const menuButton = document.createElement("button");
-        const closeButton = document.createElement("button");
-        themeButton.classList.add("theme");
-        menuButton.classList.add("menu");
-        closeButton.classList.add("close");
-        themeButton.setAttribute("aria-label", "Switch theme");
-        menuButton.setAttribute("aria-label", "View sidebar");
-        closeButton.setAttribute("aria-label", "Close sidebar");
-        const themeIcon = document.createElement("vector-icon");
-        const menuIcon = document.createElement("vector-icon");
-        const closeIcon = document.createElement("vector-icon");
-        themeIcon.part.add("icon");
-        menuIcon.part.add("icon");
-        closeIcon.part.add("icon");
-        themeIcon.setAttribute("name", "theme");
-        menuIcon.setAttribute("name", "menu");
-        closeIcon.setAttribute("name", "close");
-        themeButton.appendChild(themeIcon);
-        menuButton.appendChild(menuIcon);
-        closeButton.appendChild(closeIcon);
-        navBar.append(title, navLinks, themeButton, menuButton);
-        sideHeader.append(themeButton.cloneNode(true), closeButton);
-        sideBar.append(sideHeader, sideLinks);
-        const backdrop = document.createElement("div");
-        backdrop.part.add("backdrop");
-        this.shadowRoot.append(navBar, backdrop, sideBar);
-        menuButton.addEventListener("click", this.viewSidebar);
-        closeButton.addEventListener("click", this.hideSidebar);
-        backdrop.addEventListener("click", this.hideSidebar);
-        this.shadowRoot.querySelectorAll("button.theme").forEach(themeButton => {
-            themeButton.addEventListener("click", this.dispatchThemeEvent);
-        });
-        navLinks.addEventListener("click", this.dispatchNavigationEvent);
-        sideLinks.addEventListener("click", this.dispatchNavigationEvent);
+
+        this._menuButton.addEventListener("click", this.viewSidebar);
+        this._closeButton.addEventListener("click", this.hideSidebar);
+        this._themeButtons.forEach(button => button.addEventListener("click", this.notifyTheme));
+        this._backdrop.addEventListener("click", this.hideSidebar);
+        this._navbarLinks.addEventListener("click", this.notifyNavigation);
+        this._sidebarLinks.addEventListener("click", this.notifyNavigation);
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        this._heading.textContent = newValue || "";
     }
 
     disconnectedCallback() {
-        this.shadowRoot.querySelector("button.menu").removeEventListener("click", this.viewSidebar);
-        this.shadowRoot.querySelector("button.close").removeEventListener("click", this.hideSidebar);
-        this.shadowRoot.querySelector("[part='backdrop']").removeEventListener("click", this.hideSidebar);
-        this.shadowRoot.querySelectorAll("button.theme").forEach(themeButton => {
-            themeButton.removeEventListener("click", this.dispatchThemeEvent);
-        });
-        this.shadowRoot.querySelector("[part='navbar-base'] > nav").removeEventListener("click", this.dispatchNavigationEvent);
-        this.shadowRoot.querySelector("[part='sidebar-base'] > nav").removeEventListener("click", this.dispatchNavigationEvent);
+        this._menuButton.removeEventListener("click", this.viewSidebar);
+        this._closeButton.removeEventListener("click", this.hideSidebar);
+        this._themeButtons.forEach(button => button.removeEventListener("click", this.notifyTheme));
+        this._backdrop.removeEventListener("click", this.hideSidebar);
+        this._navbarLinks.removeEventListener("click", this.notifyNavigation);
+        this._sidebarLinks.removeEventListener("click", this.notifyNavigation);
+    }
+
+    get view() {
+        return this._activeView;
+    }
+
+    set view(targetView) {
+        this._activeView = targetView;
+
+        for (const link of [...this._navbarLinks.children, ...this._sidebarLinks.children]) {
+            if (link.part.contains("active-link")) link.part.remove("active-link");
+            if (link.dataset.view === targetView) link.part.add("active-link");
+        }
     }
 
     viewSidebar = (event) => {
-        this.shadowRoot.querySelector("[part='backdrop']").setAttribute("data-visible", "");
-        this.shadowRoot.querySelector("[part='sidebar-base']").setAttribute("data-visible", "");
+        this._sidebar.dataset.visible = "";
     }
 
     hideSidebar = (event) => {
-        this.shadowRoot.querySelector("[part='backdrop']").removeAttribute("data-visible");
-        this.shadowRoot.querySelector("[part='sidebar-base']").removeAttribute("data-visible", "");
+        delete this._sidebar.dataset.visible;
     }
 
-    dispatchThemeEvent = (event) => {
+    notifyTheme = (event) => {
         event.stopPropagation();
+
         this.dispatchEvent(new CustomEvent("theme-change", {
             bubbles: true,
             composed: true
         }));
     }
 
-    dispatchNavigationEvent = (event) => {
+    notifyNavigation = (event) => {
         event.stopPropagation();
-        if (!event.target.hasAttribute("part")) return;
+        if (!event.target.closest("[data-view]")) return;
         this.hideSidebar();
-        if (event.target.dataset.view === this.view) return;
+        if (event.target.dataset.view === this._activeView) return;
+
         this.dispatchEvent(new CustomEvent("view-navigation", {
             bubbles: true,
             composed: true,
             detail: {
-                currentView: this.view,
+                currentView: this._activeView,
                 targetView: event.target.dataset.view
             }
         }));

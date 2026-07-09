@@ -1,28 +1,27 @@
 import style from "./LoadingSpinner.css" with { type: "css" };
 
+
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g>
+            <circle part="track"></circle>
+            <circle part="stroke"></circle>
+        </g>
+    </svg>
+`;
+
+
 class LoadingSpinner extends HTMLElement {
     
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
 
-        const svgNs = "http://www.w3.org/2000/svg";
-        
-        const wrapper = document.createElementNS(svgNs, "svg");
-        wrapper.setAttribute("viewBox", "0 0 100 100");
-
-        const spinner = document.createElementNS(svgNs, "g");
-
-        const track = document.createElementNS(svgNs, "circle");
-        track.part.add("track");
-
-        const stroke = document.createElementNS(svgNs, "circle");
-        stroke.part.add("stroke");
-
-        spinner.append(track, stroke);
-        wrapper.append(spinner);
-        this.shadowRoot.append(wrapper);
+        this._spinner = this.shadowRoot.querySelector("svg");
     }
 
     static get observedAttributes() {
@@ -42,9 +41,9 @@ class LoadingSpinner extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "active") {
             if (newValue !== null) {
-                this.shadowRoot.querySelector("svg").dataset.active = "";
+                this._spinner.dataset.active = "";
             }
-            else delete this.shadowRoot.querySelector("svg").dataset.active;
+            else delete this._spinner.dataset.active;
         }
     }
 

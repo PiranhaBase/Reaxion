@@ -30,7 +30,7 @@ button {
     background-color: #00000080;
     transition: opacity 0.4s, visibility 0.4s;
 
-    &[data-visible] {
+    &:has(+ [data-visible]) {
         opacity: 1;
         visibility: visible;
     }

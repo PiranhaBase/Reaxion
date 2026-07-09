@@ -5,35 +5,32 @@ import javascript from "../../../../lib/highlight/languages/javascript.min.js";
 import githubDark from "../../../../lib/highlight/styles/github-dark.min.css" with { type: "css" };
 
 
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <div part="base">
+        <header part="header">
+            <h6>plaintext</h6>
+            <copy-button part="copy-button"></copy-button>
+        </header>
+        <pre><code part="snippet"></code></pre>
+    </div>
+`;
+
+
 class CodeSnippet extends HTMLElement {
     
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [githubDark, style];
+        this.shadowRoot.append(template.content.cloneNode(true));
 
-        const base = document.createElement("pre");
-        base.part.add("base");
+        this._title = this.shadowRoot.querySelector("h6");
+        this._copyButton = this.shadowRoot.querySelector("copy-button");
+        this._snippet = this.shadowRoot.querySelector("code");
 
-        const header = document.createElement("header");
-        header.part.add("header");
-
-        const title = document.createElement("h6");
-        title.textContent = "plaintext";
-
-        const copyButton = document.createElement("copy-button");
-        copyButton.part.add("copy-button");
-        copyButton.textContent = "Copy code";
-        copyButton.addEventListener("click", this.copyCode);
-
-        header.append(title, copyButton);
-
-        const snippet = document.createElement("code");
-        snippet.part.add("snippet");
-
-        base.append(header, snippet);
-
-        this.shadowRoot.appendChild(base);
+        this._copyButton.addEventListener("click", this.copyCode);
     }
 
     static get observedAttributes() {
@@ -41,11 +38,10 @@ class CodeSnippet extends HTMLElement {
     }
 
     connectedCallback() {
-        const snippet = this.shadowRoot.querySelector("code");
-        snippet.textContent = this.textContent.trim();
+        this._snippet.textContent = this.textContent.trim();
 
         try {
-            hljs.highlightElement(snippet);
+            hljs.highlightElement(this._snippet);
         }
         catch (error) {
             console.error(error);
@@ -61,11 +57,11 @@ class CodeSnippet extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        this.shadowRoot.querySelector("h6").textContent = newValue || "plaintext";
+        this._title.textContent = newValue || "plaintext";
     }
 
     disconnectedCallback() {
-        this.shadowRoot.querySelector("copy-button").removeEventListener("click", this.copyCode);
+        this._copyButton.removeEventListener("click", this.copyCode);
     }
 
     get language() {
@@ -78,12 +74,12 @@ class CodeSnippet extends HTMLElement {
 
     copyCode = async (event) => {
         try {
-            await navigator.clipboard.writeText(this.shadowRoot.querySelector("code").textContent);
-            this.shadowRoot.querySelector("copy-button").showFeedback(true);
+            await navigator.clipboard.writeText(this._snippet.textContent);
+            this._copyButton.showFeedback(true);
         }
         catch (error) {
             console.error(error);
-            this.shadowRoot.querySelector("copy-button").showFeedback(false);
+            this._copyButton.showFeedback(false);
         }
     }
 }

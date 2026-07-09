@@ -1,31 +1,31 @@
 import style from "./FileInput.css" with { type: "css" };
 
 
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <label part="base">
+        <input type="file">
+        <vector-icon name="upload" part="icon"></vector-icon>
+        <span part="label">Upload file</span>
+    </label>
+`;
+
+
 class FileInput extends HTMLElement {
 
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
         this._internals = this.attachInternals();
 
-        const wrapper = document.createElement("label");
-        wrapper.part.add("base");
+        this._input = this.shadowRoot.querySelector("input");
+        this._icon = this.shadowRoot.querySelector("vector-icon");
+        this._label = this.shadowRoot.querySelector("span");
 
-        const input = document.createElement("input");
-        input.type = "file";
-        input.addEventListener("change", this.updateState);
-
-        const icon = document.createElement("vector-icon");
-        icon.setAttribute("name", "upload");
-        icon.part.add("icon");
-
-        const label = document.createElement("span");
-        label.textContent = "Upload file";
-        label.part.add("label");
-
-        wrapper.append(input, icon, label);
-        this.shadowRoot.append(wrapper);
+        this._input.addEventListener("change", this.updateState);
     }
 
     static get observedAttributes() {
@@ -41,11 +41,11 @@ class FileInput extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        this.shadowRoot.querySelector("input").accept = this.hasAttribute("accept");
+        this._input.accept = this.hasAttribute("accept");
     }
 
     disconnectedCallback() {
-        this.shadowRoot.querySelector("input").removeEventListener("change", this.switchIcon);
+        this._input.removeEventListener("change", this.switchIcon);
     }
 
     get accept() {
@@ -57,29 +57,27 @@ class FileInput extends HTMLElement {
     }
 
     get file() {
-        return this.shadowRoot.querySelector("input").files[0];
+        return this._input.files[0];
     }
 
     clear() {
-        this.shadowRoot.querySelector("input").value = null;
-        this.shadowRoot.querySelector("[part='icon']").setAttribute("name", "upload");
-        this.shadowRoot.querySelector("[part='label']").textContent = "Upload file";
+        this._input.value = null;
+        this._icon.name = "upload";
+        this._label.textContent = "Upload file";
         this._internals.states.delete("uploaded");
     }
 
     updateState = (event) => {
-        const icon = this.shadowRoot.querySelector("[part='icon']");
-        const label = this.shadowRoot.querySelector("[part='label']");
         const file = event.target.files[0];
         
         if (file) {
-            icon.name = "check";
-            label.textContent = file.name;
+            this._icon.name = "check";
+            this._label.textContent = file.name;
             this._internals.states.add("uploaded");
         }
         else {
-            icon.name = "upload";
-            label.textContent = "Upload file";
+            this._icon.name = "upload";
+            this._label.textContent = "Upload file";
             this._internals.states.delete("uploaded");
         }
 

@@ -1,42 +1,42 @@
 import style from "./DialogBox.css" with { type: "css" };
 
 
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <div part="backdrop">
+        <dialog part="modal">
+            <header part="header">
+                <h3></h3>
+                <button>
+                    <vector-icon name="close"></vector-icon>
+                </button>
+            </header>
+            <article part="content">
+                <slot></slot>
+            </article>
+        </dialog>
+    </div>
+`;
+
+
 class DialogBox extends HTMLElement {
 
     constructor() {
         super();
-        this.animationTimeout = null;
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
 
-        const backdrop = document.createElement("div");
-        backdrop.part.add("backdrop");
-        backdrop.addEventListener("click", this.shakeDialog);
+        this._animationTimeout = null;
 
-        const dialog = document.createElement("dialog");
-        dialog.part.add("modal");
+        this._backdrop = this.shadowRoot.querySelector("[part='backdrop']");
+        this._title = this.shadowRoot.querySelector("h3");
+        this._closeButton = this.shadowRoot.querySelector("button");
+        this._dialog = this.shadowRoot.querySelector("dialog");
 
-        const header = document.createElement("header");
-        header.part.add("header");
-
-        const title = document.createElement("h3");
-
-        const closeButton = document.createElement("button");
-        const closeIcon = document.createElement("vector-icon");
-        closeIcon.setAttribute("name", "close");
-        closeButton.append(closeIcon);
-        closeButton.addEventListener("click", this.closeModal);
-
-        header.append(title, closeButton);
-
-        const content = document.createElement("article");
-        content.part.add("content");
-        const contentSlot = document.createElement("slot");
-        content.appendChild(contentSlot);
-
-        dialog.append(header, content);
-        backdrop.append(dialog);
-        this.shadowRoot.append(backdrop);
+        this._backdrop.addEventListener("click", this.shakeDialog);
+        this._closeButton.addEventListener("click", this.closeModal);
     }
 
     static get observedAttributes() {
@@ -52,12 +52,12 @@ class DialogBox extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        this.shadowRoot.querySelector("h3").textContent = newValue || "";
+        this._title.textContent = newValue || "";
     }
 
     disconnectedCallback() {
-        this.shadowRoot.querySelector("button").removeEventListener("click", this.closeModal);
-        this.shadowRoot.querySelector("[part='backdrop']").removeEventListener("click", this.shakeDialog);
+        this._closeButton.removeEventListener("click", this.closeModal);
+        this._backdrop.removeEventListener("click", this.shakeDialog);
     }
 
     get label() {
@@ -69,22 +69,23 @@ class DialogBox extends HTMLElement {
     }
 
     show() {
-        this.shadowRoot.querySelector("dialog").show();
+        this._dialog.show();
     }
 
     close() {
-        this.shadowRoot.querySelector("dialog").close();
+        this._dialog.close();
     }
 
     closeModal = (event) => this.close();
 
     shakeDialog = (event) => {
-        if (!event.target.matches("[part='backdrop']")) return;
-        const dialog = this.shadowRoot.querySelector("dialog");
-        dialog.classList.add("shake");
-        clearTimeout(this.animationTimeout)
-        this.animationTimeout = setTimeout(() => {
-            dialog.classList.remove("shake");
+        if (event.target !== this._backdrop) return;
+
+        this._dialog.classList.add("shake");
+
+        clearTimeout(this._animationTimeout);
+        this._animationTimeout = setTimeout(() => {
+            this._dialog.classList.remove("shake");
         }, 400);
     }
 }

@@ -1,32 +1,34 @@
 import style from "./CopyButton.css" with { type: "css" };
 
 
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <button part="base">
+        <vector-icon name="copy"></vector-icon>
+    </button>
+`;
+
+
 class CopyButton extends HTMLElement {
     
     constructor() {
         super();
         this.attachShadow({ mode: "open", delegatesFocus: true });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
         this._internals = this.attachInternals();
 
-        const button = document.createElement("button");
-        button.part.add("base");
-
-        const copyIcon = document.createElement("vector-icon");
-        copyIcon.setAttribute("name", "copy");
-
-        button.appendChild(copyIcon);
-        this.shadowRoot.appendChild(button);
+        this._icon = this.shadowRoot.querySelector("vector-icon");
     }
 
     showFeedback(success, duration=2000) {
-        const icon = this.shadowRoot.querySelector("vector-icon");
-        icon.name = (success) ? "check" : "cross";
+        this._icon.name = (success) ? "check" : "cross";
 
         this._internals.states.add((success) ? "success" : "failure");
 
         setTimeout(() => {
-            icon.name = "copy";
+            this._icon.name = "copy";
             this._internals.states.clear();
         }, duration);
     }

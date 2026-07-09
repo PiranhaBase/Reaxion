@@ -1,17 +1,22 @@
 import style from "./VectorIcon.css" with { type: "css" };
 
 
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <div part="base"></div>
+`;
+
+
 class VectorIcon extends HTMLElement {
 
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
 
-        const base = document.createElement("div");
-        base.part.add("base");
-
-        this.shadowRoot.appendChild(base);
+        this._base = this.shadowRoot.querySelector("[part='base']");
     }
 
     static get observedAttributes() {
@@ -29,8 +34,7 @@ class VectorIcon extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        const iconName = newValue.trim().toLowerCase();
-        this.shadowRoot.querySelector("[part='base']").dataset.icon = iconName;
+        this._base.dataset.icon = newValue.trim().toLowerCase();
     }
 
     get name() {

@@ -1,29 +1,29 @@
 import style from "./ToggleSwitch.css" with { type: "css" };
 
 
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <div part="base">
+        <label for="toggle-input"></label>
+        <input type="checkbox" part="switch" id="toggle-input">
+    </div>
+`;
+
+
 class ToggleSwitch extends HTMLElement {
 
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
         this._internals = this.attachInternals();
 
-        const wrapper = document.createElement("div");
-        wrapper.part.add("base");
+        this._label = this.shadowRoot.querySelector("label");
+        this._switch = this.shadowRoot.querySelector("input");
 
-        const label = document.createElement("label");
-        label.setAttribute("for", "toggle-input");
-
-        const toggle = document.createElement("input");
-        toggle.type = "checkbox";
-        toggle.id = "toggle-input";
-        toggle.part.add("switch");
-        toggle.addEventListener("input", this.toggle);
-
-        wrapper.append(label, toggle);
-
-        this.shadowRoot.append(wrapper);
+        this._switch.addEventListener("input", this.toggle);
     }
 
     static get observedAttributes() {
@@ -42,22 +42,23 @@ class ToggleSwitch extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "label") {
-            this.shadowRoot.querySelector("label").textContent = newValue || "";
+            this._label.textContent = newValue || "";
         }
+
         else if (name === "checked") {
             if (newValue !== null) {
                 this._internals.states.add("checked");
-                this.shadowRoot.querySelector("input").checked = true;
+                this._switch.checked = true;
             }
             else {
                 this._internals.states.delete("checked");
-                this.shadowRoot.querySelector("input").checked = false;
+                this._switch.checked = false;
             }
         }
     }
 
     disconnectedCallback() {
-        this.shadowRoot.querySelector("input").removeEventListener("change", this.toggle);
+        this._switch.removeEventListener("change", this.toggle);
     }
 
     get label() {

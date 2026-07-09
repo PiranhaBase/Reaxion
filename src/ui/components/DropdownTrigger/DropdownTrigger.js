@@ -1,30 +1,34 @@
 import style from "./DropdownTrigger.css" with { type: "css" };
 
+
+const template = document.createElement("template");
+
+template.innerHTML = `
+    <button part="base">
+        <span></span>
+        <slot name="icon">
+            <vector-icon name="dropdown"></vector-icon>
+        </slot>
+        <div class="backdrop"></div>
+        <slot></slot>
+    </button>
+`;
+
+
 class DropdownTrigger extends HTMLElement {
 
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
+        this.shadowRoot.append(template.content.cloneNode(true));
 
-        const trigger = document.createElement("button");
-        trigger.part.add("base");
-        trigger.addEventListener("click", this.toggleDropdown);
+        this._trigger = this.shadowRoot.querySelector("button");
+        this._text = this.shadowRoot.querySelector("span");
+        this._dropdownSlot = this.shadowRoot.querySelector("slot:not([name])");
 
-        const iconSlot = document.createElement("slot");
-        iconSlot.name = "icon";
-        const dropdownIcon = document.createElement("vector-icon");
-        dropdownIcon.setAttribute("name", "dropdown");
-        iconSlot.append(dropdownIcon);
-
-        const backdrop = document.createElement("div");
-        backdrop.classList.add("backdrop");
-
-        const dropdownSlot = document.createElement("slot");
-        dropdownSlot.addEventListener("slotchange", this.initializeDropdown);
-
-        trigger.append(iconSlot, backdrop, dropdownSlot);
-        this.shadowRoot.append(trigger);
+        this._trigger.addEventListener("click", this.toggleDropdown);
+        this._dropdownSlot.addEventListener("slotchange", this.initializeDropdown);
     }
 
     static get observedAttributes() {
@@ -40,12 +44,12 @@ class DropdownTrigger extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        this.shadowRoot.querySelector("[part='base']").prepend(newValue || "");
+        this._text.textContent = newValue || "";
     }
 
     disconnectedCallback() {
-        this.shadowRoot.querySelector("slot").removeEventListener("slotchange", this.initializeDropdown);
-        this.shadowRoot.querySelector("button").removeEventListener("click", this.toggleDropdown);
+        this._dropdownSlot.removeEventListener("slotchange", this.initializeDropdown);
+        this._trigger.removeEventListener("click", this.toggleDropdown);
     }
 
     get label() {
@@ -58,12 +62,12 @@ class DropdownTrigger extends HTMLElement {
 
     initializeDropdown = (event) => {
         const dropdown = event.target.assignedElements()[0];
-        if (dropdown) dropdown.classList.add("dropdown");
+        if (dropdown) dropdown.dataset.dropdown = "";
     }
 
     toggleDropdown = (event) => {
-        if (event.target.closest(".dropdown")) return;
-        this.shadowRoot.querySelector("button").toggleAttribute("data-active");
+        if (event.target.closest("[data-dropdown]")) return;
+        this._trigger.toggleAttribute("data-active");
     }
 }
 
