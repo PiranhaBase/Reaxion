@@ -11,9 +11,11 @@ template.innerHTML = `
     <div part="base">
         <header part="header">
             <h6>plaintext</h6>
-            <copy-button part="copy-button"></copy-button>
+            <copy-button part="copy-button">Copy code</copy-button>
         </header>
-        <pre><code part="snippet"></code></pre>
+        <pre>
+            <code part="snippet"></code>
+        </pre>
     </div>
 `;
 

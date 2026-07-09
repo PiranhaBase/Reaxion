@@ -22,6 +22,11 @@ class CopyButton extends HTMLElement {
         this._icon = this.shadowRoot.querySelector("vector-icon");
     }
 
+    connectedCallback() {
+        this.shadowRoot.querySelector("button").ariaLabel = this.textContent;
+        this.replaceChildren();
+    }
+
     showFeedback(success, duration=2000) {
         this._icon.name = (success) ? "check" : "cross";
 
