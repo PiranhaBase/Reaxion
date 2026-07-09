@@ -23,7 +23,7 @@ class DialogBox extends HTMLElement {
 
         const closeButton = document.createElement("button");
         const closeIcon = document.createElement("vector-icon");
-        closeIcon.name = "close";
+        closeIcon.setAttribute("name", "close");
         closeButton.append(closeIcon);
         closeButton.addEventListener("click", this.closeModal);
 

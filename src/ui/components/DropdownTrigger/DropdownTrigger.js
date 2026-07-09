@@ -14,7 +14,7 @@ class DropdownTrigger extends HTMLElement {
         const iconSlot = document.createElement("slot");
         iconSlot.name = "icon";
         const dropdownIcon = document.createElement("vector-icon");
-        dropdownIcon.name = "dropdown";
+        dropdownIcon.setAttribute("name", "dropdown");
         iconSlot.append(dropdownIcon);
 
         const backdrop = document.createElement("div");

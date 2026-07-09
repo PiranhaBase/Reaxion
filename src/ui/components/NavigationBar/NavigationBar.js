@@ -70,9 +70,9 @@ class NavigationBar extends HTMLElement {
         themeIcon.part.add("icon");
         menuIcon.part.add("icon");
         closeIcon.part.add("icon");
-        themeIcon.name = "theme";
-        menuIcon.name = "menu";
-        closeIcon.name = "close";
+        themeIcon.setAttribute("name", "theme");
+        menuIcon.setAttribute("name", "menu");
+        closeIcon.setAttribute("name", "close");
         themeButton.appendChild(themeIcon);
         menuButton.appendChild(menuIcon);
         closeButton.appendChild(closeIcon);

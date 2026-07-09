@@ -12,7 +12,7 @@ class SearchBox extends HTMLElement {
         wrapper.part.add("base");
 
         const searchIcon = document.createElement("vector-icon");
-        searchIcon.name = "search";
+        searchIcon.setAttribute("name", "search");
         searchIcon.part.add("search-icon");
 
         const input = document.createElement("input");
@@ -26,7 +26,7 @@ class SearchBox extends HTMLElement {
         clearButton.addEventListener("click", this.clearInput);
 
         const clearIcon = document.createElement("vector-icon");
-        clearIcon.name = "close";
+        clearIcon.setAttribute("name", "close");
 
         clearButton.appendChild(clearIcon);
         clearButton.part.add("clear-icon");

@@ -17,7 +17,7 @@ class FileInput extends HTMLElement {
         input.addEventListener("change", this.updateState);
 
         const icon = document.createElement("vector-icon");
-        icon.name = "upload";
+        icon.setAttribute("name", "upload");
         icon.part.add("icon");
 
         const label = document.createElement("span");

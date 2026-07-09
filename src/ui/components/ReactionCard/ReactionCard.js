@@ -26,7 +26,7 @@ class ReactionCard extends HTMLElement {
         const categoryWrapper = document.createElement("div");
         categoryWrapper.classList.add("categories");
         const chevron = document.createElement("vector-icon");
-        chevron.name = "chevron";
+        chevron.setAttribute("name", "chevron");
         chevron.part.add("chevron");
 
         footer.append(categoryWrapper, chevron);

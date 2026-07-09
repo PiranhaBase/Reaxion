@@ -17,7 +17,7 @@ class FilterPill extends HTMLElement {
         clearButton.addEventListener("click", this.dispatchRemoveEvent);
 
         const clearIcon = document.createElement("vector-icon");
-        clearIcon.name = "close";
+        clearIcon.setAttribute("name", "close");
 
         clearButton.append(clearIcon);
 

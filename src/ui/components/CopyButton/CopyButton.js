@@ -13,7 +13,7 @@ class CopyButton extends HTMLElement {
         button.part.add("base");
 
         const copyIcon = document.createElement("vector-icon");
-        copyIcon.name = "copy";
+        copyIcon.setAttribute("name", "copy");
 
         button.appendChild(copyIcon);
         this.shadowRoot.appendChild(button);
