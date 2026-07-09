@@ -24,8 +24,6 @@ class SearchBox extends HTMLElement {
 
         this._input = this.shadowRoot.querySelector("input");
         this._clearButton = this.shadowRoot.querySelector("button");
-
-        this._clearButton.addEventListener("click", this.clearInput);
     }
 
     static get observedAttributes() {
@@ -38,6 +36,8 @@ class SearchBox extends HTMLElement {
             delete this.placeholder;
             this.placeholder = text;
         }
+
+        this._clearButton.addEventListener("click", this.clearInput);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

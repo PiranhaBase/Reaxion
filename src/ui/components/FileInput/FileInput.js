@@ -24,8 +24,6 @@ class FileInput extends HTMLElement {
         this._input = this.shadowRoot.querySelector("input");
         this._icon = this.shadowRoot.querySelector("vector-icon");
         this._label = this.shadowRoot.querySelector("span");
-
-        this._input.addEventListener("change", this.updateState);
     }
 
     static get observedAttributes() {
@@ -38,6 +36,8 @@ class FileInput extends HTMLElement {
             delete this.accept;
             this.accept = acceptType;
         }
+
+        this._input.addEventListener("change", this.updateState);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

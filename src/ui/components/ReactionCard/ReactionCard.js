@@ -21,6 +21,9 @@ class ReactionCard extends HTMLElement {
 
     constructor() {
         super();
+
+        this._pressTimeout = null;
+        
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
         this.shadowRoot.append(template.content.cloneNode(true));
@@ -28,8 +31,6 @@ class ReactionCard extends HTMLElement {
         this._base = this.shadowRoot.querySelector("[part='base']");
         this._reactionType = this.shadowRoot.querySelector("[part='reaction-type']");
         this._categoryContainer = this.shadowRoot.querySelector(".categories");
-
-        this._pressTimeout = null;
     }
 
     static get observedAttributes() {

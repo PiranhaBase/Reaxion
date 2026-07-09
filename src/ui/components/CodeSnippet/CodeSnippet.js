@@ -29,8 +29,6 @@ class CodeSnippet extends HTMLElement {
         this._title = this.shadowRoot.querySelector("h6");
         this._copyButton = this.shadowRoot.querySelector("copy-button");
         this._snippet = this.shadowRoot.querySelector("code");
-
-        this._copyButton.addEventListener("click", this.copyCode);
     }
 
     static get observedAttributes() {
@@ -54,6 +52,8 @@ class CodeSnippet extends HTMLElement {
         }
 
         this.replaceChildren();
+
+        this._copyButton.addEventListener("click", this.copyCode);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

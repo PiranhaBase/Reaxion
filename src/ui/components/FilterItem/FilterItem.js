@@ -23,8 +23,6 @@ class FilterItem extends HTMLElement {
         this._base = this.shadowRoot.querySelector("[part='base']");
         this._label = this.shadowRoot.querySelector("label");
         this._checkbox = this.shadowRoot.querySelector("input");
-
-        this._checkbox.addEventListener("input", this.toggle);
     }
 
     static get observedAttributes() {
@@ -39,6 +37,8 @@ class FilterItem extends HTMLElement {
                 this[property] = propertyValue;
             }
         }
+
+        this._checkbox.addEventListener("input", this.toggle);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

@@ -17,16 +17,15 @@ class FilterPill extends HTMLElement {
 
     constructor() {
         super();
+
+        this.target = null;
+
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [style];
         this.shadowRoot.append(template.content.cloneNode(true));
 
         this._label = this.shadowRoot.querySelector("span");
         this._clearButton = this.shadowRoot.querySelector("button");
-
-        this._clearButton.addEventListener("click", this.dispatchRemoveEvent);
-
-        this.target = null;
     }
 
     static get observedAttributes() {
@@ -39,6 +38,8 @@ class FilterPill extends HTMLElement {
             delete this.label;
             this.label = label;
         }
+
+        this._clearButton.addEventListener("click", this.dispatchRemoveEvent);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

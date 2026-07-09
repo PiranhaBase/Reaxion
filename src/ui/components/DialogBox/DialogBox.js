@@ -34,9 +34,6 @@ class DialogBox extends HTMLElement {
         this._title = this.shadowRoot.querySelector("h3");
         this._closeButton = this.shadowRoot.querySelector("button");
         this._dialog = this.shadowRoot.querySelector("dialog");
-
-        this._backdrop.addEventListener("click", this.shakeDialog);
-        this._closeButton.addEventListener("click", this.closeModal);
     }
 
     static get observedAttributes() {
@@ -49,6 +46,9 @@ class DialogBox extends HTMLElement {
             delete this.label;
             this.label = label;
         }
+
+        this._backdrop.addEventListener("click", this.shakeDialog);
+        this._closeButton.addEventListener("click", this.closeModal);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

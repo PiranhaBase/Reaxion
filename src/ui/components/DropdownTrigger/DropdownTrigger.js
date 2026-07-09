@@ -26,9 +26,6 @@ class DropdownTrigger extends HTMLElement {
         this._trigger = this.shadowRoot.querySelector("button");
         this._text = this.shadowRoot.querySelector("span");
         this._dropdownSlot = this.shadowRoot.querySelector("slot:not([name])");
-
-        this._trigger.addEventListener("click", this.toggleDropdown);
-        this._dropdownSlot.addEventListener("slotchange", this.initializeDropdown);
     }
 
     static get observedAttributes() {
@@ -41,6 +38,9 @@ class DropdownTrigger extends HTMLElement {
             delete this.label;
             this.label = label;
         }
+
+        this._trigger.addEventListener("click", this.toggleDropdown);
+        this._dropdownSlot.addEventListener("slotchange", this.initializeDropdown);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

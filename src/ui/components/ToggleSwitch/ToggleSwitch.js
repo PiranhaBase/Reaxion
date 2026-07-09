@@ -22,8 +22,6 @@ class ToggleSwitch extends HTMLElement {
 
         this._label = this.shadowRoot.querySelector("label");
         this._switch = this.shadowRoot.querySelector("input");
-
-        this._switch.addEventListener("input", this.toggle);
     }
 
     static get observedAttributes() {
@@ -38,6 +36,8 @@ class ToggleSwitch extends HTMLElement {
                 this[property] = propertyValue;
             }
         }
+
+        this._switch.addEventListener("input", this.toggle);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
