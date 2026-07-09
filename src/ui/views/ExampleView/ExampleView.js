@@ -7,114 +7,84 @@ class ExampleView extends HTMLElement {
 
     constructor() {
         super();
+
         this.initialized = false;
-        this.filterUpdate = false;
-        this.filterWorker = null;
-        this.filterTimeoutId = null;
+
+        this._filterUpdate = false;
+        this._filterWorker = null;
+        this._filterTimeoutId = null;
+
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [shared, style];
+
+        this.shadowRoot.innerHTML = `
+            <main>
+                <header>
+                    <slot></slot>
+                </header>
+                <section class="filter-section">
+                    <search class="view-options">
+                        <search-box placeholder="Search reactions" id="reaction-search"></search-box>
+                            <dropdown-trigger>
+                            <vector-icon name="settings" slot="icon"></vector-icon>
+                            <div class="card settings">
+                                <h5>Options</h5>
+                                <div class="content">
+                                    <toggle-switch label="State labels" checked id="state-toggle"></toggle-switch>
+                                    <toggle-switch label="Reaction type" checked id="type-toggle"></toggle-switch>
+                                    <toggle-switch label="Compact view" id="compact-toggle"></toggle-switch>
+                                    <toggle-switch label="Expand on hover / long-press" id="expand-toggle"></toggle-switch>
+                                </div>
+                            </div>
+                        </dropdown-trigger>
+                    </search>
+                    <search>
+                        <vector-icon name="filter"></vector-icon>
+                        <dropdown-trigger label="Categories">
+                            <filter-box id="category-filters" search-placeholder="Search categories"></filter-box>
+                        </dropdown-trigger>
+                        <dropdown-trigger label="Elements">
+                            <filter-box id="element-filters" search-placeholder="Type name, symbol or number"></filter-box>
+                        </dropdown-trigger>
+                        <dropdown-trigger label="Type">
+                            <filter-box id="type-filters">
+                                <filter-item label="Molecular" value="Molecular"></filter-item>
+                                <filter-item label="Ionic" value="Ionic"></filter-item>
+                            </filter-box>
+                        </dropdown-trigger>
+                    </search>
+                    <search id="filter-pills"></search>
+                </section>
+                <section id="example-cards"></section>
+                <div id="load-sentinel" hidden></div>
+            </main>
+        `;
+
+        this._displayOptions = this.shadowRoot.querySelector(".settings > .content");
+        this._searchBox = this.shadowRoot.getElementById("reaction-search");
+        this._stateToggle = this.shadowRoot.getElementById("state-toggle");
+        this._typeToggle = this.shadowRoot.getElementById("type-toggle");
+        this._compactToggle = this.shadowRoot.getElementById("compact-toggle");
+        this._expandToggle = this.shadowRoot.getElementById("expand-toggle");
+        this._filterSection = this.shadowRoot.querySelector(".filter-section");
+        this._categoryFilters = this.shadowRoot.getElementById("category-filters");
+        this._elementFilters = this.shadowRoot.getElementById("element-filters");
+        this._typeFilters = this.shadowRoot.getElementById("type-filters");
+        this._filterPills = this.shadowRoot.getElementById("filter-pills");
+        this._exampleSection = this.shadowRoot.getElementById("example-cards");
+        this._loadSentinel = this.shadowRoot.getElementById("load-sentinel");
     }
 
     connectedCallback() {
-        const base = document.createElement("main");
-
-        const header = document.createElement("header");
-        const heading = document.createElement("slot");
-        header.append(heading);
-
-        const filterSection = document.createElement("section");
-        filterSection.classList.add("filter-section");
-
-        const viewOptions = document.createElement("search");
-        viewOptions.classList.add("view-options");
-
-        const searchBox = document.createElement("search-box");
-        searchBox.setAttribute("placeholder", "Search reactions");
-
-        const settingsDropdown = document.createElement("dropdown-trigger");
-
-        const settingsIcon = document.createElement("vector-icon");
-        settingsIcon.name = "settings";
-        settingsIcon.slot = "icon";
-
-        const settings = document.createElement("div");
-        settings.classList.add("card", "settings");
-        const settingsTitle = document.createElement("h5");
-        settingsTitle.textContent = "Options";
-        const settingsContent = document.createElement("div");
-        settingsContent.classList.add("content");
-        const stateToggle = document.createElement("toggle-switch");
-        stateToggle.label = "State labels";
-        stateToggle.checked = true;
-        stateToggle.id = "state-toggle";
-        const typeToggle = document.createElement("toggle-switch");
-        typeToggle.label = "Reaction type";
-        typeToggle.checked = true;
-        typeToggle.id = "type-toggle";
-        const compactToggle = document.createElement("toggle-switch");
-        compactToggle.label = "Compact view";
-        compactToggle.id = "compact-toggle";
-        const expandToggle = document.createElement("toggle-switch");
-        expandToggle.label = "Expand on hover / long-press";
-        expandToggle.id = "expand-toggle";
-        settingsContent.append(stateToggle, typeToggle, compactToggle, expandToggle);
-        settings.append(settingsTitle, settingsContent);
-
-        settingsDropdown.append(settingsIcon, settings);
-
-        viewOptions.append(searchBox, settingsDropdown);
-
-        const filters = document.createElement("search");
-
-        const filterIcon = document.createElement("vector-icon");
-        filterIcon.name = "filter";
-
-        const categoryDropdown = document.createElement("dropdown-trigger");
-        categoryDropdown.label = "Categories";
-        const categoryFilters = document.createElement("filter-box");
-        categoryFilters.id = "category-filters";
-        categoryFilters.searchPlaceholder = "Search categories";
-        categoryDropdown.append(categoryFilters);
-
-        const elementDropdown = document.createElement("dropdown-trigger");
-        elementDropdown.label = "Elements";
-        const elementFilters = document.createElement("filter-box");
-        elementFilters.id = "element-filters";
-        elementFilters.searchPlaceholder = "Type name, symbol or number";
-        elementDropdown.append(elementFilters);
-
-        const typeDropdown = document.createElement("dropdown-trigger");
-        typeDropdown.label = "Type";
-        const typeFilters = document.createElement("filter-box");
-        typeFilters.id = "type-filters";
-        typeDropdown.append(typeFilters);
-
-        filters.append(filterIcon, categoryDropdown, elementDropdown, typeDropdown);
-
-        const filterPillWrapper = document.createElement("search");
-        filterPillWrapper.id = "filter-pills";
-
-        filterSection.append(viewOptions, filters, filterPillWrapper);
-
-        const exampleSection = document.createElement("section");
-        exampleSection.id = "example-cards";
-
-        const loadSentinel = document.createElement("div");
-        loadSentinel.id = "load-sentinel";
-        loadSentinel.hidden = true;
-
-        base.append(header, filterSection, exampleSection, loadSentinel);
-        this.shadowRoot.append(base);
-
-        settingsContent.addEventListener("input", this.applyDisplayOptions);
-        filterSection.addEventListener("input", this.manageFilters);
-        exampleSection.addEventListener("click", this.dispatchReaction);
+        this._displayOptions.addEventListener("input", this.applyDisplayOptions);
+        this._filterSection.addEventListener("input", this.manageFilters);
+        this._exampleSection.addEventListener("click", this.dispatchReaction);
 
         const scrollObserver = new IntersectionObserver(([sentinel]) => {
             if (sentinel.isIntersecting) this.loadExamples();
         }, { scrollMargin: "100px" });
 
-        scrollObserver.observe(loadSentinel);
+        scrollObserver.observe(this._loadSentinel);
     }
 
     async initialize() {
@@ -122,55 +92,41 @@ class ExampleView extends HTMLElement {
         
         const [categories, elements] = await Promise.all([fetchCategories(), fetchElements()]);
         
-        const categoryFilters = this.shadowRoot.getElementById("category-filters");
         for (const category of categories) {
             const filterItem = document.createElement("filter-item");
             filterItem.label = category.name;
             filterItem.value = category.name;
             filterItem.pattern = category.name;
-            categoryFilters.append(filterItem);
+            this._categoryFilters.append(filterItem);
         }
         
-        const elementFilters = this.shadowRoot.getElementById("element-filters");
         for (const element of elements) {
             const filterItem = document.createElement("filter-item");
             filterItem.label = element.name;
             filterItem.value = element.symbol;
             filterItem.pattern = `${element.number}|${element.symbol}|${element.name}`;
-            elementFilters.append(filterItem);
+            this._elementFilters.append(filterItem);
         }
 
-        const typeFilters = this.shadowRoot.getElementById("type-filters");
-        const molecularFilter = document.createElement("filter-item");
-        molecularFilter.label = "Molecular";
-        molecularFilter.value = "Molecular";
-        const ionicFilter = document.createElement("filter-item");
-        ionicFilter.label = "Ionic";
-        ionicFilter.value = "Ionic";
-        typeFilters.append(molecularFilter, ionicFilter);
-
-        this.filterWorker = new Worker(new URL("../../../workers/examples.js", import.meta.url));
-        this.filterWorker.postMessage(await fetchExamples());
-        this.filterWorker.onmessage = (event) => this.renderExamples(event.data);
+        this._filterWorker = new Worker(new URL("../../../workers/examples.js", import.meta.url));
+        this._filterWorker.postMessage(await fetchExamples());
+        this._filterWorker.onmessage = (event) => this.renderExamples(event.data);
         this.updateFilters();
     }
 
     applyDisplayOptions = (event) => {
         event.stopPropagation();
 
-        const cardContainer = this.shadowRoot.getElementById("example-cards");
+        const stateHidden = !this._stateToggle.checked;
+        const typeHidden = !this._typeToggle.checked;
+        const compact = this._compactToggle.checked;
+        const autoExpand = this._expandToggle.checked;
 
-        const stateHidden = !this.shadowRoot.getElementById("state-toggle").checked;
-        const typeHidden = !this.shadowRoot.getElementById("type-toggle").checked;
-        const compact = this.shadowRoot.getElementById("compact-toggle").checked;
-        const autoExpand = this.shadowRoot.getElementById("expand-toggle").checked;
-
-        for (const card of cardContainer.querySelectorAll("reaction-card")) {
-            const equation = card.querySelector("chemical-equation");
-            equation.stateHidden = stateHidden;
+        for (const card of this._exampleSection.children) {
             card.typeHidden = typeHidden;
             card.compact = compact;
             card.autoExpand = autoExpand;
+            card.querySelector("chemical-equation").stateHidden = stateHidden;
         }
     }
 
@@ -180,10 +136,11 @@ class ExampleView extends HTMLElement {
                 const pill = document.createElement("filter-pill");
                 pill.target = event.target;
                 pill.label = event.target.value;
-                this.shadowRoot.getElementById("filter-pills").append(pill);
+                this._filterPills.append(pill);
             }
+
             else {
-                for (const pill of this.shadowRoot.getElementById("filter-pills").children) {
+                for (const pill of this._filterPills.children) {
                     if (pill.target === event.target) {
                         pill.remove();
                         break;
@@ -191,47 +148,49 @@ class ExampleView extends HTMLElement {
                 }
             }
         }
+
         else if (event.target.matches("filter-pill")) {
             event.target.target.checked = false;
             event.target.remove();
         }
+
         this.updateFilters();
     }
 
     updateFilters() {
-        clearTimeout(this.filterTimeoutId);
-        this.filterTimeoutId = setTimeout(() => {
-            this.filterWorker.postMessage({
+        clearTimeout(this._filterTimeoutId);
+        this._filterTimeoutId = setTimeout(() => {
+            this._filterWorker.postMessage({
                 update: true,
                 filters: {
-                    searchInput: this.shadowRoot.querySelector("search-box").value,
-                    categories: this.shadowRoot.getElementById("category-filters").selected,
-                    elements: this.shadowRoot.getElementById("element-filters").selected,
-                    types: this.shadowRoot.getElementById("type-filters").selected
+                    searchInput: this._searchBox.value,
+                    categories: this._categoryFilters.selected,
+                    elements: this._elementFilters.selected,
+                    types: this._typeFilters.selected
                 }
             });
-            this.shadowRoot.getElementById("load-sentinel").hidden = true;
-            this.filterUpdate = true;
+            this._loadSentinel.hidden = true;
+            this._filterUpdate = true;
             this.loadExamples();
         }, 200);
     }
 
     loadExamples() {
-        this.filterWorker.postMessage({ update: false, limit: 10 });
+        this._filterWorker.postMessage({ update: false, limit: 10 });
     }
 
     renderExamples({ examples, finished }) {
         const reactionCards = [];
 
-        const stateHidden = !this.shadowRoot.getElementById("state-toggle").checked;
-        const typeHidden = !this.shadowRoot.getElementById("type-toggle").checked;
-        const compact = this.shadowRoot.getElementById("compact-toggle").checked;
-        const autoExpand = this.shadowRoot.getElementById("expand-toggle").checked;
+        const stateHidden = !this._stateToggle.checked;
+        const typeHidden = !this._typeToggle.checked;
+        const compact = this._compactToggle.checked;
+        const autoExpand = this._expandToggle.checked;
 
         for (const example of examples) {
             const reactionCard = document.createElement("reaction-card");
-            reactionCard.setAttribute("type", example.type.toUpperCase());
-            reactionCard.setAttribute("category", example.categories.join(","));
+            reactionCard.type = example.type.toUpperCase();
+            reactionCard.category = example.categories.join(",");
             reactionCard.typeHidden = typeHidden;
             reactionCard.compact = compact;
             reactionCard.autoExpand = autoExpand;
@@ -244,14 +203,14 @@ class ExampleView extends HTMLElement {
             reactionCards.push(reactionCard);
         }
 
-        if (this.filterUpdate) {
-            this.filterUpdate = false;
-            this.shadowRoot.getElementById("example-cards").replaceChildren(...reactionCards);
+        if (this._filterUpdate) {
+            this._filterUpdate = false;
+            this._exampleSection.replaceChildren(...reactionCards);
         }
-        else this.shadowRoot.getElementById("example-cards").append(...reactionCards);
+        else this._exampleSection.append(...reactionCards);
         
-        if (finished) this.shadowRoot.getElementById("load-sentinel").hidden = true;
-        else this.shadowRoot.getElementById("load-sentinel").hidden = false;
+        if (finished) this._loadSentinel.hidden = true;
+        else this._loadSentinel.hidden = false;
     }
 
     dispatchReaction = (event) => {

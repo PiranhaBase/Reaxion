@@ -7,100 +7,77 @@ class HomeView extends HTMLElement {
 
     constructor() {
         super();
+
         this.initialized = true;
+        
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [shared, style];
+
+        this.shadowRoot.innerHTML = `
+            <main>
+                <header>
+                    <slot></slot>
+                </header>
+                <section>
+                    <article class="card">
+                        <label for="reaction-input">UNBALANCED EQUATION</label>
+                        <input type="text" id="reaction-input" class="reaction" placeholder="e.g. H2 + O2 --> H2O">
+                        <footer>
+                            <button class="secondary" id="batch-button">Batch</button>
+                            <button class="primary" id="balance-button">Balance Reaction</button>
+                        </footer>
+                    </article>
+                    <dialog-box id="batch-dialog" label="Batch Balance">
+                        <p>Upload newline separated list of reactions in plaintext format.</p>
+                        <file-input accept=".txt" id="batch-input"></file-input>
+                        <p class="error" id="file-error" hidden>File must be of plaintext (.txt) format</p>
+                        <button class="primary" id="download-batch" disabled>Download CSV</button>
+                    </dialog-box>
+                    <article class="card accent">
+                        <header>
+                            <label for="reaction-output">BALANCED EQUATION</label>
+                            <copy-button id="copy-reaction">Copy reaction</copy-button>
+                        </header>
+                        <output class="reaction" id="reaction-output" for="reaction-input">
+                            <span>The balanced reaction appears here.</span>
+                        </output>
+                    </article>
+                </section>
+            </main>
+        `;
+
+        this._reactionInput = this.shadowRoot.getElementById("reaction-input");
+        this._batchButton = this.shadowRoot.getElementById("batch-button");
+        this._balanceButton = this.shadowRoot.getElementById("balance-button");
+        this._batchDialog = this.shadowRoot.getElementById("batch-dialog");
+        this._batchInput = this.shadowRoot.getElementById("batch-input");
+        this._fileError = this.shadowRoot.getElementById("file-error");
+        this._downloadButton = this.shadowRoot.getElementById("download-batch");
+        this._copyButton = this.shadowRoot.getElementById("copy-reaction");
+        this._reactionOutput = this.shadowRoot.getElementById("reaction-output");
     }
 
     connectedCallback() {
-        const base = document.createElement("main");
-
-        const header = document.createElement("header");
-        const heading = document.createElement("slot");
-        header.append(heading);
-
-        const balanceSection = document.createElement("section");
-
-        const inputCard = document.createElement("article");
-        inputCard.classList.add("card");
-        const inputLabel = document.createElement("label");
-        inputLabel.setAttribute("for", "reaction-input");
-        inputLabel.textContent = "UNBALANCED EQUATION";
-        const input = document.createElement("input");
-        input.type = "text";
-        input.id = "reaction-input";
-        input.classList.add("reaction");
-        input.placeholder = "e.g. CH4 + O2 --> CO2 + H2O";
-        const cardFooter = document.createElement("footer");
-        const batchButton = document.createElement("button");
-        batchButton.classList.add("secondary");
-        batchButton.textContent = "Batch";
-        const balanceButton = document.createElement("button");
-        balanceButton.classList.add("primary");
-        balanceButton.textContent = "Balance Reaction";
-        cardFooter.append(batchButton, balanceButton);
-        inputCard.append(inputLabel, input, cardFooter);
-
-        const batchDialog = document.createElement("dialog-box");
-        batchDialog.id = "batch-dialog";
-        batchDialog.label = "Batch Balance";
-        const text = document.createElement("p");
-        text.textContent = "Upload newline separated list of reactions in plaintext format.";
-        const fileInput = document.createElement("file-input");
-        fileInput.accept = ".txt";
-        fileInput.id = "batch-input";
-        const errorText = document.createElement("p");
-        errorText.classList.add("error");
-        errorText.id = "file-error";
-        errorText.hidden = true;
-        const downloadButton = document.createElement("button");
-        downloadButton.id = "download-balanced";
-        downloadButton.disabled = true;
-        downloadButton.classList.add("primary");
-        downloadButton.textContent = "Download CSV";
-        batchDialog.append(text, fileInput, errorText, downloadButton);
-
-        const outputCard = document.createElement("article");
-        outputCard.classList.add("card", "accent");
-        const cardHeader = document.createElement("header");
-        const outputLabel = document.createElement("label");
-        outputLabel.setAttribute("for", "reaction-output");
-        outputLabel.textContent = "BALANCED EQUATION";
-        const copyButton = document.createElement("copy-button");
-        copyButton.id = "copy-reaction";
-        copyButton.textContent = "Copy Reaction";
-        cardHeader.append(outputLabel, copyButton);
-        const output = document.createElement("output");
-        output.id = "reaction-output";
-        output.setAttribute("for", "reaction-input");
-        output.textContent = "The balanced reaction appears here.";
-        output.classList.add("reaction");
-        outputCard.append(cardHeader, output);
-
-        balanceSection.append(inputCard, batchDialog, outputCard);
-
-        base.append(header, balanceSection);
-
-        this.shadowRoot.append(base);
-
-        input.addEventListener("input", this.autocomplete);
-        input.addEventListener("keydown", this.onKeydown);
-        batchButton.addEventListener("click", this.viewBatchDialog);
-        balanceButton.addEventListener("click", this.renderBalanced);
-        fileInput.addEventListener("change", this.validateFile);
-        downloadButton.addEventListener("click", this.balanceBatch);
-        copyButton.addEventListener("click", this.copyBalanced);
+        this._reactionInput.addEventListener("input", this.autocomplete);
+        this._reactionInput.addEventListener("keydown", this.onKeydown);
+        this._batchButton.addEventListener("click", this.viewBatchDialog);
+        this._balanceButton.addEventListener("click", this.renderBalanced);
+        this._batchInput.addEventListener("change", this.validateFile);
+        this._downloadButton.addEventListener("click", this.balanceBatch);
+        this._copyButton.addEventListener("click", this.copyBalanced);
         document.addEventListener("reaction-selected", this.copyToBalancer);
     }
 
     autocomplete = (event) => {
         const cursorIndex = event.target.selectionStart;
         const braces = new Map([["(", ")"], ["{", "}"], ["[", "]"]]);
+
         if (braces.has(event.data)) {
             const closingBrace = braces.get(event.data);
             event.target.value = `${event.target.value.slice(0, cursorIndex)}${closingBrace}${event.target.value.slice(cursorIndex)}`;
             event.target.setSelectionRange(cursorIndex, cursorIndex);
         }
+
         else if (event.data === "=") {
             if ((event.target.value[cursorIndex-2] ?? " ") === " " && (event.target.value[cursorIndex] ?? " ") === " ") {
                 event.target.value = `${event.target.value.slice(0, cursorIndex-1)}-->${event.target.value.slice(cursorIndex)}`;
@@ -114,12 +91,16 @@ class HomeView extends HTMLElement {
             event.target.blur();
             this.renderBalanced();
         }
+
         if (event.key === "Backspace") {
             const cursorIndex = event.target.selectionStart;
             if (event.target.selectionEnd !== cursorIndex) return;
+
             const braces = new Map([["(", ")"], ["{", "}"], ["[", "]"]]);
+
             const openingBrace = event.target.value[cursorIndex-1];
             const closingBrace = event.target.value[cursorIndex];
+
             if (braces.has(openingBrace) && braces.get(openingBrace) === closingBrace) {
                 event.preventDefault();
                 event.target.value = `${event.target.value.slice(0, cursorIndex-1)}${event.target.value.slice(cursorIndex+1)}`;
@@ -129,46 +110,46 @@ class HomeView extends HTMLElement {
     }
 
     viewBatchDialog = (event) => {
-        this.shadowRoot.getElementById("batch-dialog").show();
+        this._batchDialog.show();
     }
 
     renderBalanced = (event) => {
         const equation = document.createElement("chemical-equation");
-        equation.reaction = this.shadowRoot.getElementById("reaction-input").value;
         equation.balanced = true;
-        this.shadowRoot.getElementById("reaction-output").replaceChildren(equation);
+        equation.reaction = this._reactionInput.value;
+        this._reactionOutput.replaceChildren(equation);
     }
 
     copyBalanced = async (event) => {
         try {
-            const reaction = this.shadowRoot.getElementById("reaction-output").querySelector("chemical-equation").reaction;
+            const reaction = this._reactionOutput.querySelector("chemical-equation").reaction;
             await navigator.clipboard.writeText(reaction);
-            this.shadowRoot.getElementById("copy-reaction").showFeedback(true);
+            this._copyButton.showFeedback(true);
         }
         catch (error) {
             console.error(error);
-            this.shadowRoot.getElementById("copy-reaction").showFeedback(false);
+            this._copyButton.showFeedback(false);
         }
     }
 
     copyToBalancer = (event) => {
-        this.shadowRoot.getElementById("reaction-input").value = event.detail.reaction;
-        this.shadowRoot.getElementById("reaction-output").textContent = "The balanced reaction appears here.";
+        this._reactionInput.value = event.detail.reaction;
+        this._reactionOutput.replaceChildren("The balanced reaction appears here.");
     }
 
     validateFile = (event) => {
         const file = event.detail;
-        const errorText = this.shadowRoot.getElementById("file-error");
-        this.shadowRoot.getElementById("download-balanced").disabled = true;
-        if (!file) errorText.hidden = true;
+        this._downloadButton.disabled = true;
+
+        if (!file) this._fileError.hidden = true;
+
         else if (file.type !== "text/plain") {
             event.target.clear();
-            errorText.hidden = false;
-            errorText.textContent = "File must be of plaintext (.txt) format";
+            this._fileError.hidden = false;
         }
         else {
-            errorText.hidden = true;
-            this.shadowRoot.getElementById("download-balanced").disabled = false;
+            this._fileError.hidden = true;
+            this._downloadButton.disabled = false;
         }
     }
 
@@ -200,9 +181,10 @@ class HomeView extends HTMLElement {
     }
 
     balanceBatch = async (event) => {
-        const batchInput = this.shadowRoot.getElementById("batch-input");
-        const fileContent = await batchInput.file.text();
+        const fileContent = await this._batchInput.file.text();
+
         const rows = ["Input reaction, Balanced reaction, Remarks"];
+
         for (const reactionInput of fileContent.trim().split(/\s*\n\s*/)) {
             const row = [];
             try {
@@ -214,15 +196,19 @@ class HomeView extends HTMLElement {
             }
             rows.push(row.map(entry => `"${entry.replace(/"/g, '""')}"`).join(","));
         }
+
         const balanced = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8;" });
+
         const downloadLink = document.createElement("a");
         downloadLink.href = URL.createObjectURL(balanced);
         downloadLink.download = "balanced.csv";
         downloadLink.hidden = true;
+
         this.append(downloadLink);
         downloadLink.click();
         downloadLink.remove();
-        batchInput.clear();
+
+        this._batchInput.clear();
     }
 }
 

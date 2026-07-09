@@ -14,24 +14,23 @@ class DocumentationView extends HTMLElement {
     
     constructor() {
         super();
+
         this.initialized = false;
+        
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [katexStyle, shared, style];
         document.adoptedStyleSheets = [...document.adoptedStyleSheets, katexFonts];
-    }
 
-    connectedCallback() {
-        const base = document.createElement("main");
+        this.shadowRoot.innerHTML = `
+            <main>
+                <header>
+                    <slot></slot>
+                </header>
+                <section></section>
+            </main>
+        `;
 
-        const header = document.createElement("header");
-        const heading = document.createElement("slot");
-        header.append(heading);
-        
-        const section = document.createElement("section");
-
-        base.append(header, section);
-
-        this.shadowRoot.appendChild(base);
+        this._content = this.shadowRoot.querySelector("section");
     }
 
     async initialize() {
@@ -77,7 +76,7 @@ class DocumentationView extends HTMLElement {
             }
         });
 
-        this.shadowRoot.querySelector("section").innerHTML = marked.parse(await fetchDocumentation());
+        this._content.innerHTML = marked.parse(await fetchDocumentation());
         
         try {
             renderMathInElement(this.shadowRoot, {
