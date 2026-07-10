@@ -1,24 +1,11 @@
+import BaseElement from "../../../utils/BaseElement.js";
 import style from "./FileInput.css" with { type: "css" };
 
 
-const template = document.createElement("template");
-
-template.innerHTML = `
-    <label part="base">
-        <input type="file">
-        <vector-icon name="upload" part="icon"></vector-icon>
-        <span part="label">Upload file</span>
-    </label>
-`;
-
-
-class FileInput extends HTMLElement {
+class FileInput extends BaseElement {
 
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [style];
-        this.shadowRoot.append(template.content.cloneNode(true));
         this._internals = this.attachInternals();
 
         this._input = this.shadowRoot.querySelector("input");
@@ -26,17 +13,22 @@ class FileInput extends HTMLElement {
         this._label = this.shadowRoot.querySelector("span");
     }
 
-    static get observedAttributes() {
-        return ["accept"];
+    static template = `
+        <label part="base">
+            <input type="file">
+            <vector-icon name="upload" part="icon"></vector-icon>
+            <span part="label">Upload file</span>
+        </label>
+    `;
+
+    static styles = [style];
+
+    static get properties() {
+        return { "accept": String };
     }
 
     connectedCallback() {
-        if (this.hasOwnProperty("accept")) {
-            const acceptType = this.accept;
-            delete this.accept;
-            this.accept = acceptType;
-        }
-
+        super.connectedCallback();
         this._input.addEventListener("change", this.updateState);
     }
 
@@ -46,14 +38,6 @@ class FileInput extends HTMLElement {
 
     disconnectedCallback() {
         this._input.removeEventListener("change", this.switchIcon);
-    }
-
-    get accept() {
-        return this.getAttribute("accept");
-    }
-
-    set accept(value) {
-        this.setAttribute("accept", value);
     }
 
     get file() {

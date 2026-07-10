@@ -1,44 +1,35 @@
+import BaseElement from "../../../utils/BaseElement.js";
 import style from "./FilterPill.css" with { type: "css" };
 
 
-const template = document.createElement("template");
-
-template.innerHTML = `
-    <div part="base">
-        <span></span>
-        <button>
-            <vector-icon name="close"></vector-icon>
-        </button>
-    </div>
-`;
-
-
-class FilterPill extends HTMLElement {
+class FilterPill extends BaseElement {
 
     constructor() {
         super();
 
-        this.target = null;
-
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [style];
-        this.shadowRoot.append(template.content.cloneNode(true));
-
         this._label = this.shadowRoot.querySelector("span");
         this._clearButton = this.shadowRoot.querySelector("button");
+
+        this.target = null;
     }
 
-    static get observedAttributes() {
-        return ["label"];
+    static template = `
+        <div part="base">
+            <span></span>
+            <button>
+                <vector-icon name="close"></vector-icon>
+            </button>
+        </div>
+    `;
+
+    static styles = [style];
+
+    static get properties() {
+        return { "label": String };
     }
 
     connectedCallback() {
-        if (this.hasOwnProperty("label")) {
-            const label = this.label;
-            delete this.label;
-            this.label = label;
-        }
-
+        super.connectedCallback();
         this._clearButton.addEventListener("click", this.dispatchRemoveEvent);
     }
 
@@ -48,14 +39,6 @@ class FilterPill extends HTMLElement {
 
     disconnectedCallback() {
         this._clearButton.removeEventListener("click", this.dispatchRemoveEvent);
-    }
-
-    get label() {
-        return this.getAttribute("label");
-    }
-
-    set label(value) {
-        this.setAttribute("label", value);
     }
 
     dispatchRemoveEvent = (event) => {

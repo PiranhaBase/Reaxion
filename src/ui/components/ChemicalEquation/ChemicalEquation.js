@@ -1,27 +1,22 @@
 import Reaction from "../../../core/reaction.js";
+import BaseElement from "../../../utils/BaseElement.js";
 import style from "./ChemicalEquation.css" with { type: "css" };
 
 
-class ChemicalEquation extends HTMLElement {
+class ChemicalEquation extends BaseElement {
 
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [style];
     }
 
-    static get observedAttributes() {
-        return ["reaction", "balanced", "state-hidden"];
-    }
+    static styles = [style];
 
-    connectedCallback() {
-        for (const property of ["reaction", "balanced", "stateHidden"]) {
-            if (this.hasOwnProperty(property)) {
-                const propertyValue = this[property];
-                delete this[property];
-                this[property] = propertyValue;
-            }
-        }
+    static get properties() {
+        return {
+            "reaction": String,
+            "balanced": Boolean,
+            "state-hidden": Boolean
+        };
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -37,32 +32,6 @@ class ChemicalEquation extends HTMLElement {
             console.error(error);
             this.shadowRoot.innerHTML = this.errorHTML(error.message);
         }
-    }
-
-    get reaction() {
-        return this.shadowRoot.textContent;
-    }
-
-    set reaction(value) {
-        this.setAttribute("reaction", value);
-    }
-
-    get balanced() {
-        return this.hasAttribute("balanced");
-    }
-
-    set balanced(value) {
-        if (value) this.setAttribute("balanced", "");
-        else this.removeAttribute("balanced");
-    }
-
-    get stateHidden() {
-        return this.hasAttribute("state-hidden");
-    }
-
-    set stateHidden(value) {
-        if (value) this.setAttribute("state-hidden", "");
-        else this.removeAttribute("state-hidden");
     }
 
     compoundHTML(compound) {

@@ -1,29 +1,27 @@
+import BaseElement from "../../../utils/BaseElement.js";
 import style from "./CopyButton.css" with { type: "css" };
 
 
-const template = document.createElement("template");
-
-template.innerHTML = `
-    <button part="base">
-        <vector-icon name="copy"></vector-icon>
-    </button>
-`;
-
-
-class CopyButton extends HTMLElement {
+class CopyButton extends BaseElement {
     
     constructor() {
         super();
-        this.attachShadow({ mode: "open", delegatesFocus: true });
-        this.shadowRoot.adoptedStyleSheets = [style];
-        this.shadowRoot.append(template.content.cloneNode(true));
         this._internals = this.attachInternals();
 
+        this._trigger = this.shadowRoot.querySelector("button");
         this._icon = this.shadowRoot.querySelector("vector-icon");
     }
 
+    static template = `
+        <button part="base">
+            <vector-icon name="copy"></vector-icon>
+        </button>
+    `;
+
+    static styles = [style];
+
     connectedCallback() {
-        this.shadowRoot.querySelector("button").ariaLabel = this.textContent;
+        this._trigger.ariaLabel = this.textContent;
         this.replaceChildren();
     }
 

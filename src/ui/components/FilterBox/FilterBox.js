@@ -1,40 +1,29 @@
+import BaseElement from "../../../utils/BaseElement.js";
 import style from "./FilterBox.css" with { type: "css" };
 
 
-const template = document.createElement("template");
-
-template.innerHTML = `
-    <div part="base">
-        <search></search>
-        <div part="options">
-            <slot></slot>
-        </div>
-    </div>
-`;
-
-
-class FilterBox extends HTMLElement {
+class FilterBox extends BaseElement {
 
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [style];
-        this.shadowRoot.append(template.content.cloneNode(true));
 
         this._searchContainer = this.shadowRoot.querySelector("search");
         this._searchBox = null;
     }
 
-    static get observedAttributes() {
-        return ["search-placeholder"];
-    }
+    static template = `
+        <div part="base">
+            <search></search>
+            <div part="options">
+                <slot></slot>
+            </div>
+        </div>
+    `;
 
-    connectedCallback() {
-        if (this.hasOwnProperty("searchPlaceholder")) {
-            const placeholder = this.searchPlaceholder;
-            delete this.searchPlaceholder;
-            this.searchPlaceholder = placeholder;
-        }
+    static styles = [style];
+
+    static get properties() {
+        return { "search-placeholder": String };
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -59,14 +48,6 @@ class FilterBox extends HTMLElement {
 
     disconnectedCallback() {
         this._searchBox?.removeEventListener("input", this.render);
-    }
-
-    get searchPlaceholder() {
-        return this.getAttribute("search-placeholder");
-    }
-
-    set searchPlaceholder(value) {
-        this.setAttribute("search-placeholder", value);
     }
 
     get selected() {

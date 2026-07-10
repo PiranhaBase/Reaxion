@@ -1,23 +1,11 @@
+import BaseElement from "../../../utils/BaseElement.js";
 import style from "./FilterItem.css" with { type: "css" };
 
 
-const template = document.createElement("template");
-
-template.innerHTML = `
-    <div part="base">
-        <label for="checkbox-input"></label>
-        <input type="checkbox" part="checkbox" id="checkbox-input">
-    </div>
-`;
-
-
-class FilterItem extends HTMLElement {
+class FilterItem extends BaseElement {
 
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [style];
-        this.shadowRoot.append(template.content.cloneNode(true));
         this._internals = this.attachInternals();
 
         this._base = this.shadowRoot.querySelector("[part='base']");
@@ -25,19 +13,26 @@ class FilterItem extends HTMLElement {
         this._checkbox = this.shadowRoot.querySelector("input");
     }
 
-    static get observedAttributes() {
-        return ["label", "value", "pattern", "checked", "hidden"];
+    static template = `
+        <div part="base">
+            <label for="checkbox-input"></label>
+            <input type="checkbox" part="checkbox" id="checkbox-input">
+        </div>
+    `;
+
+    static styles = [style];
+
+    static get properties() {
+        return {
+            "label": String ,
+            "value": String,
+            "pattern": String,
+            "checked": Boolean
+        };
     }
 
     connectedCallback() {
-        for (const property of ["label", "value", "pattern", "checked"]) {
-            if (this.hasOwnProperty(property)) {
-                const propertyValue = this[property];
-                delete this[property];
-                this[property] = propertyValue;
-            }
-        }
-
+        super.connectedCallback();
         this._checkbox.addEventListener("input", this.toggle);
     }
 
@@ -56,50 +51,10 @@ class FilterItem extends HTMLElement {
                 this._checkbox.checked = false;
             }
         }
-
-        else if (name === "hidden") {
-            if (newValue !== null) {
-                this._base.hidden = true;
-            }
-            else this._base.hidden = false;
-        }
     }
 
     disconnectedCallback() {
         this._checkbox.removeEventListener("input", this.toggle);
-    }
-
-    get label() {
-        return this.getAttribute("label");
-    }
-
-    set label(value) {
-        this.setAttribute("label", value);
-    }
-
-    get value() {
-        return this.getAttribute("value");
-    }
-
-    set value(newValue) {
-        this.setAttribute("value", newValue);
-    }
-
-    get pattern() {
-        return this.getAttribute("pattern");
-    }
-
-    set pattern(newPattern) {
-        this.setAttribute("pattern", newPattern);
-    }
-
-    get checked() {
-        return this.hasAttribute("checked");
-    }
-
-    set checked(value) {
-        if (value) this.setAttribute("checked", "");
-        else this.removeAttribute("checked");
     }
 
     toggle = (event) => {

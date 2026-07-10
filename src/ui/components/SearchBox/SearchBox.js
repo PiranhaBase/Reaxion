@@ -1,42 +1,33 @@
+import BaseElement from "../../../utils/BaseElement.js";
 import style from "./SearchBox.css" with { type: "css" };
 
 
-const template = document.createElement("template");
-
-template.innerHTML = `
-    <div part="base">
-        <vector-icon name="search" part="search-icon"></vector-icon>
-        <input type="text" name="search" placeholder="" part="input">
-        <button aria-label="Clear input" part="clear-button">
-            <vector-icon name="close"></vector-icon>
-        </button>
-    </div>
-`;
-
-
-class SearchBox extends HTMLElement {
+class SearchBox extends BaseElement {
     
     constructor() {
         super();
-        this.attachShadow({ mode: "open", delegatesFocus: true });
-        this.shadowRoot.adoptedStyleSheets = [style];
-        this.shadowRoot.append(template.content.cloneNode(true));
-
         this._input = this.shadowRoot.querySelector("input");
         this._clearButton = this.shadowRoot.querySelector("button");
     }
 
-    static get observedAttributes() {
-        return ["placeholder"];
+    static template = `
+        <div part="base">
+            <vector-icon name="search" part="search-icon"></vector-icon>
+            <input type="text" name="search" placeholder="" part="input">
+            <button aria-label="Clear input" part="clear-button">
+                <vector-icon name="close"></vector-icon>
+            </button>
+        </div>
+    `;
+
+    static styles = [style];
+
+    static get properties() {
+        return { "placeholder": String };
     }
 
     connectedCallback() {
-        if (this.hasOwnProperty("placeholder")) {
-            const text = this.placeholder;
-            delete this.placeholder;
-            this.placeholder = text;
-        }
-
+        super.connectedCallback();
         this._clearButton.addEventListener("click", this.clearInput);
     }
 
@@ -54,14 +45,6 @@ class SearchBox extends HTMLElement {
 
     set value(newValue) {
         this._input.value = newValue;
-    }
-
-    get placeholder() {
-        return this.getAttribute("placeholder");
-    }
-
-    set placeholder(text) {
-        this.setAttribute("placeholder", text);
     }
 
     clearInput = (event) => {

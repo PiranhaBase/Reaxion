@@ -1,32 +1,5 @@
+import BaseElement from "../../../utils/BaseElement.js";
 import style from "./NavigationBar.css" with { type: "css" };
-
-
-const template = document.createElement("template");
-
-template.innerHTML = `
-    <header part="navbar-base">
-        <h1 part="heading"></h1>
-        <nav></nav>
-        <button class="theme" aria-label="Switch theme">
-            <vector-icon name="theme" part="icon"></vector-icon>
-        </button>
-        <button class="menu" aria-label="View sidebar">
-            <vector-icon name="menu" part="icon"></vector-icon>
-        </button>
-    </header>
-    <div part="backdrop"></div>
-    <aside part="sidebar-base">
-        <header>
-            <button class="theme" aria-label="Switch theme">
-                <vector-icon name="theme" part="icon"></vector-icon>
-            </button>
-            <button class="close" aria-label="Close sidebar">
-                <vector-icon name="close" part="icon"></vector-icon>
-            </button>
-        </header>
-        <nav></nav>
-    </aside>
-`;
 
 
 class NavigationLink extends HTMLElement {
@@ -37,13 +10,10 @@ class NavigationLink extends HTMLElement {
 }
 
 
-class NavigationBar extends HTMLElement {
+class NavigationBar extends BaseElement {
 
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [style];
-        this.shadowRoot.append(template.content.cloneNode(true));
 
         this._heading = this.shadowRoot.querySelector("[part='heading']")
         this._themeButtons = [...this.shadowRoot.querySelectorAll("button.theme")];
@@ -57,11 +27,40 @@ class NavigationBar extends HTMLElement {
         this._activeView = null;
     }
 
-    static get observedAttributes() {
-        return ["heading"];
+    static template = `
+        <header part="navbar-base">
+            <h1 part="heading"></h1>
+            <nav></nav>
+            <button class="theme" aria-label="Switch theme">
+                <vector-icon name="theme" part="icon"></vector-icon>
+            </button>
+            <button class="menu" aria-label="View sidebar">
+                <vector-icon name="menu" part="icon"></vector-icon>
+            </button>
+        </header>
+        <div part="backdrop"></div>
+        <aside part="sidebar-base">
+            <header>
+                <button class="theme" aria-label="Switch theme">
+                    <vector-icon name="theme" part="icon"></vector-icon>
+                </button>
+                <button class="close" aria-label="Close sidebar">
+                    <vector-icon name="close" part="icon"></vector-icon>
+                </button>
+            </header>
+            <nav></nav>
+        </aside>
+    `;
+
+    static styles = [style];
+
+    static get properties() {
+        return { "heading": String };
     }
 
     connectedCallback() {
+        super.connectedCallback();
+        
         for (const link of this.querySelectorAll("nav-link")) {
             const navbarLink = document.createElement("a");
             navbarLink.textContent = link.textContent;

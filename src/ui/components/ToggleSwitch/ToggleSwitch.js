@@ -1,42 +1,35 @@
+import BaseElement from "../../../utils/BaseElement.js";
 import style from "./ToggleSwitch.css" with { type: "css" };
 
 
-const template = document.createElement("template");
-
-template.innerHTML = `
-    <div part="base">
-        <label for="toggle-input"></label>
-        <input type="checkbox" part="switch" id="toggle-input">
-    </div>
-`;
-
-
-class ToggleSwitch extends HTMLElement {
+class ToggleSwitch extends BaseElement {
 
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [style];
-        this.shadowRoot.append(template.content.cloneNode(true));
         this._internals = this.attachInternals();
 
         this._label = this.shadowRoot.querySelector("label");
         this._switch = this.shadowRoot.querySelector("input");
     }
 
-    static get observedAttributes() {
-        return ["label", "checked"];
+    static template = `
+        <div part="base">
+            <label for="toggle-input"></label>
+            <input type="checkbox" part="switch" id="toggle-input">
+        </div>
+    `;
+
+    static styles = [style];
+
+    static get properties() {
+        return {
+            "label": String,
+            "checked": Boolean
+        };
     }
 
     connectedCallback() {
-        for (const property of ["label", "checked"]) {
-            if (this.hasOwnProperty(property)) {
-                const propertyValue = this[property];
-                delete this[property];
-                this[property] = propertyValue;
-            }
-        }
-
+        super.connectedCallback();
         this._switch.addEventListener("input", this.toggle);
     }
 
@@ -59,23 +52,6 @@ class ToggleSwitch extends HTMLElement {
 
     disconnectedCallback() {
         this._switch.removeEventListener("change", this.toggle);
-    }
-
-    get label() {
-        return this.getAttribute("label");
-    }
-
-    set label(value) {
-        this.setAttribute("label", value);
-    }
-
-    get checked() {
-        return this.hasAttribute("checked");
-    }
-
-    set checked(value) {
-        if (value) this.setAttribute("checked", "");
-        else this.removeAttribute("checked");
     }
 
     toggle = (event) => {

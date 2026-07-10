@@ -1,3 +1,4 @@
+import BaseElement from "../../../utils/BaseElement.js";
 import style from "./CodeSnippet.css" with { type: "css" };
 
 import hljs from "../../../../lib/highlight/core.min.js";
@@ -5,54 +6,42 @@ import javascript from "../../../../lib/highlight/languages/javascript.min.js";
 import githubDark from "../../../../lib/highlight/styles/github-dark.min.css" with { type: "css" };
 
 
-const template = document.createElement("template");
-
-template.innerHTML = `
-    <div part="base">
-        <header part="header">
-            <h6>plaintext</h6>
-            <copy-button part="copy-button">Copy code</copy-button>
-        </header>
-        <pre>
-            <code part="snippet"></code>
-        </pre>
-    </div>
-`;
-
-
-class CodeSnippet extends HTMLElement {
+class CodeSnippet extends BaseElement {
     
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [githubDark, style];
-        this.shadowRoot.append(template.content.cloneNode(true));
 
         this._title = this.shadowRoot.querySelector("h6");
         this._copyButton = this.shadowRoot.querySelector("copy-button");
         this._snippet = this.shadowRoot.querySelector("code");
     }
 
-    static get observedAttributes() {
-        return ["language"];
+    static template = `
+        <div part="base">
+            <header part="header">
+                <h6>plaintext</h6>
+                <copy-button part="copy-button">Copy code</copy-button>
+            </header>
+            <pre><code part="snippet"></code></pre>
+        </div>
+    `;
+
+    static styles = [style, githubDark];
+
+    static get properties() {
+        return { "language": String };
     }
 
     connectedCallback() {
-        this._snippet.textContent = this.textContent.trim();
+        super.connectedCallback();
 
+        this._snippet.textContent = this.textContent.trim();
         try {
             hljs.highlightElement(this._snippet);
         }
         catch (error) {
             console.error(error);
         }
-
-        if (this.hasOwnProperty("language")) {
-            const language = this.language;
-            delete this.language;
-            this.language = language;
-        }
-
         this.replaceChildren();
 
         this._copyButton.addEventListener("click", this.copyCode);
@@ -64,14 +53,6 @@ class CodeSnippet extends HTMLElement {
 
     disconnectedCallback() {
         this._copyButton.removeEventListener("click", this.copyCode);
-    }
-
-    get language() {
-        return this.getAttribute("language");
-    }
-
-    set language(value) {
-        this.setAttribute("language", value);
     }
 
     copyCode = async (event) => {
