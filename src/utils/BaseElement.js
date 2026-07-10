@@ -44,8 +44,6 @@ export default class BaseElement extends HTMLElement {
 
         if (!this.properties) return;
 
-        const attributes = [];
-
         for (const [property, type] of Object.entries(this.properties)) {
             const attribute = property.replace(/([A-Z])/g, (match) => `-${match.toLowerCase()}`);
 
