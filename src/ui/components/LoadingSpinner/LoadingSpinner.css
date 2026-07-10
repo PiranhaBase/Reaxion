@@ -7,12 +7,12 @@
     display: inline-flex;
 }
 
+:host([hidden]) {
+    display: none !important;
+}
+
 svg {
     height: calc(2 * var(--outer-radius));
-
-    &:not([data-active]) {
-        display: none;
-    }
 }
 
 g {

@@ -24,36 +24,8 @@ class LoadingSpinner extends HTMLElement {
         this._spinner = this.shadowRoot.querySelector("svg");
     }
 
-    static get observedAttributes() {
-        return ["active"];
-    }
-
     connectedCallback() {
         this.setAttribute("role", "status");
-
-        if (this.hasOwnProperty("active")) {
-            const active = this.active;
-            delete this.active;
-            this.active = active;
-        }
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === "active") {
-            if (newValue !== null) {
-                this._spinner.dataset.active = "";
-            }
-            else delete this._spinner.dataset.active;
-        }
-    }
-
-    get active() {
-        return this.hasAttribute("active");
-    }
-
-    set active(value) {
-        if (value) this.setAttribute("active", "");
-        else this.removeAttribute("active");
     }
 }
 

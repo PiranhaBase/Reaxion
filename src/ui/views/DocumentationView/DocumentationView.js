@@ -19,7 +19,7 @@ class DocumentationView extends HTMLElement {
         
         this.attachShadow({ mode: "open" });
         this.shadowRoot.adoptedStyleSheets = [katexStyle, shared, style];
-        document.adoptedStyleSheets = [...document.adoptedStyleSheets, katexFonts];
+        document.adoptedStyleSheets.push(katexFonts);
 
         this.shadowRoot.innerHTML = `
             <main>

@@ -25,4 +25,4 @@ ICONS.replaceSync(`
 `);
 
 
-document.adoptedStyleSheets = [...document.adoptedStyleSheets, ICONS];
+document.adoptedStyleSheets.push(ICONS);
