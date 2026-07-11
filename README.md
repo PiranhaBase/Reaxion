@@ -56,8 +56,8 @@ The balancer models chemical equations as a homogeneous linear system ($A\vec{x}
 
 The project is built with modular JavaScript and utilizes Web Components for the UI:
 
-- `math.js`: Contains the Fraction and Matrix classes for core mathematical operations.
-- `chem.js`: Handles core reaction parsing and balancing logic.
+- [`matrix.js`](./src/core/matrix.js): Contains the Fraction and Matrix classes for core mathematical operations.
+- [`reaction.js`](./src/core/reaction.js): Handles core reaction parsing and balancing logic.
 
 ## Attributions
 
