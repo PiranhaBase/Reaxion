@@ -15,7 +15,7 @@ class ChemicalEquation extends BaseElement {
         return {
             "reaction": String,
             "balanced": Boolean,
-            "state-hidden": Boolean
+            "stateHidden": Boolean
         };
     }
 
