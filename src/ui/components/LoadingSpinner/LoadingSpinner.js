@@ -21,8 +21,8 @@ class LoadingSpinner extends BaseElement {
 
     static styles = [style];
 
-    connectedCallback() {
-        this.setAttribute("role", "status");
+    onMount() {
+        this.role = "status";
     }
 }
 

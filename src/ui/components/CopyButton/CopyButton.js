@@ -20,9 +20,8 @@ class CopyButton extends BaseElement {
 
     static styles = [style];
 
-    connectedCallback() {
-        this._trigger.ariaLabel = this.textContent;
-        this.replaceChildren();
+    onTextChange(label) {
+        this._trigger.ariaLabel = label;
     }
 
     showFeedback(success, duration=2000) {

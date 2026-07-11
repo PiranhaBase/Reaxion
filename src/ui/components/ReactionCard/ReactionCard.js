@@ -31,22 +31,22 @@ class ReactionCard extends BaseElement {
 
     static get properties() {
         return {
-            "type": String,
-            "category": String,
-            "compact": Boolean,
-            "autoExpand": Boolean,
-            "typeHidden": Boolean
+            type: String,
+            category: String,
+            compact: Boolean,
+            autoExpand: Boolean,
+            typeHidden: Boolean
         }
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === "type") {
-            this._reactionType.textContent = newValue || "";
-        }
+    onUpdate(property, oldValue, newValue) {
+        if (property === "type") this._reactionType.textContent = newValue || "";
 
-        else if (name === "category") {
+        else if (property === "category") {
             this._categoryContainer.replaceChildren();
+
             if (!newValue) return;
+
             for (const categoryName of newValue.trim().split(/\s*,\s*/)) {
                 const category = document.createElement("span");
                 category.part.add("category");
@@ -55,21 +55,20 @@ class ReactionCard extends BaseElement {
             }
         }
 
-        else if (name === "compact") {
-            if (newValue !== null) {
-                this._base.dataset.compact = "";
-            }
+        else if (property === "compact") {
+            if (newValue) this._base.dataset.compact = "";
             else delete this._base.dataset.compact;
         }
         
-        else if (name === "auto-expand") {
-            if (newValue !== null) {
+        else if (property === "autoExpand") {
+            if (newValue) {
                 this._base.addEventListener("touchstart", this.expandCard);
                 this._base.addEventListener("touchend", this.cancelExpansion);
                 this._base.addEventListener("touchmove", this.cancelExpansion);
                 this._base.addEventListener("touchcancel", this.cancelExpansion);
                 this._base.dataset.autoExpand = "";
             }
+            
             else {
                 this._base.removeEventListener("touchstart", this.expandCard);
                 this._base.removeEventListener("touchend", this.cancelExpansion);
@@ -79,12 +78,12 @@ class ReactionCard extends BaseElement {
             }
         }
 
-        else if (name === "type-hidden") {
-            this._reactionType.hidden = this.hasAttribute("type-hidden");
+        else if (property === "typeHidden") {
+            this._reactionType.hidden = newValue;
         }
     }
 
-    disconnectedCallback() {
+    onUnmount() {
         this._base.removeEventListener("touchstart", this.expandCard);
         this._base.removeEventListener("touchend", this.cancelExpansion);
         this._base.removeEventListener("touchmove", this.cancelExpansion);
@@ -94,8 +93,8 @@ class ReactionCard extends BaseElement {
     expandCard = (event) => {
         clearTimeout(this._expansionTimeout);
         this._expansionTimeout = setTimeout(() => {
-            this.removeAttribute("compact");
-            this.removeAttribute("auto-expand");
+            this.compact = false;
+            this.autoExpand = false;
         }, 400);
     }
 

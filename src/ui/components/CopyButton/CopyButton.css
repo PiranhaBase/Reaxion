@@ -1,10 +1,5 @@
 :host {
-    display: inline-flex;
-}
-
-* {
-    padding: 0;
-    margin: 0;
+    display: inline-block;
 }
 
 [part="base"] {

@@ -8,7 +8,6 @@ class FilterItem extends BaseElement {
         super();
         this._internals = this.attachInternals();
 
-        this._base = this.shadowRoot.querySelector("[part='base']");
         this._label = this.shadowRoot.querySelector("label");
         this._checkbox = this.shadowRoot.querySelector("input");
     }
@@ -24,25 +23,19 @@ class FilterItem extends BaseElement {
 
     static get properties() {
         return {
-            "label": String ,
-            "value": String,
-            "pattern": String,
-            "checked": Boolean
+            value: String,
+            pattern: String,
+            checked: Boolean
         };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
+    onMount() {
         this._checkbox.addEventListener("input", this.toggle);
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === "label") {
-            this._label.textContent = newValue || "";
-        }
-
-        else if (name === "checked") {
-            if (newValue !== null) {
+    onUpdate(property, oldValue, newValue) {
+        if (property === "checked") {
+            if (newValue) {
                 this._internals.states.add("checked");
                 this._checkbox.checked = true;
             }
@@ -53,7 +46,11 @@ class FilterItem extends BaseElement {
         }
     }
 
-    disconnectedCallback() {
+    onTextChange(label) {
+        this._label.textContent = label;
+    }
+
+    onUnmount() {
         this._checkbox.removeEventListener("input", this.toggle);
     }
 

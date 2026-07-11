@@ -58,9 +58,7 @@ class NavigationBar extends BaseElement {
         return { "heading": String };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
-        
+    onMount() {
         for (const link of this.querySelectorAll("nav-link")) {
             const navbarLink = document.createElement("a");
             navbarLink.textContent = link.textContent;
@@ -90,11 +88,11 @@ class NavigationBar extends BaseElement {
         this._sidebarLinks.addEventListener("click", this.notifyNavigation);
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
+    onUpdate(property, oldValue, newValue) {
         this._heading.textContent = newValue || "";
     }
 
-    disconnectedCallback() {
+    onUnmount() {
         this._menuButton.removeEventListener("click", this.viewSidebar);
         this._closeButton.removeEventListener("click", this.hideSidebar);
         this._themeButtons.forEach(button => button.removeEventListener("click", this.notifyTheme));

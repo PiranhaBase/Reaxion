@@ -2,11 +2,6 @@
     position: absolute;
 }
 
-* {
-    padding: 0;
-    margin: 0;
-}
-
 [part="backdrop"] {
     position: fixed;
     z-index: 1;

@@ -7,32 +7,25 @@ class ChemicalEquation extends BaseElement {
 
     constructor() {
         super();
-
         this._reaction = null;
-        this._reactionObserver = new MutationObserver(this.updateReaction);
     }
 
     static styles = [style];
 
     static get properties() {
         return {
-            "balanced": Boolean,
-            "stateHidden": Boolean
+            balanced: Boolean,
+            stateHidden: Boolean
         };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
-
-        this.updateReaction();
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
+    onUpdate(property, oldValue, newValue) {
         if (this._reaction !== null) this.render();
     }
-    
-    disconnectedCallback() {
-        this._reactionObserver.disconnect();
+
+    onTextChange(text) {
+        this._reaction = text;
+        this.render();
     }
 
     get reaction() {
@@ -40,26 +33,15 @@ class ChemicalEquation extends BaseElement {
     }
 
     set reaction(reactionText) {
-        this._reaction = reactionText;
-        this.render();
-    }
-
-    updateReaction = () => {
-        this.reaction = this.textContent;
-
-        this._reactionObserver.disconnect();
-        this.replaceChildren();
-        this._reactionObserver.observe(this, { childList: true, subtree: true });
+        this.textContent = reactionText;
     }
 
     render() {
         try {
             let reactionText = this._reaction;
-            if (this.hasAttribute("state-hidden")) {
-                reactionText = reactionText.replace(/\s*\([a-z]+\)/g, "");
-            }
+            if (this.stateHidden) reactionText = reactionText.replace(/\s*\([a-z]+\)/g, "");
             const reaction = new Reaction(reactionText);
-            this.shadowRoot.innerHTML = this.reactionHTML(reaction, this.hasAttribute("balanced"));
+            this.shadowRoot.innerHTML = this.reactionHTML(reaction, this.balanced);
         }
 
         catch (error) {

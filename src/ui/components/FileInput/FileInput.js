@@ -24,19 +24,19 @@ class FileInput extends BaseElement {
     static styles = [style];
 
     static get properties() {
-        return { "accept": String };
+        return { accept: String };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
+    onMount() {
         this._input.addEventListener("change", this.updateState);
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        this._input.accept = this.hasAttribute("accept");
+    onUpdate(property, oldValue, newValue) {
+        if (newValue !== null) this._input.accept = newValue;
+        else this._input.removeAttribute("accept");
     }
 
-    disconnectedCallback() {
+    onUnmount() {
         this._input.removeEventListener("change", this.switchIcon);
     }
 

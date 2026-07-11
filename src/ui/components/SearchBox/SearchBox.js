@@ -23,19 +23,18 @@ class SearchBox extends BaseElement {
     static styles = [style];
 
     static get properties() {
-        return { "placeholder": String };
+        return { placeholder: String };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
+    onMount() {
         this._clearButton.addEventListener("click", this.clearInput);
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
+    onUpdate(property, oldValue, newValue) {
         this._input.placeholder = newValue || "";
     }
 
-    disconnectedCallback() {
+    onUnmount() {
         this._clearButton.removeEventListener("click", this.clearInput);
     }
 

@@ -15,16 +15,15 @@ class VectorIcon extends BaseElement {
     static styles = [style];
 
     static get properties() {
-        return { "name": String };
+        return { name: String };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
+    onMount() {
         this.ariaHidden = true;
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        this._base.dataset.icon = newValue.trim().toLowerCase();
+    onUpdate(property, oldValue, newValue) {
+        this._base.dataset.icon = newValue?.trim().toLowerCase();
     }
 }
 

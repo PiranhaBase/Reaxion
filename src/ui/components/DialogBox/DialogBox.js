@@ -34,20 +34,19 @@ class DialogBox extends BaseElement {
     static styles = [style];
 
     static get properties() {
-        return { "label": String };
+        return { label: String };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
+    onMount() {
         this._backdrop.addEventListener("click", this.shakeDialog);
         this._closeButton.addEventListener("click", this.closeModal);
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
+    onUpdate(property, oldValue, newValue) {
         this._title.textContent = newValue || "";
     }
 
-    disconnectedCallback() {
+    onUnmount() {
         this._closeButton.removeEventListener("click", this.closeModal);
         this._backdrop.removeEventListener("click", this.shakeDialog);
     }

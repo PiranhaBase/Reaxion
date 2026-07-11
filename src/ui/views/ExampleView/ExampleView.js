@@ -30,10 +30,10 @@ class ExampleView extends HTMLElement {
                             <div class="card settings">
                                 <h5>Options</h5>
                                 <div class="content">
-                                    <toggle-switch label="State labels" checked id="state-toggle"></toggle-switch>
-                                    <toggle-switch label="Reaction type" checked id="type-toggle"></toggle-switch>
-                                    <toggle-switch label="Compact view" id="compact-toggle"></toggle-switch>
-                                    <toggle-switch label="Expand on hover / long-press" id="expand-toggle"></toggle-switch>
+                                    <toggle-switch checked id="state-toggle">State labels</toggle-switch>
+                                    <toggle-switch checked id="type-toggle">Reaction type</toggle-switch>
+                                    <toggle-switch id="compact-toggle">Compact view</toggle-switch>
+                                    <toggle-switch id="expand-toggle">Expand on hover / long-press</toggle-switch>
                                 </div>
                             </div>
                         </dropdown-trigger>
@@ -48,8 +48,8 @@ class ExampleView extends HTMLElement {
                         </dropdown-trigger>
                         <dropdown-trigger label="Type">
                             <filter-box id="type-filters">
-                                <filter-item label="Molecular" value="Molecular"></filter-item>
-                                <filter-item label="Ionic" value="Ionic"></filter-item>
+                                <filter-item value="Molecular">Molecular</filter-item>
+                                <filter-item value="Ionic">Ionic</filter-item>
                             </filter-box>
                         </dropdown-trigger>
                     </search>
@@ -94,7 +94,7 @@ class ExampleView extends HTMLElement {
         
         for (const category of categories) {
             const filterItem = document.createElement("filter-item");
-            filterItem.label = category.name;
+            filterItem.textContent = category.name;
             filterItem.value = category.name;
             filterItem.pattern = category.name;
             this._categoryFilters.append(filterItem);
@@ -102,7 +102,7 @@ class ExampleView extends HTMLElement {
         
         for (const element of elements) {
             const filterItem = document.createElement("filter-item");
-            filterItem.label = element.name;
+            filterItem.textContent = element.name;
             filterItem.value = element.symbol;
             filterItem.pattern = `${element.number}|${element.symbol}|${element.name}`;
             this._elementFilters.append(filterItem);
@@ -135,7 +135,7 @@ class ExampleView extends HTMLElement {
             if (event.target.checked) {
                 const pill = document.createElement("filter-pill");
                 pill.target = event.target;
-                pill.label = event.target.value;
+                pill.textContent = event.target.value;
                 this._filterPills.append(pill);
             }
 

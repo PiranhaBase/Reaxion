@@ -10,8 +10,7 @@ class CodeSnippet extends BaseElement {
     
     constructor() {
         super();
-
-        this._title = this.shadowRoot.querySelector("h6");
+        this._language = this.shadowRoot.querySelector("h6");
         this._copyButton = this.shadowRoot.querySelector("copy-button");
         this._snippet = this.shadowRoot.querySelector("code");
     }
@@ -29,29 +28,29 @@ class CodeSnippet extends BaseElement {
     static styles = [style, githubDark];
 
     static get properties() {
-        return { "language": String };
+        return { language: String };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
+    onMount() {
+        this._copyButton.addEventListener("click", this.copyCode);
+    }
 
-        this._snippet.textContent = this.textContent.trim();
+    onTextChange(code) {
+        this._snippet.textContent = code.trim();
+
         try {
             hljs.highlightElement(this._snippet);
         }
         catch (error) {
             console.error(error);
         }
-        this.replaceChildren();
-
-        this._copyButton.addEventListener("click", this.copyCode);
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        this._title.textContent = newValue || "plaintext";
+    onUpdate(property, oldValue, newValue) {
+        this._language.textContent = newValue || "plaintext";
     }
 
-    disconnectedCallback() {
+    onUnmount() {
         this._copyButton.removeEventListener("click", this.copyCode);
     }
 

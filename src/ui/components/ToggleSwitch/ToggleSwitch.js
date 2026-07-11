@@ -22,35 +22,29 @@ class ToggleSwitch extends BaseElement {
     static styles = [style];
 
     static get properties() {
-        return {
-            "label": String,
-            "checked": Boolean
-        };
+        return { checked: Boolean };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
+    onMount() {
         this._switch.addEventListener("input", this.toggle);
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === "label") {
-            this._label.textContent = newValue || "";
+    onUpdate(property, oldValue, newValue) {
+        if (newValue) {
+            this._internals.states.add("checked");
+            this._switch.checked = true;
         }
-
-        else if (name === "checked") {
-            if (newValue !== null) {
-                this._internals.states.add("checked");
-                this._switch.checked = true;
-            }
-            else {
-                this._internals.states.delete("checked");
-                this._switch.checked = false;
-            }
+        else {
+            this._internals.states.delete("checked");
+            this._switch.checked = false;
         }
     }
 
-    disconnectedCallback() {
+    onTextChange(label) {
+        this._label.textContent = label;
+    }
+
+    onUnmount() {
         this._switch.removeEventListener("change", this.toggle);
     }
 

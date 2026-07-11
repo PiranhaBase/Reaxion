@@ -26,20 +26,19 @@ class DropdownTrigger extends BaseElement {
     static styles = [style];
 
     static get properties() {
-        return { "label": String };
+        return { label: String };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
+    onMount() {
         this._trigger.addEventListener("click", this.toggleDropdown);
         this._dropdownSlot.addEventListener("slotchange", this.initializeDropdown);
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
+    onUpdate(property, oldValue, newValue) {
         this._text.textContent = newValue || "";
     }
 
-    disconnectedCallback() {
+    onUnmount() {
         this._dropdownSlot.removeEventListener("slotchange", this.initializeDropdown);
         this._trigger.removeEventListener("click", this.toggleDropdown);
     }

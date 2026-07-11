@@ -10,6 +10,7 @@ class ViewRouter extends HTMLElement {
             view.hidden = true;
             this.scrollCache.set(view, 0);
         });
+        
         const activeView = this.querySelector(document.querySelector("nav-bar").view);
         this.navigate(activeView, activeView);
 

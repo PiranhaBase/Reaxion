@@ -24,24 +24,19 @@ class FilterPill extends BaseElement {
 
     static styles = [style];
 
-    static get properties() {
-        return { "label": String };
+    onMount() {
+        this._clearButton.addEventListener("click", this.notifyRemoval);
     }
 
-    connectedCallback() {
-        super.connectedCallback();
-        this._clearButton.addEventListener("click", this.dispatchRemoveEvent);
+    onTextChange(label) {
+        this._label.textContent = label;
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        this._label.textContent = newValue || "";
+    onUnmount() {
+        this._clearButton.removeEventListener("click", this.notifyRemoval);
     }
 
-    disconnectedCallback() {
-        this._clearButton.removeEventListener("click", this.dispatchRemoveEvent);
-    }
-
-    dispatchRemoveEvent = (event) => {
+    notifyRemoval = (event) => {
         event.stopPropagation();
         
         this.dispatchEvent(new CustomEvent("input", {

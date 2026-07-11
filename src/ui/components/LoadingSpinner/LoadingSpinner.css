@@ -3,12 +3,8 @@
     --slither-duration: 2s;
     --outer-radius: 0.5em;
     --inner-radius: 0.375em;
-    
-    display: inline-flex;
-}
 
-:host([hidden]) {
-    display: none !important;
+    display: inline-flex;
 }
 
 svg {

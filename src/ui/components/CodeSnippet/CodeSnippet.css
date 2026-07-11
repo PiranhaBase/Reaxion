@@ -1,12 +1,3 @@
-:host {
-    display: block;
-}
-
-* {
-    padding: 0;
-    margin: 0;
-}
-
 [part="base"] {
     color: #EDEDED;
     border-radius: 10px;

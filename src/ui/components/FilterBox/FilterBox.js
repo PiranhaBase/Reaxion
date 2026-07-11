@@ -23,10 +23,10 @@ class FilterBox extends BaseElement {
     static styles = [style];
 
     static get properties() {
-        return { "search-placeholder": String };
+        return { searchPlaceholder: String };
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
+    onUpdate(property, oldValue, newValue) {
         if (newValue !== null) {
             if (this._searchBox) searchBox.placeholder = newValue;
             else {
@@ -46,7 +46,7 @@ class FilterBox extends BaseElement {
         }
     }
 
-    disconnectedCallback() {
+    onUnmount() {
         this._searchBox?.removeEventListener("input", this.render);
     }
 
