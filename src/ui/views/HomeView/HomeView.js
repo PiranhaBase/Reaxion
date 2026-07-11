@@ -115,7 +115,7 @@ class HomeView extends HTMLElement {
 
     renderBalanced = (event) => {
         const equation = document.createElement("chemical-equation");
-        equation.reaction = this._reactionInput.value;
+        equation.textContent = this._reactionInput.value;
         equation.balanced = true;
         this._reactionOutput.replaceChildren(equation);
     }

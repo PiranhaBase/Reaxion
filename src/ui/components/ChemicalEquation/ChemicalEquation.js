@@ -7,27 +7,61 @@ class ChemicalEquation extends BaseElement {
 
     constructor() {
         super();
+
+        this._reaction = null;
+        this._reactionObserver = new MutationObserver(this.updateReaction);
     }
 
     static styles = [style];
 
     static get properties() {
         return {
-            "reaction": String,
             "balanced": Boolean,
             "stateHidden": Boolean
         };
     }
 
+    connectedCallback() {
+        super.connectedCallback();
+
+        this.updateReaction();
+    }
+
     attributeChangedCallback(name, oldValue, newValue) {
+        if (this._reaction !== null) this.render();
+    }
+    
+    disconnectedCallback() {
+        this._reactionObserver.disconnect();
+    }
+
+    get reaction() {
+        return this.shadowRoot.textContent;
+    }
+
+    set reaction(reactionText) {
+        this._reaction = reactionText;
+        this.render();
+    }
+
+    updateReaction = () => {
+        this.reaction = this.textContent;
+
+        this._reactionObserver.disconnect();
+        this.replaceChildren();
+        this._reactionObserver.observe(this, { childList: true, subtree: true });
+    }
+
+    render() {
         try {
-            let reactionText = this.getAttribute("reaction") || "";
+            let reactionText = this._reaction;
             if (this.hasAttribute("state-hidden")) {
                 reactionText = reactionText.replace(/\s*\([a-z]+\)/g, "");
             }
             const reaction = new Reaction(reactionText);
             this.shadowRoot.innerHTML = this.reactionHTML(reaction, this.hasAttribute("balanced"));
         }
+
         catch (error) {
             console.error(error);
             this.shadowRoot.innerHTML = this.errorHTML(error.message);

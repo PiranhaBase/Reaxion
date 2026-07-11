@@ -196,7 +196,7 @@ class ExampleView extends HTMLElement {
             reactionCard.autoExpand = autoExpand;
 
             const equation = document.createElement("chemical-equation");
-            equation.reaction = example.reaction;
+            equation.textContent = example.reaction;
             equation.stateHidden = stateHidden;
 
             reactionCard.append(equation);
