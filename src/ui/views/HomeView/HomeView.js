@@ -1,50 +1,47 @@
+import ViewElement from "../../../utils/ViewElement.js";
 import style from "./HomeView.css" with { type: "css" };
-import shared from "../../styles/global.css" with { type: "css" };
 import Reaction from "../../../core/reaction.js";
 
 
-class HomeView extends HTMLElement {
+class HomeView extends ViewElement {
+
+    static template = `
+        <main>
+            <header>
+                <slot></slot>
+            </header>
+            <section>
+                <article class="card">
+                    <label for="reaction-input">UNBALANCED EQUATION</label>
+                    <input type="text" id="reaction-input" class="reaction" placeholder="e.g. H2 + O2 --> H2O">
+                    <footer>
+                        <button class="secondary" id="batch-button">Batch</button>
+                        <button class="primary" id="balance-button">Balance Reaction</button>
+                    </footer>
+                </article>
+                <dialog-box id="batch-dialog" label="Batch Balance">
+                    <p>Upload newline separated list of reactions in plaintext format.</p>
+                    <file-input accept=".txt" id="batch-input"></file-input>
+                    <p class="error" id="file-error" hidden>File must be of plaintext (.txt) format</p>
+                    <button class="primary" id="download-batch" disabled>Download CSV</button>
+                </dialog-box>
+                <article class="card accent">
+                    <header>
+                        <label for="reaction-output">BALANCED EQUATION</label>
+                        <copy-button id="copy-reaction">Copy reaction</copy-button>
+                    </header>
+                    <output class="reaction" id="reaction-output" for="reaction-input">
+                        <span>The balanced reaction appears here.</span>
+                    </output>
+                </article>
+            </section>
+        </main>
+    `;
+
+    static styles = [style];
 
     constructor() {
         super();
-
-        this.initialized = true;
-        
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [shared, style];
-
-        this.shadowRoot.innerHTML = `
-            <main>
-                <header>
-                    <slot></slot>
-                </header>
-                <section>
-                    <article class="card">
-                        <label for="reaction-input">UNBALANCED EQUATION</label>
-                        <input type="text" id="reaction-input" class="reaction" placeholder="e.g. H2 + O2 --> H2O">
-                        <footer>
-                            <button class="secondary" id="batch-button">Batch</button>
-                            <button class="primary" id="balance-button">Balance Reaction</button>
-                        </footer>
-                    </article>
-                    <dialog-box id="batch-dialog" label="Batch Balance">
-                        <p>Upload newline separated list of reactions in plaintext format.</p>
-                        <file-input accept=".txt" id="batch-input"></file-input>
-                        <p class="error" id="file-error" hidden>File must be of plaintext (.txt) format</p>
-                        <button class="primary" id="download-batch" disabled>Download CSV</button>
-                    </dialog-box>
-                    <article class="card accent">
-                        <header>
-                            <label for="reaction-output">BALANCED EQUATION</label>
-                            <copy-button id="copy-reaction">Copy reaction</copy-button>
-                        </header>
-                        <output class="reaction" id="reaction-output" for="reaction-input">
-                            <span>The balanced reaction appears here.</span>
-                        </output>
-                    </article>
-                </section>
-            </main>
-        `;
 
         this._reactionInput = this.shadowRoot.getElementById("reaction-input");
         this._batchButton = this.shadowRoot.getElementById("batch-button");
@@ -57,7 +54,7 @@ class HomeView extends HTMLElement {
         this._reactionOutput = this.shadowRoot.getElementById("reaction-output");
     }
 
-    connectedCallback() {
+    setup() {
         this._reactionInput.addEventListener("input", this.autocomplete);
         this._reactionInput.addEventListener("keydown", this.onKeydown);
         this._batchButton.addEventListener("click", this.viewBatchDialog);

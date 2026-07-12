@@ -80,6 +80,8 @@ export default class BaseElement extends HTMLElement {
 
             this.constructor._template = document.createElement("template");
             this.constructor._template.innerHTML = this.constructor.template || "";
+
+            delete this.constructor.template;
         }
 
         this.attachShadow({ mode: "open" });

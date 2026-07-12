@@ -1,5 +1,5 @@
+import ViewElement from "../../../utils/ViewElement.js";
 import style from "./DocumentationView.css" with { type: "css" };
-import shared from "../../styles/global.css" with { type: "css" };
 import { fetchDocumentation } from "../../../services/data.js";
 
 import { marked } from "../../../../lib/marked/marked.esm.js";
@@ -10,31 +10,26 @@ import "../../../../lib/katex/contrib/mhchem.js";
 import renderMathInElement from "../../../../lib/katex/contrib/auto-render.js";
 
 
-class DocumentationView extends HTMLElement {
+class DocumentationView extends ViewElement {
+
+    static template = `
+        <main>
+            <header>
+                <slot></slot>
+            </header>
+            <section></section>
+        </main>
+    `;
+
+    static styles = [katexStyle, style];
     
     constructor() {
         super();
-
-        this.initialized = false;
-        
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [katexStyle, shared, style];
-        document.adoptedStyleSheets.push(katexFonts);
-
-        this.shadowRoot.innerHTML = `
-            <main>
-                <header>
-                    <slot></slot>
-                </header>
-                <section></section>
-            </main>
-        `;
-
         this._content = this.shadowRoot.querySelector("section");
     }
 
-    async initialize() {
-        this.initialized = true;
+    async setup() {
+        document.adoptedStyleSheets.push(katexFonts);
 
         const blockMathExtension = {
             name: 'blockMath',

@@ -1,64 +1,61 @@
+import ViewElement from "../../../utils/ViewElement.js";
 import style from "./ExampleView.css" with { type: "css" };
-import shared from "../../styles/global.css" with { type: "css" };
 import { fetchCategories, fetchElements, fetchExamples } from "../../../services/data.js";
 
 
-class ExampleView extends HTMLElement {
+class ExampleView extends ViewElement {
+
+    static template = `
+        <main>
+            <header>
+                <slot></slot>
+            </header>
+            <section class="filter-section">
+                <search class="view-options">
+                    <search-box placeholder="Search reactions" id="reaction-search"></search-box>
+                        <dropdown-trigger>
+                        <vector-icon name="settings" slot="icon"></vector-icon>
+                        <div class="card settings">
+                            <h5>Options</h5>
+                            <div class="content">
+                                <toggle-switch checked id="state-toggle">State labels</toggle-switch>
+                                <toggle-switch checked id="type-toggle">Reaction type</toggle-switch>
+                                <toggle-switch id="compact-toggle">Compact view</toggle-switch>
+                                <toggle-switch id="expand-toggle">Expand on hover / long-press</toggle-switch>
+                            </div>
+                        </div>
+                    </dropdown-trigger>
+                </search>
+                <search>
+                    <vector-icon name="filter"></vector-icon>
+                    <dropdown-trigger label="Categories">
+                        <filter-box id="category-filters" search-placeholder="Search categories"></filter-box>
+                    </dropdown-trigger>
+                    <dropdown-trigger label="Elements">
+                        <filter-box id="element-filters" search-placeholder="Type name, symbol or number"></filter-box>
+                    </dropdown-trigger>
+                    <dropdown-trigger label="Type">
+                        <filter-box id="type-filters">
+                            <filter-item value="Molecular">Molecular</filter-item>
+                            <filter-item value="Ionic">Ionic</filter-item>
+                        </filter-box>
+                    </dropdown-trigger>
+                </search>
+                <search id="filter-pills"></search>
+            </section>
+            <section id="example-cards"></section>
+            <div id="load-sentinel" hidden></div>
+        </main>
+    `;
+
+    static styles = [style];
 
     constructor() {
         super();
 
-        this.initialized = false;
-
         this._filterUpdate = false;
         this._filterWorker = null;
         this._filterTimeoutId = null;
-
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.adoptedStyleSheets = [shared, style];
-
-        this.shadowRoot.innerHTML = `
-            <main>
-                <header>
-                    <slot></slot>
-                </header>
-                <section class="filter-section">
-                    <search class="view-options">
-                        <search-box placeholder="Search reactions" id="reaction-search"></search-box>
-                            <dropdown-trigger>
-                            <vector-icon name="settings" slot="icon"></vector-icon>
-                            <div class="card settings">
-                                <h5>Options</h5>
-                                <div class="content">
-                                    <toggle-switch checked id="state-toggle">State labels</toggle-switch>
-                                    <toggle-switch checked id="type-toggle">Reaction type</toggle-switch>
-                                    <toggle-switch id="compact-toggle">Compact view</toggle-switch>
-                                    <toggle-switch id="expand-toggle">Expand on hover / long-press</toggle-switch>
-                                </div>
-                            </div>
-                        </dropdown-trigger>
-                    </search>
-                    <search>
-                        <vector-icon name="filter"></vector-icon>
-                        <dropdown-trigger label="Categories">
-                            <filter-box id="category-filters" search-placeholder="Search categories"></filter-box>
-                        </dropdown-trigger>
-                        <dropdown-trigger label="Elements">
-                            <filter-box id="element-filters" search-placeholder="Type name, symbol or number"></filter-box>
-                        </dropdown-trigger>
-                        <dropdown-trigger label="Type">
-                            <filter-box id="type-filters">
-                                <filter-item value="Molecular">Molecular</filter-item>
-                                <filter-item value="Ionic">Ionic</filter-item>
-                            </filter-box>
-                        </dropdown-trigger>
-                    </search>
-                    <search id="filter-pills"></search>
-                </section>
-                <section id="example-cards"></section>
-                <div id="load-sentinel" hidden></div>
-            </main>
-        `;
 
         this._displayOptions = this.shadowRoot.querySelector(".settings > .content");
         this._searchBox = this.shadowRoot.getElementById("reaction-search");
@@ -75,21 +72,7 @@ class ExampleView extends HTMLElement {
         this._loadSentinel = this.shadowRoot.getElementById("load-sentinel");
     }
 
-    connectedCallback() {
-        this._displayOptions.addEventListener("input", this.applyDisplayOptions);
-        this._filterSection.addEventListener("input", this.manageFilters);
-        this._exampleSection.addEventListener("click", this.dispatchReaction);
-
-        const scrollObserver = new IntersectionObserver(([sentinel]) => {
-            if (sentinel.isIntersecting) this.loadExamples();
-        }, { scrollMargin: "100px" });
-
-        scrollObserver.observe(this._loadSentinel);
-    }
-
-    async initialize() {
-        this.initialized = true;
-        
+    async setup() {
         const [categories, elements] = await Promise.all([fetchCategories(), fetchElements()]);
         
         for (const category of categories) {
@@ -112,6 +95,16 @@ class ExampleView extends HTMLElement {
         this._filterWorker.postMessage(await fetchExamples());
         this._filterWorker.onmessage = (event) => this.renderExamples(event.data);
         this.updateFilters();
+
+        this._displayOptions.addEventListener("input", this.applyDisplayOptions);
+        this._filterSection.addEventListener("input", this.manageFilters);
+        this._exampleSection.addEventListener("click", this.dispatchReaction);
+
+        const scrollObserver = new IntersectionObserver(([sentinel]) => {
+            if (sentinel.isIntersecting) this.loadExamples();
+        }, { scrollMargin: "100px" });
+
+        scrollObserver.observe(this._loadSentinel);
     }
 
     applyDisplayOptions = (event) => {
