@@ -14,15 +14,18 @@ class DropdownTrigger extends BaseElement {
             <slot name="icon">
                 <vector-icon name="dropdown"></vector-icon>
             </slot>
-            <div class="backdrop"></div>
-            <slot></slot>
         </button>
+        <div class="backdrop"></div>
+        <slot></slot>
     `;
 
     constructor() {
         super();
 
+        this._dropdown = null;
+
         this._trigger = this.shadowRoot.querySelector("button");
+        this._backdrop = this.shadowRoot.querySelector(".backdrop");
         this._text = this.shadowRoot.querySelector("span");
         this._dropdownSlot = this.shadowRoot.querySelector("slot:not([name])");
     }
@@ -32,23 +35,27 @@ class DropdownTrigger extends BaseElement {
     }
 
     onMount() {
-        this._trigger.addEventListener("click", this.toggleDropdown);
+        this._trigger.addEventListener("click", this.viewDropdown);
+        this._backdrop.addEventListener("click", this.hideDropdown);
         this._dropdownSlot.addEventListener("slotchange", this.initializeDropdown);
     }
 
     onUnmount() {
+        this._trigger.removeEventListener("click", this.viewDropdown);
+        this._backdrop.removeEventListener("click", this.hideDropdown);
         this._dropdownSlot.removeEventListener("slotchange", this.initializeDropdown);
-        this._trigger.removeEventListener("click", this.toggleDropdown);
     }
 
     initializeDropdown = (event) => {
-        const dropdown = event.target.assignedElements()[0];
-        if (dropdown) dropdown.dataset.dropdown = "";
+        this._dropdown = event.target.assignedElements()[0];
     }
 
-    toggleDropdown = (event) => {
-        if (event.target.closest("[data-dropdown]")) return;
-        this._trigger.toggleAttribute("data-active");
+    viewDropdown = (event) => {
+        this._trigger.dataset.active = "";
+    }
+
+    hideDropdown = (event) => {
+        delete this._trigger.dataset.active;
     }
 }
 

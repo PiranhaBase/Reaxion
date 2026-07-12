@@ -1,5 +1,3 @@
-import "./NavigationBar/NavigationBar.js";
-import "./ViewRouter/ViewRouter.js";
 import "./CopyButton/CopyButton.js";
 import "./SearchBox/SearchBox.js";
 import "./FilterItem/FilterItem.js";
@@ -15,3 +13,4 @@ import "./ReactionCard/ReactionCard.js";
 import "./ToggleSwitch/ToggleSwitch.js";
 import "./LoadingSpinner/LoadingSpinner.js";
 import "./VectorIcon/VectorIcon.js";
+import "./NavigationBar/NavigationBar.js";

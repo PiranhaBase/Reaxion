@@ -13,7 +13,7 @@ class SearchBox extends BaseElement {
             <vector-icon name="search" part="search-icon"></vector-icon>
             <input type="text" name="search" placeholder="" part="input">
             <button aria-label="Clear input" part="clear-button">
-                <vector-icon name="close"></vector-icon>
+                <vector-icon name="clear"></vector-icon>
             </button>
         </div>
     `;

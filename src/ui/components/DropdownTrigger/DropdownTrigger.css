@@ -24,51 +24,44 @@
         transition: rotate 0.2s;
     }
 
-    slot:not([name])::slotted(*) {
-        z-index: 2;
-        position: absolute;
-        position-anchor: --dropdown-anchor;
-        top: calc(anchor(bottom) + 0.4em);
-        justify-self: anchor-center;
-        position-try: most-width flip-block, flip-inline;
-        cursor: auto;
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(0.9) translate(0, -1em);
-        transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
-    }
-
-    .backdrop {
-        z-index: 1;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        visibility: hidden;
-    }
-
     &[data-active] {
         vector-icon {
             rotate: 180deg;
         }
 
-        slot:not([name])::slotted(*) {
+        & + .backdrop {
+            display: unset;
+        }
+
+        & ~ ::slotted(*) {
             opacity: 1;
             visibility: visible;
             transform: unset;
-        }
-
-        .backdrop {
-            visibility: visible;
         }
     }
 
     @media (any-hover: hover) and (pointer: fine) {
         cursor: pointer;
-
-        .backdrop {
-            cursor: auto;
-        }
     }
+}
+
+.backdrop {
+    z-index: 1;
+    position: fixed;
+    inset: 0;
+    display: none;
+}
+
+slot:not([name])::slotted(*) {
+    z-index: 2;
+    position: absolute;
+    position-anchor: --dropdown-anchor;
+    top: calc(anchor(bottom) + 0.4em);
+    justify-self: anchor-center;
+    position-try: most-width flip-block, flip-inline;
+    cursor: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9) translate(0, -1em);
+    transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
 }

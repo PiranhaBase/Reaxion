@@ -102,7 +102,7 @@ class ExampleView extends ViewElement {
 
         const scrollObserver = new IntersectionObserver(([sentinel]) => {
             if (sentinel.isIntersecting) this.loadExamples();
-        }, { scrollMargin: "100px" });
+        }, { scrollMargin: "200px" });
 
         scrollObserver.observe(this._loadSentinel);
     }
@@ -211,7 +211,10 @@ class ExampleView extends ViewElement {
         this.dispatchEvent(new CustomEvent("reaction-selected", {
             bubbles: true,
             composed: true,
-            detail: { reaction: event.target.querySelector("chemical-equation").reaction }
+            detail: {
+                reaction: event.target.querySelector("chemical-equation").reaction,
+                targetView: "home-view"
+            }
         }));
     }
 }

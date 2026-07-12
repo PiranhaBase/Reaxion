@@ -21,7 +21,8 @@
         mask-image: var(--src-menu-icon);
     }
 
-    &[data-icon="close"] {
+    &[data-icon="close"],
+    &[data-icon="clear"] {
         mask-image: var(--src-close-icon);
     }
 

@@ -10,7 +10,7 @@ class FilterPill extends BaseElement {
         <div part="base">
             <span></span>
             <button>
-                <vector-icon name="close"></vector-icon>
+                <vector-icon name="clear"></vector-icon>
             </button>
         </div>
     `;

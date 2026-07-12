@@ -22,7 +22,7 @@ function toggleTheme() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector("nav-bar").addEventListener("theme-change", toggleTheme);
+    document.addEventListener("theme-change", toggleTheme);
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", updateTheme);
 });
 
