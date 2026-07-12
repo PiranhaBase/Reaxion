@@ -4,12 +4,9 @@ import style from "./FilterBox.css" with { type: "css" };
 
 class FilterBox extends BaseElement {
 
-    constructor() {
-        super();
+    static properties = { searchPlaceholder: String };
 
-        this._searchContainer = this.shadowRoot.querySelector("search");
-        this._searchBox = null;
-    }
+    static styles = [style];
 
     static template = `
         <div part="base">
@@ -20,10 +17,19 @@ class FilterBox extends BaseElement {
         </div>
     `;
 
-    static styles = [style];
+    constructor() {
+        super();
 
-    static get properties() {
-        return { searchPlaceholder: String };
+        this._searchContainer = this.shadowRoot.querySelector("search");
+        this._searchBox = null;
+    }
+
+    get selected() {
+        const checkedOptions = [];
+        for (const option of this.querySelectorAll("filter-item")) {
+            if (option.checked) checkedOptions.push(option.value);
+        }
+        return checkedOptions;
     }
 
     onUpdate(property, oldValue, newValue) {
@@ -48,14 +54,6 @@ class FilterBox extends BaseElement {
 
     onUnmount() {
         this._searchBox?.removeEventListener("input", this.render);
-    }
-
-    get selected() {
-        const checkedOptions = [];
-        for (const option of this.querySelectorAll("filter-item")) {
-            if (option.checked) checkedOptions.push(option.value);
-        }
-        return checkedOptions;
     }
 
     render = (event) => {

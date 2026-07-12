@@ -3,12 +3,10 @@ import style from "./SearchBox.css" with { type: "css" };
 
 
 class SearchBox extends BaseElement {
-    
-    constructor() {
-        super();
-        this._input = this.shadowRoot.querySelector("input");
-        this._clearButton = this.shadowRoot.querySelector("button");
-    }
+
+    static properties = { placeholder: String };
+
+    static styles = [style];
 
     static template = `
         <div part="base">
@@ -19,23 +17,11 @@ class SearchBox extends BaseElement {
             </button>
         </div>
     `;
-
-    static styles = [style];
-
-    static get properties() {
-        return { placeholder: String };
-    }
-
-    onMount() {
-        this._clearButton.addEventListener("click", this.clearInput);
-    }
-
-    onUpdate(property, oldValue, newValue) {
-        this._input.placeholder = newValue || "";
-    }
-
-    onUnmount() {
-        this._clearButton.removeEventListener("click", this.clearInput);
+    
+    constructor() {
+        super();
+        this._input = this.shadowRoot.querySelector("input");
+        this._clearButton = this.shadowRoot.querySelector("button");
     }
 
     get value() {
@@ -44,6 +30,18 @@ class SearchBox extends BaseElement {
 
     set value(newValue) {
         this._input.value = newValue;
+    }
+
+    onUpdate(property, oldValue, newValue) {
+        this._input.placeholder = newValue || "";
+    }
+
+    onMount() {
+        this._clearButton.addEventListener("click", this.clearInput);
+    }
+
+    onUnmount() {
+        this._clearButton.removeEventListener("click", this.clearInput);
     }
 
     clearInput = (event) => {

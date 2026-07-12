@@ -4,13 +4,9 @@ import style from "./DropdownTrigger.css" with { type: "css" };
 
 class DropdownTrigger extends BaseElement {
 
-    constructor() {
-        super();
+    static properties = { label: String };
 
-        this._trigger = this.shadowRoot.querySelector("button");
-        this._text = this.shadowRoot.querySelector("span");
-        this._dropdownSlot = this.shadowRoot.querySelector("slot:not([name])");
-    }
+    static styles = [style];
 
     static template = `
         <button part="base">
@@ -23,19 +19,21 @@ class DropdownTrigger extends BaseElement {
         </button>
     `;
 
-    static styles = [style];
+    constructor() {
+        super();
 
-    static get properties() {
-        return { label: String };
+        this._trigger = this.shadowRoot.querySelector("button");
+        this._text = this.shadowRoot.querySelector("span");
+        this._dropdownSlot = this.shadowRoot.querySelector("slot:not([name])");
+    }
+
+    onUpdate(property, oldValue, newValue) {
+        this._text.textContent = newValue || "";
     }
 
     onMount() {
         this._trigger.addEventListener("click", this.toggleDropdown);
         this._dropdownSlot.addEventListener("slotchange", this.initializeDropdown);
-    }
-
-    onUpdate(property, oldValue, newValue) {
-        this._text.textContent = newValue || "";
     }
 
     onUnmount() {

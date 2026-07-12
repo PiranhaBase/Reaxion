@@ -7,13 +7,10 @@ import githubDark from "../../../../lib/highlight/styles/github-dark.min.css" wi
 
 
 class CodeSnippet extends BaseElement {
-    
-    constructor() {
-        super();
-        this._language = this.shadowRoot.querySelector("h6");
-        this._copyButton = this.shadowRoot.querySelector("copy-button");
-        this._snippet = this.shadowRoot.querySelector("code");
-    }
+
+    static properties = { language: String };
+
+    static styles = [style, githubDark];
 
     static template = `
         <div part="base">
@@ -24,11 +21,16 @@ class CodeSnippet extends BaseElement {
             <pre><code part="snippet"></code></pre>
         </div>
     `;
+    
+    constructor() {
+        super();
+        this._language = this.shadowRoot.querySelector("h6");
+        this._copyButton = this.shadowRoot.querySelector("copy-button");
+        this._snippet = this.shadowRoot.querySelector("code");
+    }
 
-    static styles = [style, githubDark];
-
-    static get properties() {
-        return { language: String };
+    onUpdate(property, oldValue, newValue) {
+        this._language.textContent = newValue || "plaintext";
     }
 
     onMount() {
@@ -44,10 +46,6 @@ class CodeSnippet extends BaseElement {
         catch (error) {
             console.error(error);
         }
-    }
-
-    onUpdate(property, oldValue, newValue) {
-        this._language.textContent = newValue || "plaintext";
     }
 
     onUnmount() {

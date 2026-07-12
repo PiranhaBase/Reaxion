@@ -4,15 +4,15 @@ import style from "./ReactionCard.css" with { type: "css" };
 
 class ReactionCard extends BaseElement {
 
-    constructor() {
-        super();
+    static properties = {
+        type: String,
+        category: String,
+        compact: Boolean,
+        autoExpand: Boolean,
+        typeHidden: Boolean
+    };
 
-        this._base = this.shadowRoot.querySelector("[part='base']");
-        this._reactionType = this.shadowRoot.querySelector("[part='reaction-type']");
-        this._categoryContainer = this.shadowRoot.querySelector(".categories");
-
-        this._expansionTimeout = null;
-    }
+    static styles = [style];
 
     static template = `
         <article part="base">
@@ -27,16 +27,14 @@ class ReactionCard extends BaseElement {
         </article>
     `;
 
-    static styles = [style];
+    constructor() {
+        super();
 
-    static get properties() {
-        return {
-            type: String,
-            category: String,
-            compact: Boolean,
-            autoExpand: Boolean,
-            typeHidden: Boolean
-        }
+        this._base = this.shadowRoot.querySelector("[part='base']");
+        this._reactionType = this.shadowRoot.querySelector("[part='reaction-type']");
+        this._categoryContainer = this.shadowRoot.querySelector(".categories");
+
+        this._expansionTimeout = null;
     }
 
     onUpdate(property, oldValue, newValue) {

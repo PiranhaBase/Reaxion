@@ -4,16 +4,9 @@ import style from "./DialogBox.css" with { type: "css" };
 
 class DialogBox extends BaseElement {
 
-    constructor() {
-        super();
+    static properties = { label: String };
 
-        this._backdrop = this.shadowRoot.querySelector("[part='backdrop']");
-        this._title = this.shadowRoot.querySelector("h3");
-        this._closeButton = this.shadowRoot.querySelector("button");
-        this._dialog = this.shadowRoot.querySelector("dialog");
-
-        this._animationTimeout = null;
-    }
+    static styles = [style];
 
     static template = `
         <div part="backdrop">
@@ -31,19 +24,24 @@ class DialogBox extends BaseElement {
         </div>
     `;
 
-    static styles = [style];
+    constructor() {
+        super();
 
-    static get properties() {
-        return { label: String };
+        this._backdrop = this.shadowRoot.querySelector("[part='backdrop']");
+        this._title = this.shadowRoot.querySelector("h3");
+        this._closeButton = this.shadowRoot.querySelector("button");
+        this._dialog = this.shadowRoot.querySelector("dialog");
+
+        this._animationTimeout = null;
+    }
+
+    onUpdate(property, oldValue, newValue) {
+        this._title.textContent = newValue || "";
     }
 
     onMount() {
         this._backdrop.addEventListener("click", this.shakeDialog);
         this._closeButton.addEventListener("click", this.closeModal);
-    }
-
-    onUpdate(property, oldValue, newValue) {
-        this._title.textContent = newValue || "";
     }
 
     onUnmount() {

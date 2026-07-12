@@ -12,20 +12,9 @@ class NavigationLink extends HTMLElement {
 
 class NavigationBar extends BaseElement {
 
-    constructor() {
-        super();
+    static properties = { "heading": String };
 
-        this._heading = this.shadowRoot.querySelector("[part='heading']")
-        this._themeButtons = [...this.shadowRoot.querySelectorAll("button.theme")];
-        this._menuButton = this.shadowRoot.querySelector("button.menu");
-        this._closeButton = this.shadowRoot.querySelector("button.close");
-        this._backdrop = this.shadowRoot.querySelector("[part='backdrop']");
-        this._sidebar = this.shadowRoot.querySelector("aside");
-        this._navbarLinks = this.shadowRoot.querySelector("header > nav");
-        this._sidebarLinks = this.shadowRoot.querySelector("aside > nav");
-
-        this._activeView = null;
-    }
+    static styles = [style];
 
     static template = `
         <header part="navbar-base">
@@ -52,10 +41,36 @@ class NavigationBar extends BaseElement {
         </aside>
     `;
 
-    static styles = [style];
+    constructor() {
+        super();
 
-    static get properties() {
-        return { "heading": String };
+        this._heading = this.shadowRoot.querySelector("[part='heading']")
+        this._themeButtons = [...this.shadowRoot.querySelectorAll("button.theme")];
+        this._menuButton = this.shadowRoot.querySelector("button.menu");
+        this._closeButton = this.shadowRoot.querySelector("button.close");
+        this._backdrop = this.shadowRoot.querySelector("[part='backdrop']");
+        this._sidebar = this.shadowRoot.querySelector("aside");
+        this._navbarLinks = this.shadowRoot.querySelector("header > nav");
+        this._sidebarLinks = this.shadowRoot.querySelector("aside > nav");
+
+        this._activeView = null;
+    }
+
+    get view() {
+        return this._activeView;
+    }
+
+    set view(targetView) {
+        this._activeView = targetView;
+
+        for (const link of [...this._navbarLinks.children, ...this._sidebarLinks.children]) {
+            if (link.part.contains("active-link")) link.part.remove("active-link");
+            if (link.dataset.view === targetView) link.part.add("active-link");
+        }
+    }
+
+    onUpdate(property, oldValue, newValue) {
+        this._heading.textContent = newValue || "";
     }
 
     onMount() {
@@ -88,10 +103,6 @@ class NavigationBar extends BaseElement {
         this._sidebarLinks.addEventListener("click", this.notifyNavigation);
     }
 
-    onUpdate(property, oldValue, newValue) {
-        this._heading.textContent = newValue || "";
-    }
-
     onUnmount() {
         this._menuButton.removeEventListener("click", this.viewSidebar);
         this._closeButton.removeEventListener("click", this.hideSidebar);
@@ -99,19 +110,6 @@ class NavigationBar extends BaseElement {
         this._backdrop.removeEventListener("click", this.hideSidebar);
         this._navbarLinks.removeEventListener("click", this.notifyNavigation);
         this._sidebarLinks.removeEventListener("click", this.notifyNavigation);
-    }
-
-    get view() {
-        return this._activeView;
-    }
-
-    set view(targetView) {
-        this._activeView = targetView;
-
-        for (const link of [...this._navbarLinks.children, ...this._sidebarLinks.children]) {
-            if (link.part.contains("active-link")) link.part.remove("active-link");
-            if (link.dataset.view === targetView) link.part.add("active-link");
-        }
     }
 
     viewSidebar = (event) => {

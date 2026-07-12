@@ -3,6 +3,14 @@ import style from "./CopyButton.css" with { type: "css" };
 
 
 class CopyButton extends BaseElement {
+
+    static styles = [style];
+
+    static template = `
+        <button part="base">
+            <vector-icon name="copy"></vector-icon>
+        </button>
+    `;
     
     constructor() {
         super();
@@ -11,14 +19,6 @@ class CopyButton extends BaseElement {
         this._trigger = this.shadowRoot.querySelector("button");
         this._icon = this.shadowRoot.querySelector("vector-icon");
     }
-
-    static template = `
-        <button part="base">
-            <vector-icon name="copy"></vector-icon>
-        </button>
-    `;
-
-    static styles = [style];
 
     onTextChange(label) {
         this._trigger.ariaLabel = label;

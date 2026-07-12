@@ -4,26 +4,23 @@ import style from "./VectorIcon.css" with { type: "css" };
 
 class VectorIcon extends BaseElement {
 
-    constructor() {
-        super();
-
-        this._base = this.shadowRoot.querySelector("[part='base']");
-    }
-
-    static template = '<div part="base"></div>';
+    static properties = { name: String };
 
     static styles = [style];
 
-    static get properties() {
-        return { name: String };
-    }
+    static template = '<div part="base"></div>';
 
-    onMount() {
-        this.ariaHidden = true;
+    constructor() {
+        super();
+        this._base = this.shadowRoot.querySelector("[part='base']");
     }
 
     onUpdate(property, oldValue, newValue) {
         this._base.dataset.icon = newValue?.trim().toLowerCase();
+    }
+
+    onMount() {
+        this.ariaHidden = true;
     }
 }
 

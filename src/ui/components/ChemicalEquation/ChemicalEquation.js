@@ -5,18 +5,24 @@ import style from "./ChemicalEquation.css" with { type: "css" };
 
 class ChemicalEquation extends BaseElement {
 
+    static properties = {
+        balanced: Boolean,
+        stateHidden: Boolean
+    };
+
+    static styles = [style];
+
     constructor() {
         super();
         this._reaction = null;
     }
 
-    static styles = [style];
+    get reaction() {
+        return this.shadowRoot.textContent;
+    }
 
-    static get properties() {
-        return {
-            balanced: Boolean,
-            stateHidden: Boolean
-        };
+    set reaction(reactionText) {
+        this.textContent = reactionText;
     }
 
     onUpdate(property, oldValue, newValue) {
@@ -26,14 +32,6 @@ class ChemicalEquation extends BaseElement {
     onTextChange(text) {
         this._reaction = text;
         this.render();
-    }
-
-    get reaction() {
-        return this.shadowRoot.textContent;
-    }
-
-    set reaction(reactionText) {
-        this.textContent = reactionText;
     }
 
     render() {

@@ -4,13 +4,13 @@ import style from "./FilterItem.css" with { type: "css" };
 
 class FilterItem extends BaseElement {
 
-    constructor() {
-        super();
-        this._internals = this.attachInternals();
+    static properties = {
+        value: String,
+        pattern: String,
+        checked: Boolean
+    };
 
-        this._label = this.shadowRoot.querySelector("label");
-        this._checkbox = this.shadowRoot.querySelector("input");
-    }
+    static styles = [style];
 
     static template = `
         <div part="base">
@@ -19,18 +19,12 @@ class FilterItem extends BaseElement {
         </div>
     `;
 
-    static styles = [style];
+    constructor() {
+        super();
+        this._internals = this.attachInternals();
 
-    static get properties() {
-        return {
-            value: String,
-            pattern: String,
-            checked: Boolean
-        };
-    }
-
-    onMount() {
-        this._checkbox.addEventListener("input", this.toggle);
+        this._label = this.shadowRoot.querySelector("label");
+        this._checkbox = this.shadowRoot.querySelector("input");
     }
 
     onUpdate(property, oldValue, newValue) {
@@ -44,6 +38,10 @@ class FilterItem extends BaseElement {
                 this._checkbox.checked = false;
             }
         }
+    }
+
+    onMount() {
+        this._checkbox.addEventListener("input", this.toggle);
     }
 
     onTextChange(label) {

@@ -4,13 +4,9 @@ import style from "./ToggleSwitch.css" with { type: "css" };
 
 class ToggleSwitch extends BaseElement {
 
-    constructor() {
-        super();
-        this._internals = this.attachInternals();
+    static properties = { checked: Boolean };
 
-        this._label = this.shadowRoot.querySelector("label");
-        this._switch = this.shadowRoot.querySelector("input");
-    }
+    static styles = [style];
 
     static template = `
         <div part="base">
@@ -19,14 +15,12 @@ class ToggleSwitch extends BaseElement {
         </div>
     `;
 
-    static styles = [style];
+    constructor() {
+        super();
+        this._internals = this.attachInternals();
 
-    static get properties() {
-        return { checked: Boolean };
-    }
-
-    onMount() {
-        this._switch.addEventListener("input", this.toggle);
+        this._label = this.shadowRoot.querySelector("label");
+        this._switch = this.shadowRoot.querySelector("input");
     }
 
     onUpdate(property, oldValue, newValue) {
@@ -38,6 +32,10 @@ class ToggleSwitch extends BaseElement {
             this._internals.states.delete("checked");
             this._switch.checked = false;
         }
+    }
+
+    onMount() {
+        this._switch.addEventListener("input", this.toggle);
     }
 
     onTextChange(label) {

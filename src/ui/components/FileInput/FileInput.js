@@ -4,14 +4,9 @@ import style from "./FileInput.css" with { type: "css" };
 
 class FileInput extends BaseElement {
 
-    constructor() {
-        super();
-        this._internals = this.attachInternals();
+    static properties = { accept: String };
 
-        this._input = this.shadowRoot.querySelector("input");
-        this._icon = this.shadowRoot.querySelector("vector-icon");
-        this._label = this.shadowRoot.querySelector("span");
-    }
+    static styles = [style];
 
     static template = `
         <label part="base">
@@ -21,14 +16,17 @@ class FileInput extends BaseElement {
         </label>
     `;
 
-    static styles = [style];
+    constructor() {
+        super();
+        this._internals = this.attachInternals();
 
-    static get properties() {
-        return { accept: String };
+        this._input = this.shadowRoot.querySelector("input");
+        this._icon = this.shadowRoot.querySelector("vector-icon");
+        this._label = this.shadowRoot.querySelector("span");
     }
 
-    onMount() {
-        this._input.addEventListener("change", this.updateState);
+    get file() {
+        return this._input.files[0];
     }
 
     onUpdate(property, oldValue, newValue) {
@@ -36,12 +34,12 @@ class FileInput extends BaseElement {
         else this._input.removeAttribute("accept");
     }
 
-    onUnmount() {
-        this._input.removeEventListener("change", this.switchIcon);
+    onMount() {
+        this._input.addEventListener("change", this.updateState);
     }
 
-    get file() {
-        return this._input.files[0];
+    onUnmount() {
+        this._input.removeEventListener("change", this.switchIcon);
     }
 
     clear() {

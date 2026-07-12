@@ -39,14 +39,14 @@ export default class BaseElement extends HTMLElement {
             }
         }
 
+        this.onMount?.();
+
         queueMicrotask(() => {
             if (this.onTextChange) {
                 this._textObserver = new MutationObserver(this._onTextChange);
                 this._onTextChange();
             }
         });
-
-        this.onMount?.();
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

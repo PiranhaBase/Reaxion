@@ -4,14 +4,7 @@ import style from "./FilterPill.css" with { type: "css" };
 
 class FilterPill extends BaseElement {
 
-    constructor() {
-        super();
-
-        this._label = this.shadowRoot.querySelector("span");
-        this._clearButton = this.shadowRoot.querySelector("button");
-
-        this.target = null;
-    }
+    static styles = [style];
 
     static template = `
         <div part="base">
@@ -22,7 +15,14 @@ class FilterPill extends BaseElement {
         </div>
     `;
 
-    static styles = [style];
+    constructor() {
+        super();
+
+        this._label = this.shadowRoot.querySelector("span");
+        this._clearButton = this.shadowRoot.querySelector("button");
+
+        this.target = null;
+    }
 
     onMount() {
         this._clearButton.addEventListener("click", this.notifyRemoval);
