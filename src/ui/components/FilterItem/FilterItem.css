@@ -14,7 +14,7 @@
     }
 
     input {
-        font-size: inherit;
+        font-size: 1.1em;
         color: inherit;
         appearance: none;
         display: grid;

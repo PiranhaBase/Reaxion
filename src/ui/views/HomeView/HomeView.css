@@ -73,3 +73,13 @@ content-card {
 #reaction-output {
     color: var(--color-text-subtle);
 }
+
+#download-batch {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+
+    vector-icon {
+        font-size: 1.1em;
+    }
+}

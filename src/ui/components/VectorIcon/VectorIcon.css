@@ -45,6 +45,10 @@
         mask-image: var(--src-dropdown-icon);
     }
 
+    &[data-icon="download"] {
+        mask-image: var(--src-download-icon);
+    }
+
     &[data-icon="search"] {
         mask-image: var(--src-search-icon);
     }

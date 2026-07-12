@@ -23,7 +23,9 @@ class HomeView extends ViewElement {
                     <p>Upload newline separated list of reactions in plaintext format.</p>
                     <file-input accept=".txt" id="batch-input"></file-input>
                     <p class="error" id="file-error" hidden>File must be of plaintext (.txt) format</p>
-                    <button class="primary" id="download-batch" disabled>Download CSV</button>
+                    <button class="primary" id="download-batch" disabled>
+                        <span>Download CSV</span><vector-icon name="download"></vector-icon>
+                    </button>
                 </dialog-box>
                 <content-card accent>
                     <header>
@@ -206,6 +208,7 @@ class HomeView extends ViewElement {
         downloadLink.remove();
 
         this._batchInput.clear();
+        this._downloadButton.disabled = true;
     }
 }
 
