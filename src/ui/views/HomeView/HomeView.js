@@ -5,6 +5,8 @@ import Reaction from "../../../core/reaction.js";
 
 class HomeView extends ViewElement {
 
+    static styles = [style];
+
     static template = `
         <main>
             <header>
@@ -39,8 +41,6 @@ class HomeView extends ViewElement {
             </section>
         </main>
     `;
-
-    static styles = [style];
 
     constructor() {
         super();

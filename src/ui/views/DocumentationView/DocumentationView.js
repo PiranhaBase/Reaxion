@@ -12,6 +12,8 @@ import renderMathInElement from "../../../../lib/katex/contrib/auto-render.js";
 
 class DocumentationView extends ViewElement {
 
+    static styles = [katexStyle, style];
+
     static template = `
         <main>
             <header>
@@ -20,8 +22,6 @@ class DocumentationView extends ViewElement {
             <section></section>
         </main>
     `;
-
-    static styles = [katexStyle, style];
     
     constructor() {
         super();

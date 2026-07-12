@@ -5,6 +5,8 @@ import { fetchCategories, fetchElements, fetchExamples } from "../../../services
 
 class ExampleView extends ViewElement {
 
+    static styles = [style];
+
     static template = `
         <main>
             <header>
@@ -47,8 +49,6 @@ class ExampleView extends ViewElement {
             <div id="load-sentinel" hidden></div>
         </main>
     `;
-
-    static styles = [style];
 
     constructor() {
         super();
