@@ -455,18 +455,21 @@ reaction-card {
     }
 }
 
-loading-spinner {
-    color: var(--color-primary-muted);
+content-card {
+    &::part(base) {
+        background-color: var(--color-bg-elevated);
+        border-color: var(--color-border-default);
+    }
+
+    &[accent] {
+        &::part(base) {
+            border-left-color: var(--color-primary-light);
+        }
+    }
 }
 
-.card {
-    border-radius: 10px;
-    background-color: var(--color-bg-elevated);
-    border: 1px solid var(--color-border-default);
-
-    &.accent {
-        border-left: 4px solid var(--color-primary-light);
-    }
+loading-spinner {
+    color: var(--color-primary-muted);
 }
 
 .subtitle {

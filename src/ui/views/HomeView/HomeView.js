@@ -11,21 +11,21 @@ class HomeView extends ViewElement {
                 <slot></slot>
             </header>
             <section>
-                <article class="card">
+                <content-card>
                     <label for="reaction-input">UNBALANCED EQUATION</label>
                     <input type="text" id="reaction-input" class="reaction" placeholder="e.g. H2 + O2 --> H2O">
                     <footer>
                         <button class="secondary" id="batch-button">Batch</button>
                         <button class="primary" id="balance-button">Balance Reaction</button>
                     </footer>
-                </article>
+                </content-card>
                 <dialog-box id="batch-dialog" label="Batch Balance">
                     <p>Upload newline separated list of reactions in plaintext format.</p>
                     <file-input accept=".txt" id="batch-input"></file-input>
                     <p class="error" id="file-error" hidden>File must be of plaintext (.txt) format</p>
                     <button class="primary" id="download-batch" disabled>Download CSV</button>
                 </dialog-box>
-                <article class="card accent">
+                <content-card accent>
                     <header>
                         <label for="reaction-output">BALANCED EQUATION</label>
                         <copy-button id="copy-reaction">Copy reaction</copy-button>
@@ -33,7 +33,7 @@ class HomeView extends ViewElement {
                     <output class="reaction" id="reaction-output" for="reaction-input">
                         <span>The balanced reaction appears here.</span>
                     </output>
-                </article>
+                </content-card>
             </section>
         </main>
     `;

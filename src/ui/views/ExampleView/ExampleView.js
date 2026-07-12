@@ -15,7 +15,7 @@ class ExampleView extends ViewElement {
                     <search-box placeholder="Search reactions" id="reaction-search"></search-box>
                         <dropdown-trigger>
                         <vector-icon name="settings" slot="icon"></vector-icon>
-                        <div class="card settings">
+                        <content-card class="settings">
                             <h5>Options</h5>
                             <div class="content">
                                 <toggle-switch checked id="state-toggle">State labels</toggle-switch>
@@ -23,7 +23,7 @@ class ExampleView extends ViewElement {
                                 <toggle-switch id="compact-toggle">Compact view</toggle-switch>
                                 <toggle-switch id="expand-toggle">Expand on hover / long-press</toggle-switch>
                             </div>
-                        </div>
+                        </content-card>
                     </dropdown-trigger>
                 </search>
                 <search>

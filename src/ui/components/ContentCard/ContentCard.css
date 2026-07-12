@@ -1,0 +1,10 @@
+[part="base"] {
+    padding: 2em;
+    border-radius: 15px;
+    background-color: #191C1D;
+    border: 1px solid #2E3132;
+
+    &[data-accent] {
+        border-left: 4px solid #37DCDC;
+    }
+}

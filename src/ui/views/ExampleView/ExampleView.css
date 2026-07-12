@@ -39,8 +39,10 @@
 }
 
 .settings {
-    border-radius: 20px;
-    padding: 1.4rem 1.2rem;
+    &::part(base) {
+        border-radius: 20px;
+        padding: 1.4rem 1.2rem;
+    }
     
     h5 {
         font-family: var(--font-sans-serif);
