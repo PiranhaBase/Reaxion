@@ -267,99 +267,188 @@ The input string is passed to `Reaction.parse()`, which validates that a reactio
 
 ```javascript
 static parse(reaction) {
+    // require at least one space on either side of the arrow
     if (!/\s+-+>\s+/.test(reaction)) {
-        throw new Error("Reaction arrow is missing or incorrectly formatted, use spaces around the arrow");
+        throw new Error("Reaction arrow '-->' is missing or incorrectly formatted, use spaces around the arrow");
     }
-    let [reactants, products] = reaction.split(/\s+-+>\s+/);
-    // ...
+
+    const [lhs, rhs] = reaction.split(/\s+-+>\s+/);
+
+    // each side is split on '+', and each term becomes a Compound
+    const reactants = lhs.split(/\s+\+\s+/).map(reactant => new Compound(reactant));
+    const products = rhs.split(/\s+\+\s+/).map(product => new Compound(product));
+
+    return [reactants, products];
 }
 ```
 
-Each side is then split on `+` and the resulting strings are converted to `Compound` objects. Any leading coefficient (e.g., the `4` in `4H2O`) is stripped before construction, since `Compound` does not accept them.
+Each compound string is parsed in three passes:
 
-```javascript
-reactants = reactants.split(/\s+\+\s+/).map(reactant => new Compound(reactant.replace(/^\d+/, "")));
-
-// same for products
-
-return [reactants, products];    // lists of Compound objects
-```
-
-Each compound string is then parsed in two passes:
-
-1. **Formula and charge.** `Compound.parse()` splits on `^`, validates the charge token against `/^\d+[+-]$/`, and returns the formula (`String`) and charge (`Number`). A malformed charge throws immediately.
-    
-    ```javascript
-    static parse(formula) {
-        if (formula.includes("^")) {
-            const [compound, charge] = formula.split("^");
-            if (!/^\d+[+-]$/.test(charge)) {
-                throw new Error(`Charge '^${charge}' does not match the structure '^{magnitude}{symbol}'`);
-            }
-            if (charge.endsWith("-")) return [compound, -Number(charge.slice(0, -1))];
-            return [compound, Number(charge.slice(0, -1))];
-        }
-        return [formula, 0];
-    }
-    ```
-
-2. **Element frequencies.** `getElements()` builds the element-to-count map needed for balancing. It calls `getGroups()` first, which walks the formula character by character. Rather than tracking a simple nesting depth, it maintains an `openingBraces` stack so it can validate that each closing bracket matches its opener — `)` must close `(`, `]` must close `[`, and so on. An unmatched bracket throws immediately.
+1. **Coefficient stripping, then state symbol extraction.** `Compound.parse()` first strips any leading coefficient and surrounding whitespace, then checks for a trailing state label — `(s)`, `(l)`, `(g)`, or `(aq)` — removing it from the formula before further parsing and storing it separately as `state`.
 
     ```javascript
-    static getGroups(formula) {
-        const elements = [];    // e.g. ["Na2", "P4"]
-        const groups = [];      // e.g. ["(NH4)2", "[Co(H2O)6]1"]
+        static parse(formula) {
+            // strip a leading coefficient (e.g. the '4' in '4H2O') and any whitespace
+            formula = formula.replace(/^\s*\d+|\s+/g, "");
 
-        let openingBraces = [];    // stack — tracks unmatched openers
-        let buffer = [];           // character accumulator
+            // pull a trailing state label like '(l)' or '(aq)' off the formula, if present
+            const state = formula.match(/\((?<state>[a-z]+)\)$/)?.groups.state;
+            if (state) formula = formula.replace(/\([a-z]+\)$/, "");
 
-        function flush() {
-            // push buffer to the correct list
-            // dot-notation hydrates ".5H2O" are converted to group notation "(H2O)5"
-            buffer = [];
-        }
+            if (formula.includes("^")) {
+                const [compound, charge] = formula.split("^");
 
-        for (const char of formula) {
-            if ("[{(".includes(char)) openingBraces.push(char);
-            else if (")}]".includes(char)) {
-                const opener = openingBraces.pop();
-                if (closingBrace.get(opener) !== char) throw new Error(...);
+                // charge must be magnitude + sign, e.g. '2-' or '1+'
+                if (!/^\d+[+-]$/.test(charge)) {
+                    throw new Error(`Charge '^${charge}' does not match the structure '^{magnitude}{symbol}'`);
+                }
+
+                // swap sign and magnitude order so it can be parsed directly as a signed number
+                return [compound, Number(charge.replace(/(\d+)([+-])/, "$2$1")), state];
             }
-            // call flush() when a new element or group starts at depth zero
-        }
 
-        if (openingBraces.length) throw new Error(...);
-        flush();    // push any remaining buffer
-        return [elements, groups];
-    }
+            // neutral species — charge defaults to 0
+            return [formula, 0, state];
+        }
     ```
 
-    `getElements()` then uses regex to extract symbol and count from each element token, and recurses into each group — multiplying element counts by the group's outer multiplier before merging into the frequency map.
-    
+    A malformed charge throws immediately, before any further parsing happens.
+
+2. **Formula and charge.** `formula`, `charge`, and `state` are destructured from `Compound.parse()`'s return and stored as instance properties on the `Compound`.
+
+3. **Element frequencies.** `getElements()` builds the element-to-count map needed for balancing, using `getGroups()` to tokenize the formula. Dot-notation hydrates (`.5H2O`) are normalized into group notation up front:
+
+    ```javascript
+        static getGroups(formula) {
+            const elements = [];   // e.g. ["Na2", "P4"]
+            const groups = [];     // e.g. ["(NH4)2", "[Co(H2O)6]1"]
+
+            const closingBrace = new Map([["(", ")"], ["{", "}"], ["[", "]"]]);
+            let charBuffer = [];
+            let openingBraces = [];    // stack — tracks unmatched openers
+
+            // convert dot-hydrate notation ('.5H2O') into group notation ('(H2O)5')
+            // before the main character walk begins, so the loop below never has
+            // to special-case a leading '.'
+            const formulaParts = [];
+            for (const part of formula.split(".")) {
+                const { coeff, group } = part.match(/^(?<coeff>\d*)(?<group>.+)/).groups;
+                if (coeff) formulaParts.push(`(${group})${coeff}`);
+                else formulaParts.push(group);
+            }
+            formula = formulaParts.join("");
+
+            function flushBuffer() {
+                if (!charBuffer.length) return;
+                // a buffer starting with a bracket is a group; otherwise it's a plain element
+                if ("[{(".includes(charBuffer[0])) {
+                    groups.push(charBuffer.join(""));
+                }
+                else elements.push(charBuffer.join(""));
+                charBuffer = [];
+            }
+
+            for (const char of formula) {
+                // a capital letter at depth zero starts a new element — flush the previous one first
+                if (/[A-Z]/.test(char) && !openingBraces.length) flushBuffer();
+                else if ("[{(".includes(char)) {
+                    if (!openingBraces.length) flushBuffer();
+                    openingBraces.push(char);
+                }
+                else if (")}]".includes(char)) {
+                    if (!openingBraces.length) {
+                        throw new Error(`Unmatched closing bracket '${char}' found in '${formula}'`);
+                    }
+                    // verify the closing bracket matches the most recent opener
+                    const openingBrace = openingBraces.pop();
+                    if (closingBrace.get(openingBrace) !== char) {
+                        throw new Error(`'${openingBrace}' does not match with '${char}' in '${formula}'`);
+                    }
+                }
+                charBuffer.push(char);
+            }
+
+            // any brace left on the stack was never closed
+            if (openingBraces.length) {
+                throw new Error(`'${openingBraces.pop()}' not closed in '${formula}'`);
+            }
+            flushBuffer();
+
+            return [elements, groups];
+        }
+    ```
+
+    `getElements()` then extracts symbol and count per element token, and recurses into each group, scaling by the group's outer multiplier before merging into the frequency map:
+
     ```javascript
         static getElements(formula) {
             const [elements, groups] = Compound.getGroups(formula);
             const elementCount = new Map();
 
+            // plain elements, e.g. 'Na2' -> symbol 'Na', count 2
             for (const element of elements) {
-                let {symbol, count} = element.match(/(?<symbol>[a-z]+)(?<count>\d*)/i).groups;
-                // update frequency map
+                const {symbol, count} = element.match(/(?<symbol>[a-z]+)(?<count>\d*)/i).groups;
+                elementCount.set(symbol, (elementCount.get(symbol) ?? 0) + Number(count || "1"));
             }
 
-            for (const group of groups) {
-                let {grp, multiplier} = group.match(/[\[\{\(](?<grp>.+)[\]\}\)](?<multiplier>\d*)/).groups;
+            // bracketed groups, e.g. '(NH4)2' -> recurse into 'NH4', then multiply every count by 2
+                for (const group of groups) {
+                const {grp, mul} = group.match(/[\[\{\(](?<grp>.+)[\]\}\)](?<mul>\d*)/).groups;
+                const multiplier = Number(mul || "1");
                 for (const [element, count] of Compound.getElements(grp)) {
-                    // scale by multiplier and merge into frequency map
+                    elementCount.set(element, (elementCount.get(element) ?? 0) + count * multiplier);
                 }
             }
 
             return elementCount;
         }
     ```
-    
-    The electron `e^1-` requires no special handling — `getGroups()` parses it identically to any other compound.
 
-The formula, charge, and frequency map are stored as attributes of the `Compound` object.
+    The electron `e^1-` requires no special handling — it's parsed by the same code path as any other compound, with `state` simply left `undefined`.
+
+### Pre-Flight Validation
+
+Before framing the linear system, `Reaction.assertValidReaction()` runs two structural checks that give specific, actionable error messages rather than letting an invalid reaction fail deep inside the matrix solver:
+
+```javascript
+assertValidReaction() {
+    let chargedSpecies = 0;
+
+    // collect every element present on the reactant side
+    const lhsElements = new Set();
+    for (const reactant of this.reactants) {
+        reactant.elements.keys().forEach(element => lhsElements.add(element));
+        if (reactant.charge) ++chargedSpecies;
+    }
+    lhsElements.delete(ELECTRON);
+
+    // collect every element present on the product side
+    const rhsElements = new Set();
+    for (const product of this.products) {
+        product.elements.keys().forEach(element => rhsElements.add(element));
+        if (product.charge) ++chargedSpecies;
+    }
+    rhsElements.delete(ELECTRON);
+
+    // exactly one charged species means charge has nothing to balance against
+    if (chargedSpecies === 1) {
+        throw new Error("Charge cannot be balanced, try adding an electron 'e^1-' to either side");
+    }
+
+    // any element present on only one side makes the reaction unbalanceable by definition
+    const diffElement = lhsElements.symmetricDifference(rhsElements).values().next().value;
+    if (diffElement) {
+        const absentPos = (lhsElements.has(diffElement)) ? "right hand side" : "left hand side";
+        throw new Error(`Element '${diffElement}' not present at ${absentPos} of the equation`);
+    }
+}
+```
+
+- **Charge feasibility** — if exactly one charged species exists across the whole reaction, charge balance is structurally impossible regardless of coefficients. This is caught before any arithmetic runs, with a message suggesting the specific fix — adding an explicit electron.
+
+- **Element presence** — using `Set.prototype.symmetricDifference()`, any element present on only one side of the equation is caught immediately, naming the missing element and which side it's absent from.
+
+`balanced()` calls this check first, before framing any equations.
 
 ### Framing the Equations
 
@@ -372,58 +461,107 @@ getElements() {
         compound.elements.keys().forEach((element) => elements.add(element));
     }
 
-    elements.delete(ELECTRON);    // ELECTRON = 'e'
+    elements.delete(ELECTRON);
     return elements;
 }
 ```
 
-`balancedCoeffs()` iterates over this set to build one equation per element — a row whose entries are the element's count in each reactant (positive) and each product (negative). A charge-balance row is appended the same way.
+`balanced()` builds one equation per element — a row whose entries are the element's count in each reactant (positive) and each product (negative) — plus a charge-balance row appended the same way:
 
 ```javascript
-balancedCoeffs() {
+balanced() {
+    this.assertValidReaction();
+
     const equations = [];
+
+    // one equation per element: conservation means reactant counts minus product counts sum to zero
     for (const element of this.getElements()) {
         const equation = [];
-        this.reactants.forEach(reactant => equation.push(new Fraction(reactant.elements.get(element) ?? 0)));
-        this.products.forEach(product => equation.push(new Fraction(-(product.elements.get(element) ?? 0))));
+        this.reactants.forEach(reactant => equation.push(reactant.elements.get(element) ?? 0));
+        this.products.forEach(product => equation.push(-(product.elements.get(element) ?? 0)));
         equations.push(equation);
     }
 
-    // charge equation added the same way
-    // return ...
+    // one more equation for net charge, built the same way
+    const chargeEquation = [];
+    this.reactants.forEach(reactant => chargeEquation.push(reactant.charge));
+    this.products.forEach(product => chargeEquation.push(-product.charge));
+    equations.push(chargeEquation);
+
+    // ... solving happens here, see below
 }
 ```
 
-All coefficients are wrapped in `Fraction` objects from the start to keep arithmetic exact. `Fraction` stores values as reduced numerator/denominator pairs and implements the four arithmetic operations over the rationals.
-
-```javascript
-class Fraction {
-
-    constructor(num, den=1) {
-        [this.num, this.den] = Fraction.reduce(num, den);    // always stored in lowest terms
-    }
-
-    // static add, subtract, multiply, divide
-}
-```
+Equations are built with plain numbers — `Fraction` wrapping happens entirely inside `Matrix`'s constructor, so `Reaction` never needs to import or reason about `Fraction` directly. This keeps `Reaction` focused purely on chemistry: parsing, validation, and equation framing.
 
 ### Solving the Equations
 
-`Reaction.solveEquations()` passes the equation list to a `Matrix` object and calls `toRowEchelonForm()`, which reduces the matrix in place using partial pivoting and returns a `Map` of `{ pivotColumn: pivotRow }` entries. For each column, if the current pivot row has a zero entry, rows below are scanned for a non-zero candidate and swapped in. Rows beneath the pivot are then zeroed out by subtracting the appropriate rational multiple of the pivot row.
+Solving is handled by a static method on `Matrix`, `solveHomogeneousSystem()`, which has no awareness of chemistry — it operates purely on a generic homogeneous linear system:
+
+```javascript
+static solveHomogeneousSystem(equations) {
+    const matrix = new Matrix(equations);          // wraps every entry in a Fraction internally
+    const pivots = matrix.toRowEchelonForm();       // { pivotColumn: pivotRow }
+    const solution = Array(matrix.cols).fill(0);
+
+    // back-substitute right to left
+    for (let col = solution.length-1; col > -1; --col) {
+        if (!pivots.has(col)) {
+            // no pivot in this column — it's a free variable, anchored to 1
+            solution[col] = new Fraction(1);
+            continue;
+        }
+
+        const row = pivots.get(col);
+        for (let i = col+1; i < solution.length; i++) {
+            solution[col] = Fraction.subtract(solution[col], Fraction.multiply(matrix.matrix[row][i], solution[i]));
+        }
+
+        // a zero numerator here means only the trivial (all-zero) solution exists
+        if (!solution[col].num) throw new Error("Only trivial solution is possible for this system");
+        solution[col] = Fraction.divide(solution[col], matrix.matrix[row][col]);
+    }
+
+    // scale every value up to integers: multiply by the LCM of all denominators...
+    const factor = solution.reduce((lcm, frac) => Fraction.LCM(lcm, frac.den), 1);
+    solution.forEach((frac, index) => solution[index] = Fraction.multiply(factor, frac).num);
+
+    // ...then divide out the GCD so the coefficients are in lowest terms
+    const divisor = solution.reduce((gcd, num) => Fraction.GCD(gcd, num));
+    solution.forEach((num, index) => solution[index] = num / divisor);
+
+    return solution;
+}
+```
+
+Row reduction (`toRowEchelonForm`) uses partial pivoting — for each column, if the current pivot row has a zero entry, rows below are scanned for a non-zero candidate and swapped in:
 
 ```javascript
 toRowEchelonForm() {
-    const pivots = new Map();    // { pivotColumn: pivotRow }
+    const pivots = new Map();
     let pivotRow = 0;
 
     for (let pivotCol = 0; pivotCol < this.cols && pivotRow < this.rows; ++pivotCol) {
+        // if the pivot position is zero, look below for a row to swap in
         if (!this.matrix[pivotRow][pivotCol].num) {
-            // scan below for a non-zero entry and swap
+            for (let row = pivotRow+1; row < this.rows; ++row) {
+                if (this.matrix[row][pivotCol].num) {
+                    [this.matrix[pivotRow], this.matrix[row]] = [this.matrix[row], this.matrix[pivotRow]];
+                    break;
+                }
+            }
         }
-        if (!this.matrix[pivotRow][pivotCol].num) continue;    // no pivot in this column
 
+        // still zero after searching — no pivot in this column, move on
+        if (!this.matrix[pivotRow][pivotCol].num) continue;
+
+        // eliminate this column from every row below the pivot
         for (let row = pivotRow+1; row < this.rows; ++row) {
-            // subtract (row[col] / pivot) * pivotRow from each row below
+            if (!this.matrix[row][pivotCol].num) continue;
+            const multiplier = Fraction.divide(this.matrix[row][pivotCol], this.matrix[pivotRow][pivotCol]);
+            for (let col = 0; col < this.cols; ++col) {
+                this.matrix[row][col] = Fraction.subtract(this.matrix[row][col], Fraction.multiply(this.matrix[pivotRow][col], multiplier));
+            }
         }
 
         pivots.set(pivotCol, pivotRow);
@@ -434,26 +572,45 @@ toRowEchelonForm() {
 }
 ```
 
-Back-substitution is handled in `solveEquations()` using the returned pivot map. Variables are resolved right to left; columns absent from the map are free variables, anchored to `1`. If back-substitution produces a zero numerator for a pivot variable, the reaction cannot be balanced and an error is thrown.
+`Reaction.balanced()` calls `Matrix.solveHomogeneousSystem()` inside a `try`/`catch`, re-throwing with a chemistry-appropriate message on failure — `Matrix` itself has no concept of "reactions," so its own error message stays generic:
 
 ```javascript
-static solveEquations(equations) {
-    const matrix = new Matrix(equations);
-    const pivots = matrix.toRowEchelonForm();
-    const solution = Array(matrix.cols).fill(0);
-
-    for (let col = solution.length-1; col > -1; --col) {
-        if (!pivots.has(col)) {
-            solution[col] = new Fraction(1);    // free variable — any non-zero value is valid
-            continue;
-        }
-        // substitute known values to solve for this variable
-        if (!solution[col].num) throw new Error("This reaction cannot be balanced.");
-    }
-
-    // multiply by LCM of denominators, then divide by GCD of numerators
-    return solution;
+try {
+    const coeffs = Matrix.solveHomogeneousSystem(equations).values();
+    // ... structuring the result, see below
+}
+catch (error) {
+    throw new Error("This reaction cannot be balanced for any non-zero coefficient");
 }
 ```
 
-The three subsections above cover the full pipeline from raw string to integer coefficients. Input validation is front-loaded — arrow format, charge syntax, and bracket matching are all checked during parsing, before any arithmetic begins. The balancing itself is handled by two cooperating classes: Reaction frames the linear system and drives back-substitution, while Matrix encapsulates the row reduction. Fraction arithmetic runs throughout, keeping every intermediate value exact so that scaling to the smallest integers at the end is always correct.
+This keeps `Matrix` fully reusable as a general-purpose linear algebra utility, independent of any chemistry-specific concerns.
+
+### Structuring the Result
+
+`balanced()` returns a structured result — each `Compound` mapped directly to its resolved integer coefficient, split into `reactants` and `products`:
+
+```javascript
+const coeffs = Matrix.solveHomogeneousSystem(equations).values();
+const reactants = new Map();
+const products = new Map();
+
+for (const reactant of this.reactants) {
+    const coeff = coeffs.next().value;
+    // a negative coefficient means this species actually belongs on the other side
+    if (coeff > 0) reactants.set(reactant, coeff);
+    else products.set(reactant, -coeff);
+}
+
+for (const product of this.products) {
+    const coeff = coeffs.next().value;
+    if (coeff > 0) products.set(product, coeff);
+    else reactants.set(product, -coeff);
+}
+
+return { reactants, products };
+```
+
+The return shape is `{ reactants: Map<Compound, number>, products: Map<Compound, number> }`, so callers can iterate directly without tracking array indices to match coefficients back to compounds. Sign correction is automatic — if back-substitution resolves a coefficient to a negative number, the compound is moved to the opposite map with the coefficient negated back to positive, handling cases where the chosen free variable produces a species that belongs on the other side of the equation.
+
+The full pipeline runs in three stages: `Reaction` parses and validates the input (arrow format, charge syntax, bracket matching during parsing; element presence and charge feasibility in `assertValidReaction()`), frames the linear system, and hands it to `Matrix`, which performs row reduction, back-substitution, and integer scaling with no awareness of chemistry at all. `Fraction` arithmetic runs throughout the solving stage, keeping every intermediate value exact so that scaling to the smallest integer coefficients is always correct.

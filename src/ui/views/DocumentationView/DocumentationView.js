@@ -84,7 +84,8 @@ class DocumentationView extends HTMLElement {
                     {left: "$$", right: "$$", display: true},
                     {left: "$", right: "$", display: false}
                 ],
-                macros: { "\\arraystretch": "1.4" }
+                macros: { "\\arraystretch": "1.4" },
+                ignoredTags: ["code-snippet"]
             });
         }
         catch (error) {
