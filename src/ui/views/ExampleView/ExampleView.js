@@ -18,7 +18,7 @@ class ExampleView extends ViewElement {
                         <dropdown-trigger>
                         <vector-icon name="settings" slot="icon"></vector-icon>
                         <content-card class="settings">
-                            <h5>Options</h5>
+                            <h4>Options</h4>
                             <div class="content">
                                 <toggle-switch checked id="state-toggle">State labels</toggle-switch>
                                 <toggle-switch checked id="type-toggle">Reaction type</toggle-switch>

@@ -3,10 +3,11 @@ const baseStyle = new CSSStyleSheet();
 baseStyle.replaceSync(`
     :host {
         display: block;
+        transition: opacity 0.2s;
     }
 
     :host([hidden]) {
-        display: none !important;
+        display: none;
     }
 
     * {
@@ -75,18 +76,21 @@ export default class BaseElement extends HTMLElement {
     }
 
     _initializeShadow() {
-        if (!this.constructor._initializedTemplate) {
-            this.constructor._initializedTemplate = true;
+        if (!this.constructor._initializedShadow) {
+            this.constructor._initializedShadow = true;
+
+            this.constructor._styles = [baseStyle, ...(this.constructor.styles ?? [])];
 
             this.constructor._template = document.createElement("template");
             this.constructor._template.innerHTML = this.constructor.template || "";
 
+            delete this.constructor.styles;
             delete this.constructor.template;
         }
 
         this.attachShadow({ mode: "open" });
+        this.shadowRoot.adoptedStyleSheets = this.constructor._styles;
         this.shadowRoot.append(this.constructor._template.content.cloneNode(true));
-        this.shadowRoot.adoptedStyleSheets.push(baseStyle, ...(this.constructor.styles || []));
     }
 
     static _initializeProperties() {
